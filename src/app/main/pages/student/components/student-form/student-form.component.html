@@ -1,0 +1,38 @@
+<div class="container">
+    <h2>Lista de Estudiantes</h2>
+    <p-table [value]="estudiantes" [paginator]="true" [rows]="10" class="table">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>ID Estudiante</th>
+                <th>ID Usuario Estudiante</th>
+                <th>Activo Estudiante</th>
+                <th>Acciones</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-estudiante>
+            <tr>
+                <td>{{ estudiante.idEstudiante }}</td>
+                <td>{{ estudiante.idUsuarioEstudiante }}</td>
+                <td>{{ estudiante.activoEstudiante ? 'Sí' : 'No' }}</td>
+                <td>
+                    <button pButton icon="pi pi-pencil" class="edit-button" (click)="editarEstudiante(estudiante)"></button>
+                    <button pButton icon="pi pi-trash" class="delete-button" (click)="eliminarEstudiante(estudiante.idEstudiante)"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <button pButton label="Registrar Estudiante" class="register-button" (click)="mostrarModal()"></button>
+
+    <p-dialog header="{{ modoEdicion ? 'Editar Estudiante' : 'Registrar Estudiante' }}" [(visible)]="displayModal">
+        <div class="modal-content">
+            <form [formGroup]="estudianteForm" (ngSubmit)="guardarEstudiante()">
+                <label>ID Usuario Estudiante:</label>
+                <input pInputText formControlName="idUsuarioEstudiante" required>
+                <label>Activo Estudiante:</label>
+                <p-checkbox formControlName="activoEstudiante"></p-checkbox>
+                <button pButton type="submit" class="submit-button">{{ modoEdicion ? 'Guardar Cambios' : 'Registrar' }}</button>
+            </form>
+        </div>
+    </p-dialog>
+</div>

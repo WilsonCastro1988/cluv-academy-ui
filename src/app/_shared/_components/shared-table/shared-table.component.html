@@ -1,0 +1,116 @@
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+
+            <p-table #dt [columns]="columnsHeader"
+                     [value]="list"
+                     [rows]="rows"
+                     [paginator]="paginator"
+                     [loading]="loading"
+                     [globalFilterFields]="globalRowFilters"
+                     [responsiveLayout]="responsiveLayout"
+                     [autoLayout]="autoLayout"
+                     [(selection)]="selectedList"
+                     [rowHover]="true"
+                     [dataKey]="dataKey"
+                     currentPageReportTemplate="Mostrando {first} hasta {last} de {totalRecords} registros"
+                     [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <div class="flex justify-content-between flex-wrap">
+                        <div>
+                            <button *ngIf="expExcel"
+                                    type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"
+                                    class="p-button-sm p-button-outlined p-button-success p-mr-2 m-1" pTooltip="XLS"
+                                    tooltipPosition="bottom"></button>
+                            <button *ngIf="expPdf"
+                                    type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()"
+                                    class="p-button-sm p-button-outlined p-button-danger p-mr-2 m-1" pTooltip="PDF"
+                                    tooltipPosition="bottom"></button>
+                            <button *ngIf="chekList"
+                                    pButton pRipple label="Eliminar Seleccionados" icon="pi pi-trash"
+                                    class="p-button-danger p-button-sm m-1"
+                                    (click)="deleteSelected()" pTooltip="Eliminar Seleccionados"
+                                    tooltipPosition="right"
+                                    [disabled]="!selectedList || !selectedList.length"></button>
+                            <button *ngIf="filters"
+                                    pButton label="Limpiar Filtros" class="p-button-outlined p-button-sm m-1"
+                                    icon="pi pi-filter-slash" (click)="clear(dt)" pTooltip="Quitar Filtros"
+                                    tooltipPosition="right"></button>
+                        </div>
+
+                        <label class="text-center">{{titleTable}}</label>
+                        <span
+                            class="p-input-icon-left ">
+                    <i *ngIf="filters" class="pi pi-search"></i>
+                    <input *ngIf="filters" pInputText type="text" class="p-inputtext-sm"
+                           (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda General"/>
+            </span>
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th *ngIf="chekList" style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th *ngFor="let col of columnsHeader" [pSortableColumn]="col.field">
+                            <div class="flex justify-content-between align-items-center">{{col.header}}
+                                <p-sortIcon *ngIf="sorts && col.header !== 'LOGO'" [field]="col.field"></p-sortIcon>
+                                <p-columnFilter *ngIf="filters && col.header !== 'LOGO'" type="text" [field]="col.field"
+                                                display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th *ngIf="opciones">Opciones</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <ng-template #defaultTemplate>
+                        <tr>
+
+                            <td *ngIf="chekList" style="width: 3rem">
+                                <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                            </td>
+
+                            <td *ngFor="let col of columns" [width]="col.header === 'LOGO' ? '10%' :''">
+                                <img *ngIf="col.header == 'LOGO'"
+                                     [src]="'https://utilitariodgip.epn.edu.ec/image/' + rowData[col.field]"
+                                     width="100%" height="100%"
+                                     class="p-shadow-4"
+                                     loading="eager"
+                                     style=" box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/>
+                                <span *ngIf="col.header != 'LOGO'">{{rowData[col.field]}}</span>
+                            </td>
+
+                            <td *ngIf="opciones">
+                                <button *ngIf="btnEdit"
+                                        pButton pRipple icon="pi pi-pencil"
+                                        class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
+                                        (click)="edit(rowData)" pTooltip="Editar" tooltipPosition="left"></button>
+                                <button *ngIf="btnDelete" pButton pRipple icon="pi pi-trash"
+                                        class="p-button-rounded p-button-danger p-button-text p-button-sm"
+                                        (click)="delete(rowData)" pTooltip="Eliminar"
+                                        tooltipPosition="left"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+
+                    <ng-container
+                        *ngTemplateOutlet="customBodyTemplate ? customBodyTemplate : defaultTemplate; context: {$implicit: rowData}"></ng-container>
+                </ng-template>
+                <div *ngIf="sumary">
+                    <ng-template pTemplate="summary">
+                        <div [class]="sumaryClass">
+                            {{sumaryContent}}.
+                        </div>
+                    </ng-template>
+                </div>
+                <ng-template pTemplate="footer">
+                    <tr *ngIf="sumary">
+                        <td [colSpan]="colspan" class="text-right">{{legendFooter}} {{sumary}}</td>
+                        <td>{{sumaryContent | currency: currency}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</section>

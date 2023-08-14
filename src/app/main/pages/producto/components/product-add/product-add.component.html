@@ -1,0 +1,169 @@
+<div _ngcontent-xny-c120="" class="card"><span _ngcontent-xny-c120="" class="block text-900 font-bold text-xl mb-4">Create Product</span>
+    <div _ngcontent-xny-c120="" class="grid grid-nogutter flex-wrap gap-3 p-fluid">
+        <div _ngcontent-xny-c120="" class="col-12 lg:col-8">
+            <div _ngcontent-xny-c120="" class="grid formgrid">
+                <div _ngcontent-xny-c120="" class="col-12 field"><input _ngcontent-xny-c120="" pinputtext="" type="text"
+                                                                        placeholder="Product Name" label="Product Name"
+                                                                        class="p-inputtext p-component p-element ng-untouched ng-pristine ng-valid">
+                </div>
+                <div _ngcontent-xny-c120="" class="col-12 lg:col-4 field"><input _ngcontent-xny-c120="" pinputtext=""
+                                                                                 type="text" placeholder="Price"
+                                                                                 label="Price"
+                                                                                 class="p-inputtext p-component p-element ng-untouched ng-pristine ng-valid">
+                </div>
+                <div _ngcontent-xny-c120="" class="col-12 lg:col-4 field"><input _ngcontent-xny-c120="" pinputtext=""
+                                                                                 type="text" placeholder="Product Code"
+                                                                                 label="Product Code"
+                                                                                 class="p-inputtext p-component p-element ng-untouched ng-pristine ng-valid">
+                </div>
+                <div _ngcontent-xny-c120="" class="col-12 lg:col-4 field"><input _ngcontent-xny-c120="" pinputtext=""
+                                                                                 type="text" placeholder="Product SKU"
+                                                                                 label="SKU"
+                                                                                 class="p-inputtext p-component p-element ng-untouched ng-pristine ng-valid">
+                </div>
+                <div _ngcontent-xny-c120="" class="col-12 field">
+                    <p-editor [(ngModel)]="text" [style]="{'height':'320px'}"></p-editor>
+
+
+                </div>
+                <div _ngcontent-xny-c120="" class="col-12 field">
+                    <p-fileUpload _ngcontent-xny-c120="" name="demo[]" url="./upload.php" accept="image/*"
+                                  styleclass="border-1 surface-border surface-card border-round" class="p-element">
+                        <div
+                            class="border-1 surface-border surface-card border-round p-fileupload p-fileupload-advanced p-component ng-star-inserted">
+                            <div class="p-fileupload-buttonbar"><span pripple="" tabindex="0"
+                                                                      class="p-ripple p-element p-button p-component p-fileupload-choose"><input
+                                type="file" multiple="" accept="image/*" title=""><span
+                                class="pi pi-plus p-button-icon p-button-icon-left"></span><span class="p-button-label">Choose</span><span
+                                class="p-ink"></span></span><!----><!----><!----></div>
+                            <div class="p-fileupload-content"><!---->
+                                <p-messages class="p-element ng-tns-c53-513 ng-star-inserted">
+                                    <div role="alert" class="p-messages p-component ng-tns-c53-513"><!----><!---->
+                                        <!----><!----></div>
+                                </p-messages><!---->
+                                <div _ngcontent-xny-c120=""
+                                     class="h-15rem overflow-y-auto py-3 border-round ng-star-inserted"
+                                     style="cursor: copy;">
+                                    <div _ngcontent-xny-c120=""
+                                         class="flex flex-column w-full h-full justify-content-center align-items-center ng-star-inserted">
+                                        <i _ngcontent-xny-c120="" class="pi pi-file text-4xl text-primary"></i><span
+                                        _ngcontent-xny-c120="" class="block font-semibold text-900 text-lg mt-3">Drop or select images</span>
+                                    </div><!----><!----></div><!----></div>
+                        </div><!----><!----></p-fileUpload>
+                </div>
+            </div>
+        </div>
+        <div _ngcontent-xny-c120="" class="flex-1 w-full lg:w-3 xl:w-4 flex flex-column row-gap-3">
+            <div _ngcontent-xny-c120="" class="border-1 surface-border border-round"><span _ngcontent-xny-c120=""
+                                                                                           class="text-900 font-bold block border-bottom-1 surface-border p-3">Publish</span>
+                <div _ngcontent-xny-c120="" class="p-3">
+                    <div _ngcontent-xny-c120="" class="bg-gray-100 py-2 px-3 flex align-items-center border-round"><span
+                        _ngcontent-xny-c120="" class="text-black-alpha-90 font-bold mr-3">Status:</span><span
+                        _ngcontent-xny-c120="" class="text-black-alpha-60 font-semibold">Draft</span>
+                        <button _ngcontent-xny-c120="" pbutton="" pripple="" type="button" icon="pi pi-fw pi-pencil"
+                                class="p-element p-ripple p-button-rounded p-button-text text-black-alpha-60 ml-auto p-button p-component p-button-icon-only">
+                            <span class="p-button-icon pi pi-fw pi-pencil" aria-hidden="true"></span><span
+                            _ngcontent-xny-c120="" class="p-ink"></span></button>
+                    </div>
+                </div>
+            </div>
+            <div _ngcontent-xny-c120="" class="border-1 surface-border border-round"><span _ngcontent-xny-c120=""
+                                                                                           class="text-900 font-bold block border-bottom-1 surface-border p-3">Tags</span>
+                <div _ngcontent-xny-c120="" class="p-3 flex flex-wrap gap-1">
+                    <p-chip _ngcontent-xny-c120=""
+                            styleclass="mr-2 py-2 px-3 text-900 font-bold surface-card border-1 surface-border"
+                            class="p-element ng-star-inserted">
+                        <div
+                            class="mr-2 py-2 px-3 text-900 font-bold surface-card border-1 surface-border p-chip p-component ng-star-inserted"
+                            style="border-radius: 20px;"><span _ngcontent-xny-c120="" class="mr-3">Nike</span><span
+                            _ngcontent-xny-c120=""
+                            class="chip-remove-icon flex align-items-center justify-content-center border-1 surface-border bg-gray-100 border-circle cursor-pointer"><i
+                            _ngcontent-xny-c120="" class="pi pi-fw pi-times text-black-alpha-60"></i></span><!---->
+                            <!----><!----><!----><!----></div><!----></p-chip>
+                    <p-chip _ngcontent-xny-c120=""
+                            styleclass="mr-2 py-2 px-3 text-900 font-bold surface-card border-1 surface-border"
+                            class="p-element ng-star-inserted">
+                        <div
+                            class="mr-2 py-2 px-3 text-900 font-bold surface-card border-1 surface-border p-chip p-component ng-star-inserted"
+                            style="border-radius: 20px;"><span _ngcontent-xny-c120="" class="mr-3">Sneaker</span><span
+                            _ngcontent-xny-c120=""
+                            class="chip-remove-icon flex align-items-center justify-content-center border-1 surface-border bg-gray-100 border-circle cursor-pointer"><i
+                            _ngcontent-xny-c120="" class="pi pi-fw pi-times text-black-alpha-60"></i></span><!---->
+                            <!----><!----><!----><!----></div><!----></p-chip><!----></div>
+            </div>
+            <div _ngcontent-xny-c120="" class="border-1 surface-border border-round"><span _ngcontent-xny-c120=""
+                                                                                           class="text-900 font-bold block border-bottom-1 surface-border p-3">Category</span>
+                <div _ngcontent-xny-c120="" class="p-3">
+                    <p-dropdown _ngcontent-xny-c120="" placeholder="Select a category"
+                                class="p-element p-inputwrapper ng-untouched ng-pristine ng-valid p-inputwrapper-filled">
+                        <div class="p-dropdown p-component">
+                            <div class="p-hidden-accessible"><input type="text" readonly="" aria-haspopup="listbox"
+                                                                    pautofocus="" role="combobox" class="p-element"
+                                                                    placeholder="Select a category"
+                                                                    aria-expanded="false"></div>
+                            <span class="p-element p-dropdown-label p-inputtext ng-star-inserted" id="pr_id_92_label">Sneakers
+                                <!----><!----><!----></span><!----><!----><!----><!---->
+                            <div role="button" aria-label="dropdown trigger" aria-haspopup="listbox"
+                                 class="p-dropdown-trigger"><span
+                                class="p-dropdown-trigger-icon pi pi-chevron-down"></span></div>
+                            <p-overlayPanel class="p-element ng-tns-c12-511 ng-star-inserted"><!----></p-overlayPanel>
+                        </div>
+                    </p-dropdown>
+                </div>
+            </div>
+            <div _ngcontent-xny-c120="" class="border-1 surface-border border-round"><span _ngcontent-xny-c120=""
+                                                                                           class="text-900 font-bold block border-bottom-1 surface-border p-3">Colors</span>
+                <div _ngcontent-xny-c120="" class="p-3 flex">
+                    <div _ngcontent-xny-c120=""
+                         class="w-2rem h-2rem mr-2 border-1 surface-border border-circle cursor-pointer flex justify-content-center align-items-center bg-gray-900 ng-star-inserted">
+                        <!----></div>
+                    <div _ngcontent-xny-c120=""
+                         class="w-2rem h-2rem mr-2 border-1 surface-border border-circle cursor-pointer flex justify-content-center align-items-center bg-orange-500 ng-star-inserted">
+                        <!----></div>
+                    <div _ngcontent-xny-c120=""
+                         class="w-2rem h-2rem mr-2 border-1 surface-border border-circle cursor-pointer flex justify-content-center align-items-center bg-blue-500 ng-star-inserted">
+                        <!----></div><!----></div>
+            </div>
+            <div _ngcontent-xny-c120="" class="border-1 surface-border border-round"><span _ngcontent-xny-c120=""
+                                                                                           class="text-900 font-bold block border-bottom-1 surface-border p-3">Stock</span>
+                <div _ngcontent-xny-c120="" class="p-3">
+                    <p-dropdown _ngcontent-xny-c120="" placeholder="Select stock"
+                                class="p-element p-inputwrapper ng-untouched ng-pristine ng-valid p-inputwrapper-filled">
+                        <div class="p-dropdown p-component">
+                            <div class="p-hidden-accessible"><input type="text" readonly="" aria-haspopup="listbox"
+                                                                    pautofocus="" role="combobox" class="p-element"
+                                                                    placeholder="Select stock" aria-expanded="false">
+                            </div>
+                            <span class="p-element p-dropdown-label p-inputtext ng-star-inserted" id="pr_id_93_label">Sneakers
+                                <!----><!----><!----></span><!----><!----><!----><!---->
+                            <div role="button" aria-label="dropdown trigger" aria-haspopup="listbox"
+                                 class="p-dropdown-trigger"><span
+                                class="p-dropdown-trigger-icon pi pi-chevron-down"></span></div>
+                            <p-overlayPanel class="p-element ng-tns-c12-512 ng-star-inserted"><!----></p-overlayPanel>
+                        </div>
+                    </p-dropdown>
+                </div>
+            </div>
+            <div _ngcontent-xny-c120=""
+                 class="border-1 surface-border flex justify-content-between align-items-center py-2 px-3 border-round">
+                <span _ngcontent-xny-c120="" class="text-900 font-bold p-3">In stock</span>
+                <p-inputSwitch _ngcontent-xny-c120="" class="p-element ng-untouched ng-pristine ng-valid">
+                    <div class="p-inputswitch p-component p-inputswitch-checked">
+                        <div class="p-hidden-accessible"><input type="checkbox" role="switch" aria-checked="true"></div>
+                        <span class="p-inputswitch-slider"></span></div>
+                </p-inputSwitch>
+            </div>
+            <div _ngcontent-xny-c120=""
+                 class="flex flex-column sm:flex-row justify-content-between align-items-center gap-3 py-2">
+                <button _ngcontent-xny-c120="" pbutton="" pripple="" label="Discard" icon="pi pi-fw pi-trash"
+                        class="p-element p-ripple p-button-danger flex-1 p-button-outlined p-button p-component"><span
+                    class="p-button-icon p-button-icon-left pi pi-fw pi-trash" aria-hidden="true"></span><span
+                    class="p-button-label">Discard</span><span _ngcontent-xny-c120="" class="p-ink"></span></button>
+                <button _ngcontent-xny-c120="" pbutton="" pripple="" label="Save" icon="pi pi-fw pi-check"
+                        class="p-element p-ripple p-button-primary flex-1 border-round p-button p-component"><span
+                    class="p-button-icon p-button-icon-left pi pi-fw pi-check" aria-hidden="true"></span><span
+                    class="p-button-label">Save</span><span _ngcontent-xny-c120="" class="p-ink"></span></button>
+            </div>
+        </div>
+    </div>
+</div>

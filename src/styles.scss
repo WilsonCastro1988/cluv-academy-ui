@@ -1,0 +1,147 @@
+$gutter: 1rem; //for primeflex grid system
+
+@import "../node_modules/primeng/resources/primeng.min.css";
+@import "../node_modules/primeflex/primeflex.css";
+@import "../node_modules/primeicons/primeicons.css";
+@import "../node_modules/prismjs/themes/prism-coy.css";
+@import "../node_modules/@fullcalendar/daygrid/main.min.css";
+@import "../node_modules/@fullcalendar/timegrid/main.min.css";
+
+@import "../node_modules/primeng/resources/themes/md-light-indigo/theme.css";
+
+@import "assets/demo/flags/flags.css";
+@import "assets/layout/css/landing.css";
+@import "assets/pages/primeflex.min.css";
+@import "assets/pages/primeicons-static.css";
+@import "assets/layout/css/layout-light.css";
+//@import "assets/theme/indigo/theme-light.css";
+
+
+//@import "~bootstrap/scss/buttons";
+
+
+
+
+.central{
+  text-align: center;
+    justify-content: center;
+    display: flex;
+}
+
+.error{
+  border-color:#B00020 !important;
+}
+
+.errort{
+  color: #B00020 !important;
+}
+
+.p-button.p-button-info.p-button-outlined{
+  color: var(--primary-800);
+}
+
+
+.p-button.p-button-danger.p-button-outlined{
+  color: #a00000 !important;
+}
+
+.p-dialog .p-dialog-header {
+  border-bottom: 0 none;
+  background:var(--blue-900);
+  color: white  !important;
+  padding: 0.4rem !important;
+  padding-left: 1rem !important;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+  padding-top: 1rem !important;
+  padding-bottom: 0.2rem !important;
+
+}
+
+.p-dialog .p-dialog-header .p-dialog-header-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: #ffffff;
+    border: 0 none;
+    background: transparent;
+    border-radius: 50%;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+    margin-right: 0.5rem;
+}
+
+app-salida-agendamiento-equipos, app-retorno-agendamiento-equipos{
+  padding: 4px;
+}
+
+.p-dialog.p-confirm-dialog .p-confirm-dialog-message {
+  margin-left: 1rem;
+  margin-top: 2rem;
+}
+
+.p-dialog.p-confirm-dialog .p-confirm-dialog-icon {
+  font-size: 2rem;
+  margin-top: 2rem;
+}
+
+.p-dialog.p-confirm-dialog .p-confirm-dialog-icon {
+  font-size: 2rem;
+  margin-top: 2rem;
+}
+
+.caja-boton-principal{
+  text-align: right;
+}
+
+.caja-boton-cerrar-header{
+  text-align: right;
+}
+
+
+
+.p-panel-icons-end {
+    order: 2;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.p-dialog .p-dialog-header .p-dialog-header-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: rgba(255, 255, 255, 0.6);
+  border: 0 none;
+  background: transparent;
+  border-radius: 50%;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+  margin-right: 0.5rem !important;
+}
+
+.border-red-500{
+  background: #FFCDD2;
+          color: #C63737;
+
+          border-radius: 2px;
+          padding: .25em .5rem;
+          text-transform: uppercase;
+          font-weight: 700;
+          font-size: 12px;
+          letter-spacing: .3px;
+
+ }
+
+ .border-green-500{
+  background: #C8E6C9;
+  color: #256029;
+  border-radius: 2px;
+  padding: .25em .5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .3px;
+ }
+
+
+.widget-overview-box.widget-overview-box-epn-sislab {
+    border-left-color: #7986CB;
+    //border-left-color: var(--primary-800);
+    //border-left-color: var(--blue-900);
+}

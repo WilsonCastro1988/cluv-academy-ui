@@ -1,0 +1,25 @@
+.ui-datatable .ui-datatable-thead > tr > th {
+    background: #3788d8;
+}
+
+
+.badge {
+    border-radius: 2px;
+    padding: .25em .5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: .3px;
+
+    &.status-ACTIVO {
+        background: #C8E6C9;
+        color: #256029;
+    }
+
+    &.status-INACTIVO {
+        background: #FFCDD2;
+        color: #C63737;
+    }
+
+
+}
