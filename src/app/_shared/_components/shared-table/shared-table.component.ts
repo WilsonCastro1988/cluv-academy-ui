@@ -17,12 +17,13 @@ export class SharedTableComponent implements OnInit {
     @Input() selectedDto: any;
     @Input() columnsHeader: any[] = [];
     @Input() selectedList: any[];
-
+    @Input() headerTableType: any = 0;
     @Input() submitted: boolean;
     @Input() loading: boolean;
     @Input() titleTable: string;
     @Input() exportColumns: any[];
     @Input() cols: any[];
+    @Input() rowsPerPageOptions: any[];
     @Input() rows: any;
     @Input() paginator: any;
     @Input() globalRowFilters: any[] = [];

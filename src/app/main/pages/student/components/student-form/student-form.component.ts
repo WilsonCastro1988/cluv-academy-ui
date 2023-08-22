@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {StudentDto} from "../../model/studentDto";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ApiService} from "../../../../../_service/api.service";
 import {accessType} from "../../../../../_enums/constDomain";
 import {endpointsStudent} from "../../services/endpoints-student";
+import {EstudianteDto} from "../../../../../_model/EstudianteDto";
 
 @Component({
     selector: 'app-student-form',
@@ -14,7 +14,7 @@ export class StudentFormComponent implements OnInit {
 
     endPoint = accessType.typePrivate
 
-    estudiantes: StudentDto[];
+    estudiantes: EstudianteDto[];
     estudianteForm: FormGroup;
     modoEdicion = false;
     displayModal = false; // Controla la visibilidad del modal
@@ -64,7 +64,7 @@ export class StudentFormComponent implements OnInit {
         }
     }
 
-    editarEstudiante(estudiante: StudentDto): void {
+    editarEstudiante(estudiante: EstudianteDto): void {
         this.estudianteForm.setValue(estudiante);
         this.modoEdicion = true;
     }

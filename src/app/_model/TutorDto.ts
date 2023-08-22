@@ -1,4 +1,6 @@
-export class ProductoDto {
+import {EstadoActividadTutorDto} from "./EstadoActividadTutorDto";
+
+export class TutorDto {
     idTutor: number;
     especializacionTutor: string;
     habilidadesTutor: string;
@@ -25,7 +27,7 @@ export class ProductoDto {
     infoBancariaCollectionDto: any[];
     horarioSugeridoTutorCollectionDto: any[];
     infoAcademicaTutorCollectionDto: any[];
-    idEstadoActividadTutorDto: any;
+    idEstadoActividadTutorDto: EstadoActividadTutorDto;
     postulacionesCollectionDto: any[];
     infoDestrezasCollectionDto: any[];
     calificacionTutorCollectionDto: any[];
