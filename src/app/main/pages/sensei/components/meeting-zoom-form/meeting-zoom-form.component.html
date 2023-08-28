@@ -1,0 +1,79 @@
+<form [formGroup]="meetingForm">
+    <div  class="card no-gutter widget-overview-box widget-overview-box-1">
+
+
+        <div class=" flex align-items-left bg-primary-900">
+
+            <div class="col-16 md:col-2">
+                <div class="align-items-left flex  justify-content-end">
+                    <h4 class="text-left text-white">Registro Meeting</h4>
+                </div>
+            </div>
+        </div>
+        <br>
+
+
+        <div class="p-fluid p-formgrid grid">
+            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                <span class="p-float-label">
+                    <input pInputText id="ftxt-topic"
+                           type="text" required="true"
+                           formControlName="topic">
+                        <label for="ftxt-topic">* Nombre Reunión</label>
+                </span>
+            </div>
+        </div>
+
+        <div class="p-fluid p-formgrid grid">
+            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-duration">Duración reunión (minutos)</label>
+                <span class="p-float-label">
+                     <p-inputNumber mode="decimal"
+                                    [useGrouping]="false"
+                                    id="ftxt-duration"
+                                    required="true"
+                                    formControlName="duration"
+                                    min="0"
+                                    [max]="480">
+                    </p-inputNumber>
+
+            </span>
+            </div>
+        </div>
+
+
+        <div class="p-fluid p-formgrid grid">
+            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                <label style="color:  rgba(0, 0, 0, 0.6);" for="ftxt-startTime">Fecha Renión:</label>
+                <span class="p-float-label">
+                     <p-calendar  [showTime]="true"
+                                 id="ftxt-startTime"
+                                 [showSeconds]="true"
+                                  required="true"></p-calendar>
+
+            </span>
+            </div>
+        </div>
+
+
+
+
+
+
+        <div class="central">
+            <p-toolbar >
+                <div class="p-toolbar-group-center">
+                    <button pButton label="Guardar" class="p-button p-button-lg m-1 p-button-info" icon="pi pi-send"
+                            type="submit" (click)="crearToken()" pTooltip="Guardar" tooltipPosition="right"></button>
+
+                    <button pButton label="Cancelar" class="p-button p-button-lg m-1 p-button-danger" icon="pi pi-times"
+                            (click)="cancelar()" pTooltip="Cancelar" tooltipPosition="right"></button>
+
+
+                </div>
+            </p-toolbar>
+        </div>
+    </div>
+
+
+</form>
