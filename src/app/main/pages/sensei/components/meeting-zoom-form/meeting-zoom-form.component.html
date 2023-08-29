@@ -4,9 +4,9 @@
 
         <div class=" flex align-items-left bg-primary-900">
 
-            <div class="col-16 md:col-2">
+            <div class="col-16 md:col-6">
                 <div class="align-items-left flex  justify-content-end">
-                    <h4 class="text-left text-white">Registro Meeting</h4>
+                    <h5 class="text-left text-white">Registro Meeting</h5>
                 </div>
             </div>
         </div>
@@ -48,6 +48,7 @@
                 <span class="p-float-label">
                      <p-calendar  [showTime]="true"
                                  id="ftxt-startTime"
+                                  formControlName="start_time"
                                  [showSeconds]="true"
                                   required="true"></p-calendar>
 

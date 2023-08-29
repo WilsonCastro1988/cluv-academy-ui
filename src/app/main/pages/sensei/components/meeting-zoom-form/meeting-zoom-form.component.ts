@@ -68,6 +68,8 @@ export class MeetingZoomFormComponent implements OnInit {
             this.meeting.start_time= this.datepipe.transform(this.f.start_time.value, 'yyyy-MM-ddTHH:mm:ssZ');
 
 
+            alert(this.meeting.start_time);
+
             this.apiService.endpoint= endpointMeeting.create;
 
             this.apiService.createMeetingOpcion(this.tokenValue, this.meeting) .subscribe((val) => {
