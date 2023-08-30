@@ -4,6 +4,6 @@ export class EstudianteDto {
     idEstudiante: number;
     idUsuarioEstudiante: number;
     activoEstudiante: boolean;
-    idEstadoEstudiante: EstadoEstudianteDto;
+    idEstadoEstudianteDto: EstadoEstudianteDto;
     carritoComprasCollectionDto: any[];
 }

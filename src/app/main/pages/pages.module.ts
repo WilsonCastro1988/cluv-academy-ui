@@ -29,7 +29,7 @@ import { StudentFormComponent } from './student/components/student-form/student-
         DashboardModule,
 
         SenseiModule,
-        StudentModule,
+        //StudentModule,
 
         ProductoModule,
 

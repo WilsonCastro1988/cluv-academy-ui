@@ -3,5 +3,5 @@ export class TiposLogrosDto {
     nombreTipoLogro: string;
     descripcionTipoLogro: string;
     activoTipoLogro: boolean;
-    logrosCollectionDtoDto: any[];
+    logrosCollectionDto: any[];
 }

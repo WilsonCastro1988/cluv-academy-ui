@@ -1,26 +1,10 @@
+const serviceName = 'Tutor/'
 
-
-const recetaInsumo = {
-    buscarRecetaInsumoPorIdServicio: 'buscarRecetaInsumoPorIdServicio/',
-    buscarRecetaInsumoPorIdServicios: 'buscarRecetaInsumoPorIdServicios',
+const senseiEndpoints = {
+    listarAll: serviceName + 'listar',
+    listarAllTutoresLanding: serviceName+ "listarAllTutoresLanding",
+    guardar: serviceName + 'guardar',
 }
-
-const personalEjecucion = {
-    buscarPersonalEjecucionPorIdServicios: 'buscarPersonalEjecucionPorIdServicios'
-}
-
-const equipoEjecucion = {
-    buscarEquipoEjecucionPorIdServicios: 'buscarEquipoEjecucionPorIdServicios'
-}
-
-const enumPaquete = {
-    guardarPaqueteCompleto: 'guardarPaqueteCompleto',
-    buscarPaqueteStep: 'buscarPaqueteStep/'
-}
-
 export {
-    recetaInsumo,
-    personalEjecucion,
-    equipoEjecucion,
-    enumPaquete,
+    senseiEndpoints,
 }

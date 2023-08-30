@@ -119,6 +119,7 @@ import { DropdownComponent } from './_shared/_components/dropdown/dropdown.compo
 import {encryptionInterceptor} from "./_interceptor/encryption.interceptor";
 import {decryptionInterceptor} from "./_interceptor/decryption.interceptor";
 import {LandingModule} from "./main/pages/landing/landing.module";
+import {StudentModule} from "./main/pages/student/module/student.module";
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -133,6 +134,7 @@ FullCalendarModule.registerPlugins([
     imports: [
         AuthenticationModule,
         LandingModule,
+        StudentModule,
         ReactiveFormsModule,
         BrowserModule,
         FormsModule,

@@ -7,6 +7,7 @@ import {AppAccessdeniedComponent} from './main/forbidden/app.accessdenied.compon
 import {AppLoginComponent} from './main/pages/login/app.login.component';
 import {AuthGuard} from "./_guards/auth.guard";
 import {LandingComponent} from "./main/pages/landing/landing.component";
+import {StudentFormComponent} from "./main/pages/student/components/student-form/student-form.component";
 
 const appRoutes: Routes = [
     {
@@ -19,7 +20,7 @@ const appRoutes: Routes = [
         path: 'cluv/landing', component: LandingComponent,
     },
     {path: '', redirectTo: 'cluv/landing', pathMatch: 'full'},
-
+    {path: 'student-register', component: StudentFormComponent},
     {path: 'error', component: AppErrorComponent},
     {path: 'access', component: AppAccessdeniedComponent},
     {path: 'notfound', component: AppNotfoundComponent},
@@ -28,6 +29,7 @@ const appRoutes: Routes = [
 
 @NgModule({
     imports: [
+        //RouterModule.forRoot(appRoutes, { anchorScrolling: 'enabled'}),
         RouterModule.forRoot(appRoutes, {scrollPositionRestoration: 'enabled'})
     ],
     exports: [RouterModule]

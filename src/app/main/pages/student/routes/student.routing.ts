@@ -8,6 +8,6 @@ export const RUTA_STUDENT: Routes = [
     {
         path: 'student-register',
         component: StudentFormComponent,
-        canActivate: [AuthGuard],
+        //canActivate: [AuthGuard],
     },
 ];

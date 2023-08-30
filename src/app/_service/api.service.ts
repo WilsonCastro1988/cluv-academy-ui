@@ -10,7 +10,7 @@ export class ApiService {
     constructor(private http: HttpClient) {
     }
 
-    url = `${environment.HOST}/`;
+    private readonly url = `${environment.HOST}/`;
     endpoint: string;
 
     getAll(): Observable<any> {
