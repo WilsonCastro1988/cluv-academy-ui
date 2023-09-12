@@ -10,6 +10,7 @@ import {LandingComponent} from "./landing.component";
 import {DialogModule} from "primeng/dialog";
 import {AvatarModule} from "primeng/avatar";
 import {CarouselModule} from "primeng/carousel";
+import {PrimengModule} from "../../../primeng/primeng.module";
 
 const routes: Routes = [
     {
@@ -23,18 +24,15 @@ const routes: Routes = [
         LandingComponent,
     ],
     imports: [
-        CarouselModule,
-        DialogModule,
-        DividerModule,
-        InputTextModule,
-        ButtonModule,
-        RippleModule,
+
         CommonModule,
         RouterModule.forChild(routes),
         FormsModule,
         ReactiveFormsModule,
         NgOptimizedImage,
-        AvatarModule
+
+        PrimengModule
+
     ]
 })
 export class LandingModule {

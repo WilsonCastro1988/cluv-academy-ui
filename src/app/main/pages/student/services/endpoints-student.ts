@@ -2,7 +2,8 @@
 
 const endpointsStudent = {
     guardar: 'Estudiante/guardar',
-    guardarEstudianteUsuario: 'Estudiante/guardarEstudianteUsuario'
+    guardarEstudianteUsuario: 'Estudiante/guardarEstudianteUsuario',
+    guardarTutorUsuario: 'Tutor/guardarTutorUsuario'
 }
 
 export {

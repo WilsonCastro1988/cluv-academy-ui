@@ -70,6 +70,10 @@ export class LandingComponent implements OnInit {
         this.routeService.navigate(['student-register'])
     }
 
+    goToRegisterSensei() {
+        this.routeService.navigate(['sensei-register'])
+    }
+
     llenarListaClubs() {
         this.apiService.endpoint = accessType.typePrivate + cluvsEndpoints.listarAllCluvsLanding
 

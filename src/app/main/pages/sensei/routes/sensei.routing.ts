@@ -8,6 +8,6 @@ export const RUTA_SENSEI: Routes = [
     {
         path: 'sensei-register',
         component: SenseiFormComponent,
-        canActivate: [AuthGuard],
+        //canActivate: [AuthGuard],
     },
 ];

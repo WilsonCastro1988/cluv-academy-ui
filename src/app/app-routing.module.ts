@@ -8,6 +8,7 @@ import {AppLoginComponent} from './main/pages/login/app.login.component';
 import {AuthGuard} from "./_guards/auth.guard";
 import {LandingComponent} from "./main/pages/landing/landing.component";
 import {StudentFormComponent} from "./main/pages/student/components/student-form/student-form.component";
+import {SenseiFormComponent} from "./main/pages/sensei/components/sensei-form/sensei-form.component";
 
 const appRoutes: Routes = [
     {
@@ -21,6 +22,7 @@ const appRoutes: Routes = [
     },
     {path: '', redirectTo: 'cluv/landing', pathMatch: 'full'},
     {path: 'student-register', component: StudentFormComponent},
+    {path: 'sensei-register', component: SenseiFormComponent},
     {path: 'error', component: AppErrorComponent},
     {path: 'access', component: AppAccessdeniedComponent},
     {path: 'notfound', component: AppNotfoundComponent},

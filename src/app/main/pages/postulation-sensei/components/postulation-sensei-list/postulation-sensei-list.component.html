@@ -1,0 +1,32 @@
+<div
+    class="border-round border-5 w-full h-4rem bg-blue-900 text-white font-bold flex align-items-center justify-content-start text-lg">
+    <span class="ml-3">
+       🌟 POSTULANTES A SENSEI 🌟
+    </span>
+</div>
+
+<app-shared-table
+    [list]="listTutor"
+    [selectedList]="selectListTutor"
+    [columnsHeader]="columnsHeader"
+    [globalRowFilters]="filterFields"
+    [exportColumns]="exportColumns"
+    [rows]="10"
+    [headerTableType]="0"
+    [rowsPerPageOptions]="rowsPerPageOptions"
+    [responsiveLayout]="'stack'"
+    [titleTable]="'POSTULANTES'"
+    [dataKey]="'idTutor'"
+    [filters]="true"
+    [sorts]="true"
+    [expExcel]="true"
+    [expPdf]="false"
+    [opciones]="true"
+    [btnEdit]="true"
+    [btnDelete]="false"
+    [chekList]="false"
+    [paginator]="true"
+    [loading]="loading"
+    [autoLayout]="true"
+    (emitSelectedDto)="editItem($event)"
+></app-shared-table>

@@ -1,55 +1,90 @@
-<div class="container">
-    <div class="title">Registro</div>
-    <form action="#">
-        <div class="user__details">
-            <div class="input__box">
-                <span class="details">Nombre</span>
-                <input type="text" placeholder="E.g: John Smith" required>
+<div class="flex h-full" #pnl>
+    <div class="w-full lg:w-12 h-full text-center px-6 py-6 flex flex-column justify-content-between">
+        <div class="flex flex-column align-items-center gap-4 ">
+            <img alt="diamond-layout" class="logo" src="assets/pages/logo-cluv-academy.png" width="10%">
+            <div ><h2>Únete al Cluv</h2>
             </div>
-            <div class="input__box">
-                <span class="details">Username</span>
-                <input type="text" placeholder="johnWC98" required>
-            </div>
-            <div class="input__box">
-                <span class="details">Email</span>
-                <input type="email" placeholder="johnsmith@hotmail.com" required>
-            </div>
-            <div class="input__box">
-                <span class="details">Telefono</span>
-                <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="012-345-6789" required>
-            </div>
-            <div class="input__box">
-                <span class="details">Password</span>
-                <input type="password" placeholder="********" required>
-            </div>
-            <div class="input__box">
-                <span class="details">Confirmar Password</span>
-                <input type="password" placeholder="********" required>
-            </div>
+            <form [formGroup]="usuarioForm" (ngSubmit)="guardarEstudiante()" class="w-10 p-fluid p-formgrid grid">
+                <!-- ... (campos del formulario) ... -->
+                <div class="p-field col-12 md:col-12 md:mb-12 mb-0 px-3">
+                    <input id="nombreUsuario" type="text"
+                           formControlName="nombreUsuario" pInputText
+                           placeholder="Nombre Usuario"/>
+                </div>
 
+                <div class="p-field col-12 md:col-12 md:mb-12 mb-0 px-3">
+                    <p-password  formControlName="clave" [toggleMask]="true" ></p-password>
+                </div>
+
+                <div class="p-field col-12 md:col-12 md:mb-12 mb-0 px-3">
+                    <input id="cedula" type="text" formControlName="cedula" pInputText
+                           placeholder="Dni"/>
+                </div>
+
+                <div class="p-field col-12 md:col-12 md:mb-12 mb-0 px-3">
+                    <input id="nombres" type="text" formControlName="nombres" pInputText
+                           placeholder="Nombres Completos"/>
+                </div>
+
+                <div class="p-field col-12 md:col-12 md:mb-12 mb-0 px-3">
+                    <input id="direccion" type="text" formControlName="direccion" pInputText
+                           placeholder="Dirección"/>
+                </div>
+
+                <div class="p-field col-12 md:col-12 md:mb-12 mb-0 px-3">
+                    <input id="celular" type="text" formControlName="celular" pInputText
+                           placeholder="Celular"/>
+                </div>
+
+                <div class="p-field col-12 md:col-12 md:mb-12 mb-0 px-3">
+                    <input id="emailPersonal" type="text" formControlName="emailPersonal" pInputText
+                           placeholder="Correo electrónico"/>
+                </div>
+
+                <div class="p-field col-12 md:col-12 md:mb-12 mb-0 px-3">
+                    <input id="activo" type="file" pInputText
+                           (change)="onFileSelected($event)"
+                           placeholder="Nombres Completos"/>
+                </div>
+
+                <div class="p-field col-12 md:col-12 md:mb-2 mb-0 px-3 p-inputgroup form-group mt-3">
+                    <div class="flex align-items-center justify-content-between">
+                        <div class="flex align-items-center ml-2">
+                            <p-checkbox id="rememberme1" [(ngModel)]="terminos" [binary]="true" [ngModelOptions]="{standalone: true}"></p-checkbox>
+                            <label for="rememberme1" class="ml-2 text-900">He leído y acepto los términos y
+                                condiciones.
+                                <a (click)="verCondiciones()"
+                                   class=" text-blue-500 text-right cursor-pointer">Ver
+                                    Condiciones?</a>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ... (campos del formulario) ... -->
+
+                <button [disabled]="!this.usuarioForm.valid || !terminos" pButton type="submit" class="w-full text-center submit-button">
+                    REGISTRARSE
+                </button>
+
+                <!-- ... (campos del formulario) ... -->
+            </form>
+            <span class="font-semibold text-color-secondary">Ya tienes cuenta ? <a
+                [routerLink]="'/authentication/login'"
+                class="font-semibold cursor-pointer primary-color">Login</a></span>
         </div>
-        <div class="gender__details">
-            <input type="radio" name="gender" id="dot-1">
-            <input type="radio" name="gender" id="dot-2">
-            <input type="radio" name="gender" id="dot-3">
-            <span class="gender__title">Tipo Sensei</span>
-            <div class="category">
-                <label for="dot-1">
-                    <span class="dot one"></span>
-                    <span>Personal</span>
-                </label>
-                <label for="dot-2">
-                    <span class="dot two"></span>
-                    <span>Grupo</span>
-                </label>
-                <label for="dot-3">
-                    <span class="dot three"></span>
-                    <span>No especifico</span>
-                </label>
-            </div>
+        <p class="text-color-secondary font-semibold">Algún problema? <a href="#" class="primary-color">Click aquí</a> y
+            te ayudaremos.</p></div>
+    <div
+        class="w-8 hidden lg:flex flex-column justify-content-between align-items-center px-6 py-6 bg-cover bg-norepeat"
+        style="background-image: url('assets/img/background-orange.jpg');">
+        <div class="mt-auto mb-auto"><span class="block text-blue-600 text-7xl font-semibold">Create a<br>Diamond<br>Account</span><span
+            class="block text-blue-600 text-3xl mt-4">Lorem ipsum dolor sit amet, consectetur<br> adipiscing elit. Donec posuere velit nec enim<br> sodales, nec placerat erat tincidunt. </span>
         </div>
-        <div class="button">
-            <input type="submit" value="Register">
-        </div>
-    </form>
+    </div>
+
 </div>
+
+
+

@@ -22,9 +22,10 @@ const routes: Routes = [
     imports: [
         DividerModule,
         InputTextModule,
-        ButtonModule,
-        RippleModule,
-        CommonModule, RouterModule.forChild(routes), FormsModule, ReactiveFormsModule]
+        CommonModule,
+        RouterModule.forChild(routes),
+        FormsModule,
+        ReactiveFormsModule]
 })
 export class AuthenticationModule {
 }

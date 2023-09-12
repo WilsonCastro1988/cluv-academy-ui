@@ -118,7 +118,7 @@
         <div class="section-title">
             <h1>Senseis</h1>
             <span class="mb-2">Conoce a nuestros Senseis</span>
-            <p-button styleClass="p-button-rounded p-button-warning"><span>Inicia tu Camino</span></p-button>
+            <p-button (click)="goToRegisterSensei()" styleClass="p-button-rounded p-button-warning"><span>Inicia tu Camino</span></p-button>
         </div>
         <div class="p-grid">
             <div class="p-col-12 p-md-6 p-lg-3" *ngFor="let item of listSenseis">
