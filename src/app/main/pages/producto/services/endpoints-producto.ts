@@ -1,26 +1,9 @@
+const serviceClase = 'Clase/'
 
-
-const recetaInsumo = {
-    buscarRecetaInsumoPorIdServicio: 'buscarRecetaInsumoPorIdServicio/',
-    buscarRecetaInsumoPorIdServicios: 'buscarRecetaInsumoPorIdServicios',
-}
-
-const personalEjecucion = {
-    buscarPersonalEjecucionPorIdServicios: 'buscarPersonalEjecucionPorIdServicios'
-}
-
-const equipoEjecucion = {
-    buscarEquipoEjecucionPorIdServicios: 'buscarEquipoEjecucionPorIdServicios'
-}
-
-const enumPaquete = {
-    guardarPaqueteCompleto: 'guardarPaqueteCompleto',
-    buscarPaqueteStep: 'buscarPaqueteStep/'
+const claseEndpoints = {
+    findById: serviceClase + "buscarPorId/",
 }
 
 export {
-    recetaInsumo,
-    personalEjecucion,
-    equipoEjecucion,
-    enumPaquete,
+    claseEndpoints
 }

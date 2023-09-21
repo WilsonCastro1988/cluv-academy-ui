@@ -12,6 +12,8 @@ const cluvsEndpoints = {
 
 const claseEndpoints = {
     listarAllClasesLanding: serviceClase + "listarAllClasesLanding",
+    listarAll: serviceClase + "listar",
+    findById: serviceClase + "buscarPorId/",
 }
 export {
     senseiEndpoints,

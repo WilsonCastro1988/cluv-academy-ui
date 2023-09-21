@@ -1,5 +1,6 @@
 export class ClaseLandingDto {
 
+    idClase: number;
     nombre: string;
     descripcion: string;
     estado: string;

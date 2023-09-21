@@ -27,6 +27,7 @@ export class ClaseDto {
     startUrlClase: string;
     joinUrlClase: string;
     passwordClase: string;
+    avatarClase: String;
     activoClase: boolean;
     idEstadoClaseDto: EstadoClaseDto;
     horarioDto: HorarioDto;

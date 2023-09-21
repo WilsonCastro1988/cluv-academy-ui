@@ -22,7 +22,9 @@ export class LandingComponent implements OnInit {
     listClases: ClaseLandingDto[];
 
     responsiveOptions;
-    dialogTerminos: boolean
+    dialogTerminos: boolean;
+
+    isLoggedIn: boolean;
 
 
     constructor(private readonly serviceApp: AppService,
@@ -54,6 +56,14 @@ export class LandingComponent implements OnInit {
         this.llenarListaClubs()
         this.llenarListaClases()
 
+        this.isAutenticated()
+
+    }
+
+    isAutenticated() {
+        if (this.serviceApp.isAuthenticated()) {
+            this.isLoggedIn = true
+        } else this.isLoggedIn = false
     }
 
     llenarListaTutores() {
@@ -68,6 +78,13 @@ export class LandingComponent implements OnInit {
 
     goToRegisterStudent() {
         this.routeService.navigate(['student-register'])
+    }
+
+    goToLogindIn() {
+        if (this.isLoggedIn)
+            this.routeService.navigate(['/pages/product-list'])
+        else
+            this.routeService.navigate(['/authentication/login']);
     }
 
     goToRegisterSensei() {

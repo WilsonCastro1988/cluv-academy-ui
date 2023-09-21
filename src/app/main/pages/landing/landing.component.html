@@ -40,7 +40,8 @@
             </a>
             <ul class="contact-menu">
                 <li>
-                    <a routerLink="/authentication/login">LOGIN</a>
+                    <a *ngIf="!isLoggedIn" (click)="goToLogindIn()" >LOGIN</a>
+                    <a *ngIf="isLoggedIn"  (click)="goToLogindIn()" >DASHBOARD</a>
                 </li>
                 <li>
                     <a (click)="goToRegisterStudent()">EMPIEZA AHORA</a>
@@ -60,7 +61,7 @@
                 <p>Conoce como aprender y afinar tus habilidades y conocimientos con nuestros Senseis y temas
                     específicos.
                 </p>
-                <button class="landing-btn"><span>Empieza Ahora</span></button>
+                <button class="landing-btn" (click)="goToRegisterStudent()"><span>Empieza Ahora</span></button>
             </div>
             <div _ngcontent-qqg-c41="" class="col-12 text-center md:text-right lg:col-6">
                 <p-carousel [value]="listClubs" styleClass="custom-carousel"
@@ -133,14 +134,14 @@
 
 
     <div id="cluvs" class="landing-features" *ngFor="let item of listClubs; let i = index">
-        <div [class]="i % 2 == 0 ? 'feature-row':'fature-row row-reverse'">
-            <div class="feature-text">
+        <div [class]="i % 2 == 0 ? 'feature-row':'feature-row row-reverse'">
+            <div  class="feature-text">
                 <h2>{{item.nombres}}</h2>
-                <p-button class="btn btn-outline-info">Empieza Ahora</p-button>
+                <p-button (click)="goToRegisterStudent()" class="btn btn-outline-info">Empieza Ahora</p-button>
                 <p>{{item.introduccion}}</p>
             </div>
 
-            <div _ngcontent-qqg-c41="" class="col-12 md:col-6 flex-order-1">
+            <div _ngcontent-qqg-c41="" class="col-12 md:col-6 flex-order-1" >
                 <img _ngcontent-qqg-c41=""
                      animateenter="moveinright"
                      [src]="'data:image/png;base64,'+item.avatar"
@@ -186,7 +187,7 @@
                         </div>
                     </ul>
                     <p-button class="btn btn-outline-info"
-                              [disabled]="item.aforo==item.reservas">AÑADIR
+                              [disabled]="!isLoggedIn">AÑADIR
                     </p-button>
                 </div>
             </div>

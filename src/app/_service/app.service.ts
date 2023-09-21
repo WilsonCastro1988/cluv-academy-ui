@@ -277,7 +277,7 @@ export class AppService {
                         this.tokenService.logOut();
                         //this.cierreSesionExitoso();
                         console.log('LOG Out /LOGOUT')
-                        this.router.navigate(['cluv/landing']);
+                        this.router.navigate(['cluv/landing'])
                         this.cierreSesionExitoso();
                     },
                     error: error => {
@@ -285,12 +285,15 @@ export class AppService {
                     },
                     complete: () => {
                         console.log('Complete');
+                        //window.location.reload()
 
                     }
                 });
             }
         } catch (e) {
-            this.router.navigate(['cluv/landing']);
+            this.router.navigate(['cluv/landing']).then(() => {
+                window.location.reload();
+            })
         }
     }
 }
