@@ -23,6 +23,10 @@ export class ApiService {
         return this.http.get(this.url + this.endpoint + key);
     }
 
+    getByTwoId(key1, key2): Observable<any> {
+        return this.http.get(this.url + this.endpoint + key1 + '/' + key2);
+    }
+
     saveObject(obj): Observable<any> {
         return this.http.post(this.url + this.endpoint, obj);
     }

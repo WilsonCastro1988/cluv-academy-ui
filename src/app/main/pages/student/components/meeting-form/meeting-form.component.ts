@@ -4,7 +4,7 @@ import { DOCUMENT } from '@angular/common';
 import {sdkZoomCredential} from '../../services/endpoints-student';
 
 import { ZoomMtg } from '@zoomus/websdk';
-import {endpointsStudent} from "../../services/endpoints-student";
+
 
 
 

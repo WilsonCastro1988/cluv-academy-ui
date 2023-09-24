@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {accessType} from "../../../../../_enums/constDomain";
-import {StudentDto} from "../../../student/model/studentDto";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ZoomMeetingRequestDto} from "../../model/zoomMeetingRequestDto";
 import {ApiService} from "../../../../../_service/api.service";
