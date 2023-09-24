@@ -169,72 +169,83 @@ export class ProductCheckoutComponent implements OnInit {
         })
     }
 
+    procesoGuardaCompra() {
+        this.blockingui = true
+        /********* GUARDA FACTURA **********/
+        var factura: FacturaDto = new FacturaDto()
+
+        factura.dniFactura = this.f.dni.value
+        factura.direccionFactura = this.f.direccion.value
+        factura.emailFactura = this.f.correo.value
+        factura.nombreFactura = this.f.nombre.value
+        factura.telefonoFactura = this.f.telefono.value
+        factura.subtotalFactura = this.clase.costoClase + (this.clase.costoClase * 12 / 100)
+        factura.ivaFactura = this.clase.costoClase * 12 / 100
+        factura.descuentoFactura = this.f.descuento.value
+        factura.recargoFactura = 0;
+        factura.totalFactura = this.total
+        factura.activoFactura = true
+
+        this.apiService.endpoint = accessType.typePrivate + productEndpoints.guardarFactura
+        this.apiService.saveObject(factura).subscribe({
+            next: data => {
+                factura = data.objeto
+                if (factura.idFactura != 0) {
+
+                    /********* GUARDA PAGOS **********/
+                    var pago: PagosDto = new PagosDto()
+
+                    pago.activoPago = true
+                    pago.comprobantePago = this.f.comprobante.value
+                    pago.idFacturaDto = factura
+                    pago.montoPago = this.total
+                    pago.saldoPago = 0
+
+                    this.apiService.endpoint = accessType.typePrivate + productEndpoints.guardarPago
+                    this.apiService.saveObject(pago).subscribe({
+                        next: data => {
+                            pago = data.objeto
+                        }
+                    })
+
+                    /********* GUARDA CARRITO COMPRAS **********/
+                    var carrito: CarritoComprasDto = new CarritoComprasDto()
+
+                    carrito.activoCarritoCompras = true
+                    carrito.cantidadCarritoCompras = 1
+                    carrito.descuentoCarritoCompras = this.f.descuento.value
+                    carrito.idFacturaDto = factura
+                    carrito.idClaseDto = this.clase
+                    carrito.idEstudianteDto = this.estudiante
+                    carrito.recargoCarritoCompras = 0
+                    carrito.valorCarritoCompras = this.total
+
+                    this.apiService.endpoint = accessType.typePrivate + productEndpoints.guardarCarrito
+                    this.apiService.saveObject(carrito).subscribe({
+                        next: data => {
+                            carrito = data.objeto
+                        }
+                    })
+
+                    this.appService.msgInfoDetail(severities.INFO, 'Clase', 'Clase comprada exitosamente !.')
+                    this.blockingui = false
+
+                    this.irAListadoProductos()
+
+                }
+            }
+        })
+    }
+
     pagarProducto() {
-
         try {
-
-            this.blockingui = true
-            /********* GUARDA FACTURA **********/
-            var factura: FacturaDto = new FacturaDto()
-
-            factura.dniFactura = this.f.dni.value
-            factura.direccionFactura = this.f.direccion.value
-            factura.emailFactura = this.f.correo.value
-            factura.nombreFactura = this.f.nombre.value
-            factura.telefonoFactura = this.f.telefono.value
-            factura.subtotalFactura = this.clase.costoClase + (this.clase.costoClase * 12 / 100)
-            factura.ivaFactura = this.clase.costoClase * 12 / 100
-            factura.descuentoFactura = this.f.descuento.value
-            factura.recargoFactura = 0;
-            factura.totalFactura = this.total
-            factura.activoFactura = true
-
-            this.apiService.endpoint = accessType.typePrivate + productEndpoints.guardarFactura
-            this.apiService.saveObject(factura).subscribe({
+            this.apiService.endpoint = accessType.typePrivate + productEndpoints.validarByIdClaseAndIdStudent
+            this.apiService.getByTwoId(this.clase.idClase, this.estudiante.idEstudiante).subscribe({
                 next: data => {
-                    factura = data.objeto
-                    if (factura.idFactura != 0) {
-
-                        /********* GUARDA PAGOS **********/
-                        var pago: PagosDto = new PagosDto()
-
-                        pago.activoPago = true
-                        pago.comprobantePago = this.f.comprobante.value
-                        pago.idFacturaDto = factura
-                        pago.montoPago = this.total
-                        pago.saldoPago = 0
-
-                        this.apiService.endpoint = accessType.typePrivate + productEndpoints.guardarPago
-                        this.apiService.saveObject(pago).subscribe({
-                            next: data => {
-                                pago = data.objeto
-                            }
-                        })
-
-                        /********* GUARDA CARRITO COMPRAS **********/
-                        var carrito: CarritoComprasDto = new CarritoComprasDto()
-
-                        carrito.activoCarritoCompras = true
-                        carrito.cantidadCarritoCompras = 1
-                        carrito.descuentoCarritoCompras = this.f.descuento.value
-                        carrito.idFacturaDto = factura
-                        carrito.idClaseDto = this.clase
-                        carrito.idEstudianteDto = this.estudiante
-                        carrito.recargoCarritoCompras = 0
-                        carrito.valorCarritoCompras = this.total
-
-                        this.apiService.endpoint = accessType.typePrivate + productEndpoints.guardarCarrito
-                        this.apiService.saveObject(carrito).subscribe({
-                            next: data => {
-                                carrito = data.objeto
-                            }
-                        })
-
-                        this.appService.msgInfoDetail(severities.INFO, 'Clase', 'Clase comprada exitosamente !.')
-                        this.blockingui = false
-
-                        this.irAListadoProductos()
-
+                    if (!data.objeto) {
+                        this.procesoGuardaCompra()
+                    } else {
+                        this.appService.msgInfoDetail(severities.WARNING, 'CLASE', 'Usted YA se encuentra inscrito en la Clase: ' + this.clase.nombreClase)
                     }
                 }
             })
