@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {accessType, severities} from "../../../../../_enums/constDomain";
-import {claseEndpoints} from "../../../landing/services/endpoints-landing";
 import {ApiService} from "../../../../../_service/api.service";
-import {ClaseLandingDto} from "../../../landing/dto/ClaseLandingDto";
-import {StepProductoService} from "../../services/step-producto.service";
 import {Router} from "@angular/router";
 import {ResponseGenerico} from "../../../../../_dto/response-generico";
 import {productEndpoints} from "../../services/endpoints-producto";
 import {AppService} from "../../../../../_service/app.service";
 import {TokenService} from "../../../../../_service/token.service";
 import {EstudianteDto} from "../../../../../_model/academy/EstudianteDto";
+import {StepProductoService} from "../../services/step-producto.service";
+import {ClaseLandingDto} from "../../../landing/dto/ClaseLandingDto";
+import {claseEndpoints} from "../../../landing/services/endpoints-landing";
 
 @Component({
     selector: 'app-product-list',
