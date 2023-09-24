@@ -4,6 +4,7 @@ export class FacturaDto {
     idFactura: number;
     dniFactura: string;
     direccionFactura: string;
+    emailFactura: string;
     nombreFactura: string;
     telefonoFactura: string;
     subtotalFactura: number;

@@ -40,9 +40,10 @@ export class ProductListComponent implements OnInit {
     selectProduct(item) {
         this.routeService.navigate(['pages/product-detail']).then(()=>{
             this.stepService.data = ({
-                producto: item
+                producto: item,
+                clase: null,
+                materia: null
             })
-            //this.stepService._methodToCall.emit('select');
         })
     }
 

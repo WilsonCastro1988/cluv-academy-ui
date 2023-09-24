@@ -10,6 +10,8 @@ export class StepProductoService {
 
     data = {
         producto: null,
+        clase: null,
+        materia: null
     }
 
 

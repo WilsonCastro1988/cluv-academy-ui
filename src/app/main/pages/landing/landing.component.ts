@@ -8,6 +8,7 @@ import {TutorLandingDto} from "./dto/TutorLandingDto";
 import {ClubLandingDto} from "./dto/ClubLandingDto";
 import {ClaseLandingDto} from "./dto/ClaseLandingDto";
 import {Router} from "@angular/router";
+import {StepProductoService} from "../producto/services/step-producto.service";
 
 @Component({
     selector: 'app-landing',
@@ -29,6 +30,7 @@ export class LandingComponent implements OnInit {
 
     constructor(private readonly serviceApp: AppService,
                 private readonly routeService: Router,
+                private readonly stepService: StepProductoService,
                 private readonly apiService: ApiService,) {
         this.responsiveOptions = [
             {
@@ -127,5 +129,15 @@ export class LandingComponent implements OnInit {
                 }
             });
         });
+    }
+
+    selectProduct(item) {
+        this.routeService.navigate(['pages/product-detail']).then(()=>{
+            this.stepService.data = ({
+                producto: item,
+                clase: null,
+                materia: null
+            })
+        })
     }
 }

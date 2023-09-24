@@ -2,10 +2,12 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {StepProductoService} from "../../services/step-producto.service";
 import {ApiService} from "../../../../../_service/api.service";
 import {accessType} from "../../../../../_enums/constDomain";
-import {claseEndpoints} from "../../services/endpoints-producto";
+import {productEndpoints} from "../../services/endpoints-producto";
 import {ClaseDto} from "../../../../../_model/academy/ClaseDto";
 import {ClaseLandingDto} from "../../../landing/dto/ClaseLandingDto";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {MateriaDto} from "../../../../../_model/academy/MateriaDto";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-product-detail',
@@ -18,10 +20,12 @@ export class ProductDetailComponent implements OnInit {
 
     claseLanding: ClaseLandingDto = new ClaseLandingDto()
     clase: ClaseDto = new ClaseDto()
+    materia: MateriaDto = new MateriaDto()
 
 
     constructor(private readonly stepService: StepProductoService,
                 private readonly apiService: ApiService,
+                private readonly routeService: Router,
                 private formBuilder: FormBuilder) {
     }
 
@@ -59,10 +63,35 @@ export class ProductDetailComponent implements OnInit {
     verificarEmiterMovimiento() {
         console.log('EJECUTA VERIFICA EMITER' + this.stepService.data.producto)
 
+        this.apiService.endpoint = accessType.typePrivate + productEndpoints.findById
+
+        this.apiService.getById(1).subscribe({
+            next: data => {
+                this.clase = data.objeto
+                this.apiService.endpoint = accessType.typePrivate + productEndpoints.findMateriaById
+                this.apiService.getById(this.clase.idMateriaDto.idMateria).subscribe({
+                    next: data => {
+                        this.materia = data.objeto
+                    }
+                })
+                console.log('LISTADO DE RESEÑAS: ' + this.clase.reseniasCollectionDto.length)
+            }
+        })
+
         if (this.stepService.data.producto != null) {
-
-
             this.claseLanding = this.stepService.data.producto
+            this.apiService.endpoint = accessType.typePrivate + productEndpoints.findById
+            this.apiService.getById(this.claseLanding.idClase).subscribe({
+                next: data => {
+                    this.clase = data.objeto
+                    this.apiService.endpoint = accessType.typePrivate + productEndpoints.findMateriaById
+                    this.apiService.getById(this.clase.idMateriaDto.idMateria).subscribe({
+                        next: data => {
+                            this.materia = data.objeto
+                        }
+                    })
+                }
+            })
 
             this.formEvidencia = this.formBuilder.group(this.claseLanding);
             this.formEvidencia.controls.avatarClase.setValue(this.claseLanding.avatarClase)
@@ -75,5 +104,17 @@ export class ProductDetailComponent implements OnInit {
             console.log('DATOS FAIL: ')
         }
     }
+
+    irAPago() {
+        this.routeService.navigate(['pages/product-checkout']).then(() => {
+            this.stepService.data = ({
+                producto: this.claseLanding,
+                clase: this.clase,
+                materia: this.materia
+            })
+            //this.stepService._methodToCall.emit('select');
+        })
+    }
+
 
 }

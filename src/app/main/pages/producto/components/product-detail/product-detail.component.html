@@ -4,148 +4,114 @@
             <div class="col-12 lg:col-7">
                 <div class="flex">
                     <div class="pl-3 w-12 flex"><img class="w-full border-2 border-transparent border-round"
-                                                      [src]="'data:image/png;base64,'+f.avatarClase.value">
+                                                     [src]="'data:image/png;base64,'+f.avatarClase.value">
                     </div>
                 </div>
             </div>
-            <div class="col-12 lg:col-4 py-3 lg:pl-6">
+            <div class="col-12 lg:col-4 py-3 lg:pl-6 text-3xl">
                 <div class="flex align-items-center text-xl font-medium text-900 mb-4">
                     {{f.nombre.value}}
                 </div>
                 <div class="flex align-items-center justify-content-between mb-5"><span
                     class="text-900 font-medium text-3xl block">$ {{f.costo.value}}</span>
-                    <div class="flex align-items-center"><span class="mr-3"><i
-                        class="pi pi-star-fill text-yellow-500 mr-1"></i><i
-                        class="pi pi-star-fill text-yellow-500 mr-1"></i><i
-                        class="pi pi-star-fill text-yellow-500 mr-1"></i><i
-                        class="pi pi-star-fill text-yellow-500 mr-1"></i><i
-                        class="pi pi-star text-600 mr-1"></i></span><span class="text-sm"><b
-                        class="text-900 mr-1">24</b><span class="text-500"></span>reviews</span></div>
+
+                    <div class="flex align-items-center">
+                        <span class="mr-3">
+                        <p-rating formControlName="valoracion"
+                                  iconOnClass="pi pi-star"
+                                  iconOffClass="pi pi-star-fill"
+                                  [stars]="5"
+                                  [cancel]="false"></p-rating>
+                        </span>
+                        <span class="text-sm">Valoraciones</span>
+                    </div>
                 </div>
-
-
-                <div class="font-bold text-900 mb-3">Quantity</div>
+                <div class="font-bold text-900 mb-3">{{f.descripcion.value}}</div>
+                <div class="font-bold text-900 mb-3">Tutor: {{f.nombreTutor.value}}</div>
                 <div class="flex flex-column sm:flex-row sm:align-items-center sm:justify-content-between">
-                    <p-inputNumber buttonlayout="horizontal" spinnermode="horizontal"
-                                   inputstyleclass="w-3rem text-center"
-                                   decrementbuttonclass="p-button-text" incrementbuttonclass="p-button-text"
-                                   incrementbuttonicon="pi pi-plus" decrementbuttonicon="pi pi-minus"
-                                   class="p-element p-inputwrapper ng-untouched ng-pristine ng-valid p-inputwrapper-filled">
-                    <span class="p-inputnumber p-component p-inputnumber-buttons-horizontal"><input pinputtext=""
-                                                                                                    inputmode="decimal"
-                                                                                                    class="p-inputtext p-component p-element w-3rem text-center p-inputnumber-input p-filled"
-                                                                                                    min="0"><!---->
-                        <!----><button type="button" pbutton="" tabindex="-1"
-                                       class="p-element p-button-text p-inputnumber-button p-inputnumber-button-up p-button p-component p-button-icon-only ng-star-inserted"><span
-                            class="p-button-icon pi pi-plus" aria-hidden="true"></span></button><!----><button
-                            type="button" pbutton="" tabindex="-1"
-                            class="p-element p-button-text p-inputnumber-button p-inputnumber-button-down p-button p-component p-button-icon-only ng-star-inserted"><span
-                            class="p-button-icon pi pi-minus" aria-hidden="true"></span></button><!----></span>
-                    </p-inputNumber>
+
                     <div class="flex align-items-center flex-1 mt-3 sm:mt-0 ml-0 sm:ml-5">
-                        <button pbutton="" pripple="" label="Add to Cart"
-                                class="p-element p-ripple flex-1 mr-5 p-button p-component"><span
-                            class="p-button-label">Add to Cart</span><span
+                        <button pbutton="" pripple="" label="Añadir"
+                                class="p-element p-ripple flex-1 mr-5 p-button p-component p-button-warning"><span
+                            class="p-button-label" (click)="irAPago()">Añadir</span><span
                             class="p-ink"></span></button>
-                        <i class="pi text-2xl cursor-pointer pi-heart text-600"></i></div>
+                    </div>
                 </div>
             </div>
         </div>
         <p-tabView class="p-element">
-            <p-tabPanel header="Details" class="p-element">
+            <p-tabPanel header="Detalles Producto" class="p-element">
                 <div role="tabpanel" class="p-tabview-panel ng-star-inserted" id="p-tabpanel-12" aria-hidden="false"
                      aria-labelledby="p-tabpanel-12-label">
-                    <div class="text-900 font-bold text-3xl mb-4 mt-2">Product Details</div>
-                    <p class="line-height-3 text-600 p-0 mx-0 mt-0 mb-4">Volutpat maecenas volutpat blandit aliquam
-                        etiam erat velit scelerisque in. Duis ultricies lacus sed turpis tincidunt id. Sed tempus
-                        urna et pharetra. Metus vulputate eu scelerisque felis imperdiet proin fermentum. Venenatis
-                        urna cursus eget nunc scelerisque viverra mauris in. Viverra justo nec ultrices dui sapien
-                        eget mi proin. Laoreet suspendisse interdum consectetur libero id faucibus.</p>
+                    <div class="text-900 font-bold text-3xl mb-4 mt-2">Descripción</div>
+                    <p class="line-height-3 text-600 p-0 mx-0 mt-0 mb-4">{{clase.descripcionClase}}</p>
                     <div class="grid">
                         <div class="col-12 lg:col-4"><span
-                            class="text-900 block font-medium mb-3 font-bold">Highlights</span>
+                            class="text-900 block font-medium mb-3 font-bold">Horario</span>
                             <ul class="py-0 pl-3 m-0 text-600 mb-3">
-                                <li class="mb-2">Vulputate sapien nec.</li>
-                                <li class="mb-2">Purus gravida quis blandit.</li>
-                                <li class="mb-2">Nisi quis eleifend quam adipiscing.</li>
-                                <li>Imperdiet proin fermentum.</li>
-                            </ul>
-                        </div>
-                        <div class="col-12 lg:col-4"><span class="text-900 block mb-3 font-bold">Size and Fit</span>
-                            <ul class="list-none p-0 m-0 text-600 mb-4 text-600">
-                                <li class="mb-3"><span class="font-semibold">Leo vel:</span> Egestas congue.</li>
-                                <li class="mb-3"><span class="font-semibold">Sociis natoque:</span> Parturient
-                                    montes nascetur.
+                                <li class="mb-2"><i class="pi pi-clock mr-3"></i>{{clase.duracionClase}} hrs.</li>
+                                <li class="mb-2"><i
+                                    class="pi pi-calendar-minus mr-3"></i>{{clase.fechaInicioClase | date:'short'}}</li>
+                                <li class="mb-2"><i
+                                    class="pi pi-calendar-times mr-3"></i>{{clase.fechaFinClase | date:'short'}}</li>
+                                <li class="mb-2"><i class="pi pi-users mr-3"></i>Aforo: {{clase.aforoClase}}</li>
+                                <li class="mb-2"><i class="pi pi-ticket mr-3"></i>Asistencia: {{clase.asistenciaClase}}
                                 </li>
-                                <li><span class="font-semibold">Suspendisse in:</span> Purus sit amet volutpat.</li>
                             </ul>
                         </div>
-                        <div class="col-12 lg:col-4"><span
-                            class="text-900 block mb-3 font-bold">Material &amp; Care</span>
-                            <ul class="p-0 m-0 flex flex-wrap flex-column xl:flex-row text-600">
+                        <div class="col-12 lg:col-8"><span
+                            class="text-900 block mb-3 font-bold">Materiales &amp; Recursos</span>
+                            <ul class="py-0 pl-3 m-0 text-600 mb-3">
                                 <li class="flex align-items-center white-space-nowrap w-10rem block mr-2 mb-3"><i
-                                    class="pi pi-sun mr-2 text-900"></i><span>Not dryer safe</span></li>
-                                <li class="flex align-items-center white-space-nowrap w-10rem block mb-3"><i
-                                    class="pi pi-times-circle mr-2 text-900"></i><span>No chemical wash</span></li>
+                                    class="pi pi-sun mr-2 text-900"></i><span>{{clase.materialesClase}}</span></li>
                                 <li class="flex align-items-center white-space-nowrap w-10rem block mb-3 mr-2"><i
-                                    class="pi pi-sliders-h mr-2 text-900"></i><span>Iron medium heat</span></li>
-                                <li class="flex align-items-center white-space-nowrap w-10rem block mb-3"><i
-                                    class="pi pi-minus-circle mr-2 text-900"></i><span>Dry flat</span></li>
+                                    class="pi pi-sliders-h mr-2 text-900"></i><span>{{clase.recursosClase}}</span></li>
                             </ul>
                         </div>
                     </div><!----></div><!----></p-tabPanel><!---->
-            <p-tabPanel header="Reviews" class="p-element">
+            <p-tabPanel header="Reseñas" class="p-element">
                 <div role="tabpanel" class="p-tabview-panel ng-star-inserted" id="p-tabpanel-13"
                      aria-hidden="true" aria-labelledby="p-tabpanel-13-label">
-                    <div class="text-900 font-bold text-3xl mb-4 mt-2">Customer Reviews</div>
-                    <ul class="list-none p-0 m-0">
-                        <li class="pb-5 border-bottom-1 surface-border"><span><i
-                            class="pi pi-star-fill text-yellow-500 mr-1"></i><i
-                            class="pi pi-star-fill text-yellow-500 mr-1"></i><i
-                            class="pi pi-star-fill text-yellow-500 mr-1"></i><i
-                            class="pi pi-star-fill text-yellow-500 mr-1"></i><i
-                            class="pi pi-star-fill text-gray-500"></i></span>
-                            <div class="text-900 font-bold text-xl my-3">Absolute Perfection!</div>
-                            <p class="mx-0 mt-0 mb-3 text-600 line-height-3">Blandit libero volutpat sed cras ornare
-                                arcu dui vivamus. Arcu dictum varius duis at consectetur lorem donec massa.
-                                Imperdiet proin fermentum leo vel orci porta non. Porttitor rhoncus dolor purus
-                                non.</p><span class="font-medium">Darlene Robertson, 2 days ago</span></li>
-                        <li class="py-5 border-bottom-1 surface-border"><span><i
-                            class="pi pi-star-fill text-yellow-500 mr-1"></i><i
-                            class="pi pi-star-fill text-yellow-500 mr-1"></i><i
-                            class="pi pi-star-fill text-yellow-500 mr-1"></i><i
-                            class="pi pi-star-fill text-yellow-500 mr-1"></i><i
-                            class="pi pi-star-fill text-yellow-500"></i></span>
-                            <div class="text-900 font-bold text-xl my-3">Classy</div>
-                            <p class="mx-0 mt-0 mb-3 text-600 line-height-3">Venenatis cras sed felis eget. Proin
-                                nibh nisl condimentum id venenatis a condimentum.</p><span class="font-medium">Kristin Watson, 2 days ago</span>
-                        </li>
-                    </ul><!----></div><!----></p-tabPanel><!---->
-            <p-tabPanel header="Shipping and Returns" class="p-element">
+                    <div class="text-900 font-bold text-3xl mb-4 mt-2">Nuestros estudiantes mencionan</div>
+                    <ul class="list-none p-0 m-0" *ngFor="let item of clase.reseniasCollectionDto.slice(0, 5)">
+                        <li class="pb-5 border-bottom-1 surface-border">
+                            <div class="flex align-items-center">
+                                <span class="mr-3">
+                                    <p-rating
+                                              iconOnClass="pi pi-star text-orange-400"
+                                              iconOffClass="pi pi-star-fill text-bluegray-300"
+                                              [ngModel]="item.valorResenias"
+                                              [ngModelOptions]="{standalone: true}"
+                                              [stars]="5"
+                                              [cancel]="false"></p-rating>
+                                </span>
+                                <span class="text-sm">Valor Reseña</span>
+                            </div>
+                            <!--<div class="text-900 font-bold text-xl my-3">Absolute Perfection!</div>-->
+                            <p class="mx-0 mt-0 mb-3 text-600 line-height-3">{{item.descripcionResenias}}</p><span class="font-medium">{{item.nombreEstudiante}}, 📚</span></li>
+
+                    </ul><!----></div><!---->
+            </p-tabPanel><!---->
+            <p-tabPanel header="Clase - Silabo" class="p-element">
                 <div role="tabpanel" class="p-tabview-panel ng-star-inserted" id="p-tabpanel-14"
                      aria-hidden="true" aria-labelledby="p-tabpanel-14-label">
-                    <div class="text-900 font-bold text-3xl mb-4 mt-2">Shipping Placeholder</div>
-                    <p class="line-height-3 text-600 p-0 mx-0 mt-0 mb-4">Mattis aliquam faucibus purus in massa
-                        tempor nec feugiat nisl. Justo donec enim diam vulputate ut pharetra. Tempus egestas sed sed
-                        risus. Feugiat sed lectus vestibulum mattis. Tristique nulla aliquet enim tortor at auctor
-                        urna nunc. Habitant morbi tristique senectus et. Facilisi nullam vehicula ipsum.</p>
+                    <div class="text-900 font-bold text-3xl mb-4 mt-2">Cluv</div>
+                    <p class="line-height-3 text-600 p-0 mx-0 mt-0 mb-4">{{materia.idClubDto.nombreClub}}
+                    <p class="line-height-3 text-600 p-0 mx-0 mt-0 mb-4">{{materia.idClubDto.introduccionClub}}
+                    <p class="line-height-3 text-600 p-0 mx-0 mt-0 mb-4">{{materia.idClubDto.descripcionClub}}
+                    <div class="text-900 font-bold text-3xl mb-4 mt-2">Materia</div>
+                    <p class="line-height-3 text-600 p-0 mx-0 mt-0 mb-4">{{clase.idMateriaDto.nombreMateria}}
+                    <p class="line-height-3 text-600 p-0 mx-0 mt-0 mb-4">{{clase.idMateriaDto.descripcionMateria}}
+                    <p class="line-height-3 text-600 p-0 mx-0 mt-0 mb-4">{{clase.idTipoClaseDto.descripcionTipoClase}}
+                    </p>
+                    <div class="text-900 block font-bold mb-3 font-bold">Contenido</div>
                     <div class="grid">
-                        <div class="col-12 md:col-6"><span class="text-900 block font-bold mb-3 font-bold">Shipping Costs</span>
-                            <ul class="py-0 pl-3 m-0 text-600 mb-3">
-                                <li class="mb-2">Japan - JPY 2,500.</li>
-                                <li class="mb-2">Europe - EUR 10</li>
-                                <li class="mb-2">Switzerland - CHF 10</li>
-                                <li class="mb-2">Canada - CAD 25</li>
-                                <li class="mb-2">USA - USD 20</li>
-                                <li class="mb-2">Australia - AUD 30</li>
-                                <li class="mb-2">United Kingdom - GBP 10</li>
+                        <div class="col-12 md:col-6" *ngFor="let item of materia.silaboCollectionDto"><span class="text-900 block font-bold mb-3 font-bold"></span>
+                            <ul class="py-0 pl-3 m-0 text-600 mb-3" >
+                                <li class="mb-2">{{item.temaSilabo}}</li>
                             </ul>
                         </div>
-                        <div class="col-12 md:col-6"><span
-                            class="text-900 block font-bold mb-3">Return Policy</span>
-                            <p class="line-height-3 text-600 p-0 m-0">Pharetra et ultrices neque ornare aenean
-                                euismod elementum nisi. Diam phasellus vestibulum lorem sed. Mattis molestie a
-                                iaculis at. </p></div>
+
                     </div><!----></div><!----></p-tabPanel>
 
         </p-tabView>
