@@ -15,16 +15,11 @@ import { OrderSumaryComponent } from './producto/components/order-sumary/order-s
 import { InvoiceComponent } from './producto/components/invoice/invoice.component';
 import {StudentModule} from "./student/module/student.module";
 import { StudentFormComponent } from './student/components/student-form/student-form.component';
-import { MeetingZoomFormComponent } from './sensei/components/meeting-zoom-form/meeting-zoom-form.component';
-import {PrimengModule} from "../../primeng/primeng.module";
-import { MeetingFormComponent } from './student/components/meeting-form/meeting-form.component';
 
 @NgModule({
     declarations: [
 
         SharedTableComponent,
-          MeetingZoomFormComponent,
-          MeetingFormComponent,
 
   ],
     imports: [
@@ -39,7 +34,6 @@ import { MeetingFormComponent } from './student/components/meeting-form/meeting-
         ProductoModule,
 
         TableModule,
-        PrimengModule,
 
     ],
 
