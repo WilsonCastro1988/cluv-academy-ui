@@ -1,0 +1,169 @@
+<form [formGroup]="classForm">
+    <div class="field">
+        <p-fieldset [toggleable]="true" legend="Datos de Clase" class="mt-5">
+            <div class="p-fluid p-formgrid grid">
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <h3><a><i class="text-2xl mr-2 pi pi-trash text-red-600" (click)="limpiarImagen()"></i></a>Avatar
+                        Clase</h3>
+                    <hr>
+                    <input id="fileInput" type="file"
+                           accept=".jpg, .png"
+                           (change)="onFileSelected($event)"
+                           placeholder="Comprobante"/>
+                    <p class="text-lg mt-4">Carga la imagen de tu curso aquí, se debe cumplir estándares de calidad
+                        para las imágenes. Directrices importantes: 750 x 422 píxeles; formato .jpg,
+                        .jpeg, .gif, o .png.; y sin texto en la imagen.</p>
+                    <hr>
+                    <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-nombreClase" type="text" required="true"
+                                       formControlName="nombreClase">
+                                <label for="ftxt-nombreClase">* Nombre de la Clase</label>
+                              </span>
+                    </div>
+                    <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+                        <label for="ftxt-descripcionClase">* Descripción de la Clase</label>
+                        <p-editor id="ftxt-descripcionClase"  required="true"
+                                  class="col-12"
+                                  formControlName="descripcionClase">
+                        </p-editor>
+                    </div>
+                </div>
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <img [src]="this.fClass.avatarClase.value == '' ? '../assets/img/cursos.jpg':'data:image/png;base64,'+this.fClass.avatarClase.value"
+                         alt="avatar"
+                         class="w-7 shadow-7">
+                </div>
+
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <label for="ftxt-recursosClase">* Recursos de la Clase</label>
+                    <p-editor id="ftxt-recursosClase" type="text" required="true"
+                              formControlName="recursosClase">
+                    </p-editor>
+                </div>
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <label for="ftxt-materialesClase">* Materiales de la Clase</label>
+                    <p-editor id="ftxt-materialesClase" type="text" required="true"
+                              formControlName="materialesClase">
+                    </p-editor>
+                </div>
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                               <p-inputNumber [showButtons]="true"
+                                              id="ftxt-costoClase"
+                                              required="true"
+                                              formControlName="costoClase"
+                                              buttonLayout="horizontal"
+                                              spinnerMode="horizontal"
+                                              min="0"
+                                              mode="currency"
+                                              currency="USD"
+                                              decrementButtonClass="p-button-danger"
+                                              incrementButtonClass="p-button-success"
+                                              incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"
+                               ></p-inputNumber>
+                                <label class="ml-6" for="ftxt-costoClase">* Costo de la Clase</label>
+                              </span>
+                </div>
+
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <p-inputNumber [showButtons]="true"
+                                               id="ftxt-recargoClase"
+                                               required="true"
+                                               formControlName="recargoClase"
+                                               min="0"
+                                               mode="currency"
+                                               currency="USD"
+                                               [minFractionDigits]="2" [maxFractionDigits]="2"
+                                               buttonLayout="horizontal"
+                                               spinnerMode="horizontal"
+                                               min="0"
+                                               decrementButtonClass="p-button-danger"
+                                               incrementButtonClass="p-button-success"
+                                               incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"
+                                ></p-inputNumber>
+                                <label class="ml-6" for="ftxt-recargoClase">* Recargo de la Clase</label>
+                              </span>
+                </div>
+
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                               <p-inputNumber [showButtons]="true"
+                                              id="ftxt-descuentoClase"
+                                              required="true"
+                                              formControlName="descuentoClase"
+                                              buttonLayout="horizontal"
+                                              spinnerMode="horizontal"
+                                              min="0"
+                                              mode="currency"
+                                              currency="USD"
+                                              decrementButtonClass="p-button-danger"
+                                              incrementButtonClass="p-button-success"
+                                              incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"
+                               ></p-inputNumber>
+                                <label class="ml-6" for="ftxt-descuentoClase">* Descuento de la Clase</label>
+                              </span>
+                </div>
+            </div>
+        </p-fieldset>
+    </div>
+
+    <div class="field">
+        <p-fieldset [toggleable]="true" legend="Datos de Meet" collapsed>
+            <div class="p-fluid p-formgrid grid">
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-aforoClase" type="number" min="0" required="true"
+                                       formControlName="aforoClase">
+                                <label for="ftxt-aforoClase">* Aforo de la Clase</label>
+                              </span>
+                </div>
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-duracionClase" type="number" min="0" required="true"
+                                       formControlName="duracionClase">
+                                <label for="ftxt-duracionClase">* Duración Hora de la Clase</label>
+                              </span>
+                </div>
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-zonaHorariaClase" type="text" required="true"
+                                       formControlName="zonaHorariaClase">
+                                <label for="ftxt-zonaHorariaClase">* Zona Horaria de la Clase</label>
+                              </span>
+                </div>
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                    <span class="p-float-label">
+                     <p-calendar [showTime]="true"
+                                 id="ftxt-fechaInicioClase"
+                                 formControlName="fechaInicioClase"
+                                 [showSeconds]="false"
+                                 [showIcon]="true"
+
+                                 [minDate]="fechaActual"
+                                 [showButtonBar]="true"
+                                 required="true"></p-calendar>
+                        <label style="color:  rgba(0, 0, 0, 0.6);"
+                               for="ftxt-fechaInicioClase">Fecha Inicio Clase</label>
+                    </span>
+                </div>
+            </div>
+        </p-fieldset>
+
+        <div class="mt-2 flex justify-content-center">
+            <button pButton label="Guardar" class="p-button p-button-lg m-1 p-button-info" icon="pi pi-send"
+                    type="submit" (click)="crearToken()" pTooltip="Guardar" tooltipPosition="right"></button>
+
+            <button pButton label="Cancelar" class="p-button p-button-lg m-1 p-button-danger" icon="pi pi-times"
+                    (click)="cancelar()" pTooltip="Cancelar" tooltipPosition="right"></button>
+        </div>
+    </div>
+</form>
+
+
+<p-blockUI [blocked]="blockingui">
+    <p-progressSpinner styleClass="w-4rem h-4rem bluegray-600" strokeWidth="8"
+                       animationDuration=".5s"></p-progressSpinner>
+
+</p-blockUI>

@@ -1,72 +1,87 @@
-<div class="card py-8 px-6 md:px-8 overflow-auto">
+<div class="flex justify-content-end mb-4">
+    <button pbutton="" pripple="" label="Imprimir" icon="pi pi-print"
+            (click)="imprimirDiv()"
+            class="p-element p-ripple p-button-outlined p-button-primary p-button p-component"><span
+        class="p-button-icon p-button-icon-left pi pi-print" aria-hidden="true"></span><span
+        class="p-button-label">Print</span><span class="p-ink"></span></button>
+
+    <button pbutton="" pripple="" label="Imprimir" icon="pi pi-print"
+            (click)="imprSelec()"
+            class="p-element p-ripple p-button-outlined p-button-primary p-button p-component"><span
+        class="p-button-icon p-button-icon-left pi pi-print" aria-hidden="true"></span><span
+        class="p-button-label">Print</span><span class="p-ink"></span></button>
+</div>
+
+<div id="divToPrint" class="card py-8 px-6 md:px-8 overflow-auto">
     <div
         class="flex flex-column align-items-start md:flex-row md:align-items-center md:justify-content-between border-bottom-1 surface-border pb-5 min-w-max">
         <div class="flex flex-column">
             <img src="../../../../../../assets/pages/logo-cluv-academy.png" width="30%">
             <div class="my-3 text-4xl font-bold text-900">CLUV ACADEMY</div>
-            <span class="mb-2">9137 3rd Lane California City</span><span>CA 93504, U.S.A.</span></div>
+            <span class="mb-2">La Rumiñahui</span><span>Quito 170102, E.C.</span></div>
         <div class="flex flex-column mt-5 md:mt-0">
-            <div class="text-2xl font-semibold text-left md:text-right mb-3">INVOICE</div>
+            <div class="text-2xl font-semibold text-left md:text-right mb-3">FACTURA</div>
             <div class="flex flex-column">
                 <div class="flex justify-content-between align-items-center mb-2"><span
-                    class="font-semibold mr-6">DATE</span><span>30/08/2019</span></div>
-                <div class="flex justify-content-between align-items-center mb-2"><span class="font-semibold mr-6">INVOICE #</span><span>8523</span>
+                    class="font-semibold mr-6">FECHA</span><span>{{factura.fechaFactura | date:'dd-MM-YYYY'}}</span>
                 </div>
-                <div class="flex justify-content-between align-items-center"><span class="font-semibold mr-6">CUSTOMER ID</span><span>C1613</span>
+                <div class="flex justify-content-between align-items-center mb-2"><span class="font-semibold mr-6">FACTURA #</span><span>{{numOrden}}</span>
+                </div>
+                <div class="flex justify-content-between align-items-center"><span
+                    class="font-semibold mr-6">CLIENTE</span><span>{{factura.nombreFactura.toUpperCase()}}</span>
                 </div>
             </div>
         </div>
     </div>
     <div class="mt-5 mb-8 flex flex-column">
-        <div class="mb-3 text-2xl font-medium">BILL TO</div>
-        <span class="mb-2">Claire Williams, 148 Hope Lane</span><span>Palo Alto, CA 94304.</span></div>
+        <div class="mb-3 text-2xl font-medium">CLIENTE</div>
+        <span class="mb-2">{{factura.nombreFactura}}
+            , {{factura.direccionFactura}}</span><span>{{factura.telefonoFactura}}, {{factura.emailFactura}}</span>
+    </div>
     <div class="overflow-x-auto">
         <table class="w-full" style="border-collapse: collapse; table-layout: auto;">
             <thead>
             <tr>
-                <th class="text-left font-semibold py-3 border-bottom-1 surface-border white-space-nowrap">Description
+                <th class="text-left font-semibold py-3 border-bottom-1 surface-border white-space-nowrap">Descripción
                 </th>
                 <th class="text-right font-semibold py-3 border-bottom-1 surface-border white-space-nowrap px-3">
-                    Quantity
+                    Cantidad
                 </th>
-                <th class="text-right font-semibold py-3 border-bottom-1 surface-border white-space-nowrap px-3">Unit
-                    Price
+                <th class="text-right font-semibold py-3 border-bottom-1 surface-border white-space-nowrap px-3">Precio
+                    Unitario
                 </th>
-                <th class="text-right font-semibold py-3 border-bottom-1 surface-border white-space-nowrap">Line Total
+                <th class="text-right font-semibold py-3 border-bottom-1 surface-border white-space-nowrap">Total
                 </th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td class="text-left py-3 border-bottom-1 surface-border white-space-nowrap">Green T-Shirt</td>
+                <td class="text-left py-3 border-bottom-1 surface-border white-space-nowrap">{{clase.nombreClase}}</td>
                 <td class="text-right py-3 border-bottom-1 surface-border px-3">1</td>
-                <td class="text-right py-3 border-bottom-1 surface-border px-3">$49.00</td>
-                <td class="text-right py-3 border-bottom-1 surface-border">$49.00</td>
-            </tr>
-            <tr>
-                <td class="text-left py-3 border-bottom-1 surface-border white-space-nowrap">Game Controller</td>
-                <td class="text-right py-3 border-bottom-1 surface-border px-3">2</td>
-                <td class="text-right py-3 border-bottom-1 surface-border px-3">$99.00</td>
-                <td class="text-right py-3 border-bottom-1 surface-border">$198.00</td>
-            </tr>
-            <tr>
-                <td class="text-left py-3 border-bottom-1 surface-border white-space-nowrap">Mini Speakers</td>
-                <td class="text-right py-3 border-bottom-1 surface-border px-3">1</td>
-                <td class="text-right py-3 border-bottom-1 surface-border px-3">$85.00</td>
-                <td class="text-right py-3 border-bottom-1 surface-border">$85.00</td>
+                <td class="text-right py-3 border-bottom-1 surface-border px-3">$ {{factura.subtotalFactura}}</td>
+                <td class="text-right py-3 border-bottom-1 surface-border">$ {{factura.subtotalFactura}}</td>
             </tr>
             </tbody>
         </table>
     </div>
     <div class="flex flex-column md:flex-row md:align-items-start md:justify-content-between mt-8">
-        <div class="font-semibold mb-3 md:mb-0">NOTES</div>
+        <div class="font-semibold mb-3 md:mb-0">Detalle Pago</div>
         <div class="flex flex-column">
             <div class="flex justify-content-between align-items-center mb-2"><span
-                class="font-semibold mr-6">SUBTOTAL</span><span>$332.00</span></div>
+                class="font-semibold mr-6">SUBTOTAL</span><span>$ {{factura.subtotalFactura}}</span></div>
             <div class="flex justify-content-between align-items-center mb-2"><span
-                class="font-semibold mr-6">VAT #</span><span>0</span></div>
+                class="font-semibold mr-6">IVA %</span><span>12</span></div>
+            <div class="flex justify-content-between align-items-center mb-2"><span
+                class="font-semibold mr-6">RECARGO</span><span>{{factura.recargoFactura}}</span></div>
+            <div class="flex justify-content-between w-full align-items-center mb-2"><span
+                class="font-semibold mr-6">DESCUENTO <i
+                [class]="clase.descuentoClase !== factura.descuentoFactura ? 'pi pi-minus-circle text-red-500 mr-2' : 'pi pi-check-circle text-green-500 mr-2'"></i></span>
+                <span>$ {{clase.descuentoClase}}</span>
+            </div>
             <div class="flex justify-content-between align-items-center"><span
-                class="font-semibold mr-6">TOTAL</span><span>$332.00</span></div>
+                class="font-semibold mr-6">TOTAL</span><span>$ {{factura.totalFactura}}</span></div>
         </div>
     </div>
 </div>
+
+

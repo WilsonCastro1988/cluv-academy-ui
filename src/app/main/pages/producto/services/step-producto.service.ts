@@ -14,6 +14,12 @@ export class StepProductoService {
         materia: null
     }
 
+    orden = {
+        carrito:null,
+        factura:null,
+        pago:null
+    }
+
 
     constructor() {
     }

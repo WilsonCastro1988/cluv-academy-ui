@@ -134,7 +134,7 @@ export class ProductCheckoutComponent implements OnInit {
         const file = event.target.files[0];
         if (file) {
             this.convertFileToBase64(file);
-        }
+        }else this.base64String = ''
     }
 
     convertFileToBase64(file: File): void {
@@ -166,6 +166,18 @@ export class ProductCheckoutComponent implements OnInit {
                 clase: null,
                 materia: null
             })
+        })
+    }
+
+    irAOrdenExitosa() {
+        this.routeService.navigate(['pages/order-summary']).then(() => {
+            this.stepService.data = ({
+                producto: null,
+                clase: this.clase,
+                materia: this.materia
+            })
+
+            this.clean()
         })
     }
 
@@ -230,7 +242,19 @@ export class ProductCheckoutComponent implements OnInit {
                     this.appService.msgInfoDetail(severities.INFO, 'Clase', 'Clase comprada exitosamente !.')
                     this.blockingui = false
 
-                    this.irAListadoProductos()
+                    this.stepService.orden = ({
+                        carrito:carrito,
+                        factura:factura,
+                        pago:pago
+                    })
+
+                    this.stepService.data =({
+                        producto: null,
+                        clase: this.clase,
+                        materia: this.materia
+                    })
+
+                    this.irAOrdenExitosa()
 
                 }
             }
@@ -246,6 +270,7 @@ export class ProductCheckoutComponent implements OnInit {
                         this.procesoGuardaCompra()
                     } else {
                         this.appService.msgInfoDetail(severities.WARNING, 'CLASE', 'Usted YA se encuentra inscrito en la Clase: ' + this.clase.nombreClase)
+                        this.irAListadoProductos()
                     }
                 }
             })

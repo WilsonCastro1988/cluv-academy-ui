@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
+import {ZoomMeetingRequestDto} from "../main/pages/sensei/model/zoomMeetingRequestDto";
 
 @Injectable({
     providedIn: 'root'
@@ -36,4 +37,21 @@ export class ApiService {
     deleteObject(key): Observable<any> {
         return this.http.delete(this.url + this.endpoint + key);
     }
+
+
+    createTokenService(key): Observable<any> {
+        return this.http.post(this.url + this.endpoint + key, key);
+    }
+
+
+
+
+
+    createMeetingOpcion(key, dto: ZoomMeetingRequestDto):  Observable<any> {
+        let headers = new HttpHeaders();
+        headers.append('content-type', 'application/json');
+        headers.append('accept', 'application/json');
+        return this.http.post(this.url + this.endpoint + key , dto);
+    }
+
 }

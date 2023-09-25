@@ -3,7 +3,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HashLocationStrategy, LocationStrategy} from '@angular/common';
+import {DatePipe, HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {AppRoutingModule} from './app-routing.module';
 import {AccordionModule} from 'primeng/accordion';
 import {AutoCompleteModule} from 'primeng/autocomplete';
@@ -183,6 +183,7 @@ FullCalendarModule.registerPlugins([
         //encryptionInterceptor,
         //decryptionInterceptor,
         generalInterceptor,
+        DatePipe,
         MessageService,
         ConfirmationService,
         {provide: LocationStrategy, useClass: HashLocationStrategy},

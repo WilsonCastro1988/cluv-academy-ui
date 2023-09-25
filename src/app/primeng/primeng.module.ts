@@ -21,7 +21,7 @@ import {Avatar, AvatarModule} from 'primeng/avatar';
 import {AvatarGroupModule} from 'primeng/avatargroup';
 import {TooltipModule} from 'primeng/tooltip';
 import {CheckboxModule} from 'primeng/checkbox';
-import {FullCalendarModule} from 'primeng/fullcalendar';
+
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {CascadeSelectModule} from 'primeng/cascadeselect';
 import {DividerModule} from 'primeng/divider';
@@ -49,7 +49,8 @@ import {ChartModule} from 'primeng/chart';
 import {FieldsetModule} from 'primeng/fieldset';
 import {CarouselModule} from "primeng/carousel";
 import {RippleModule} from "primeng/ripple";
-
+import {FullCalendarModule} from "@fullcalendar/angular";
+import {EditorModule} from "primeng/editor";
 
 @NgModule({
     declarations: [],
@@ -169,6 +170,7 @@ import {RippleModule} from "primeng/ripple";
         ButtonModule,
         RippleModule,
         AvatarModule,
+        EditorModule,
     ]
 })
 export class PrimengModule {

@@ -22,6 +22,10 @@ import {ProductAddComponent} from "./producto/components/product-add/product-add
 import {ProductCheckoutComponent} from "./producto/components/product-checkout/product-checkout.component";
 import {ProductDetailComponent} from "./producto/components/product-detail/product-detail.component";
 import {ProductListComponent} from "./producto/components/product-list/product-list.component";
+import {MeetingZoomFormComponent} from "./sensei/components/meeting-zoom-form/meeting-zoom-form.component";
+import {RUTA_SENSEI} from "./sensei/routes/sensei.routing";
+import {StyleClassModule} from "primeng/styleclass";
+import {EditorModule} from "primeng/editor";
 
 @NgModule({
     declarations: [
@@ -29,6 +33,7 @@ import {ProductListComponent} from "./producto/components/product-list/product-l
         SharedTableComponent,
         StudentFormComponent,
         SenseiFormComponent,
+        MeetingZoomFormComponent,
         PostulationSenseiListComponent,
 
         InvoiceComponent,
@@ -43,11 +48,13 @@ import {ProductListComponent} from "./producto/components/product-list/product-l
     imports: [
         RouterModule.forChild(RUTA_POSTULACIONES_SENSEI),
         RouterModule.forChild(RUTA_PRODUCT),
+        RouterModule.forChild(RUTA_SENSEI),
         CommonModule,
         ReactiveFormsModule,
         FormsModule,
         DashboardModule,
-        PrimengModule
+        PrimengModule,
+        StyleClassModule,
 
     ],
     providers: [ProductService]

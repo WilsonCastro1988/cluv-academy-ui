@@ -6,6 +6,7 @@ export class FacturaDto {
     direccionFactura: string;
     emailFactura: string;
     nombreFactura: string;
+    fechaFactura:Date;
     telefonoFactura: string;
     subtotalFactura: number;
     ivaFactura: number;

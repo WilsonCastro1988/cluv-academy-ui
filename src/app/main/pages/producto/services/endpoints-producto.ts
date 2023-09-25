@@ -12,6 +12,8 @@ const productEndpoints = {
     buscarEstudiantePorIdUsuario: serviceEstudiante + 'buscarPorIdUsuario/',
     guardarCarrito: serviceCarrito + 'guardar',
     guardarFactura: serviceFactura + 'guardar',
+    buscarFacturaById: serviceFactura + 'buscarPorId/',
+    buscarPagoById: servicePagos + 'buscarPorId/',
     guardarPago: servicePagos + 'guardar',
     validarByIdClaseAndIdStudent: serviceCarrito + 'validarByIdClaseAndIdStudent/',
 }
