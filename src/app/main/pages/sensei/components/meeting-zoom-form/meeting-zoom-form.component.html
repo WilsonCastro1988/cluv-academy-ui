@@ -23,16 +23,65 @@
                     </div>
                     <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
                         <label for="ftxt-descripcionClase">* Descripción de la Clase</label>
-                        <p-editor id="ftxt-descripcionClase"  required="true"
+                        <p-editor id="ftxt-descripcionClase" required="true"
                                   class="col-12"
                                   formControlName="descripcionClase">
                         </p-editor>
                     </div>
                 </div>
                 <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                    <img [src]="this.fClass.avatarClase.value == '' ? '../assets/img/cursos.jpg':'data:image/png;base64,'+this.fClass.avatarClase.value"
-                         alt="avatar"
-                         class="w-7 shadow-7">
+                    <img
+                        [src]="this.fClass.avatarClase.value == '' ? '../assets/img/cursos.jpg':'data:image/png;base64,'+this.fClass.avatarClase.value"
+                        alt="avatar"
+                        class="w-8 shadow-7">
+                </div>
+
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3 ">
+                              <span class="p-float-label">
+                    <p-dropdown [options]="listaClub"
+                                (onChange)="getAllListaByClub($event)"
+                                placeholder="Por favor seleccione"
+                                id="ftxt-tipoAjuste"
+                                [filter]="true"
+                                filterBy="nombreClub"
+                                optionLabel="nombreClub"
+                                appendTo="body"
+                                [showClear]="true"></p-dropdown>
+                                   <label for="ftxt-tipoAjuste">* Clubs </label>
+                             </span>
+                </div>
+
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3 ">
+                              <span class="p-float-label">
+                    <p-dropdown [options]="listaMateria"
+                                placeholder="Por favor seleccione"
+                                id="ftxt-idMateriaDto"
+                                [filter]="true"
+                                formControlName="idMateriaDto"
+                                filterBy="nombreMateria"
+                                optionLabel="nombreMateria"
+                                appendTo="body"
+                                [showClear]="true"></p-dropdown>
+                                   <label for="ftxt-idMateriaDto">* Materia </label>
+                             </span>
+                </div>
+
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3 ">
+                              <span class="p-float-label">
+                    <p-dropdown [options]="listaTipoClase"
+                                placeholder="Por favor seleccione"
+                                id="ftxt-idTipoClaseDto"
+                                [filter]="true"
+                                formControlName="idTipoClaseDto"
+                                filterBy="nombreTipoClase"
+                                optionLabel="nombreTipoClase"
+                                appendTo="body"
+                                [showClear]="true"></p-dropdown>
+                                   <label for="ftxt-idTipoClaseDto">* Tipo Clase </label>
+                             </span>
+                </div>
+
+                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3 ">
                 </div>
 
                 <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">

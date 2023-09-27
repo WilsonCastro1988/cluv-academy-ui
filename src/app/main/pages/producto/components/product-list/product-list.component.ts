@@ -68,6 +68,7 @@ export class ProductListComponent implements OnInit {
         try {
             this.blockingui = true
 
+
             this.apiService.endpoint = accessType.typePrivate + productEndpoints.validarByIdClaseAndIdStudent
             this.apiService.getByTwoId(item.idClase, this.estudiante.idEstudiante).subscribe({
                 next: data => {
@@ -81,21 +82,46 @@ export class ProductListComponent implements OnInit {
                         })
                     } else {
                         this.appService.msgInfoDetail(severities.WARNING, 'CLASE', 'Usted YA se encuentra inscrito en esta Clase')
+                        this.apiService.endpoint = accessType.typePrivate + productEndpoints.buscarClaseMeetPorIdEstudianteAndIdClase
+                        this.apiService.getByTwoId(this.estudiante.idEstudiante, item.idClase).subscribe({
+                            next: data => {
+                                console.log('OBJETO LAUNCH MEET: ', data.objeto);
+
+                                if (data.objeto.joinUrlClase !== '') {
+                                    window.open(data.objeto.joinUrlClase, '_blank'); // Abre la URL en una nueva ventana o pestaña
+                                } else {
+
+                                }
+                                this.blockingui = false
+                            }
+                        })
                     }
-
                     this.blockingui = false
-
                 }
             })
-            this.blockingui = false
 
+
+            this.blockingui = false
         } catch (e) {
             this.appService.msgInfoDetail(severities.ERROR, 'ERROR', 'Ha ocurrido un error: ' + e)
             this.blockingui = false
         }
-
     }
 
 
+    procesarProductoEstudiante(item){
+        this.apiService.endpoint = accessType.typePrivate + productEndpoints.buscarClaseMeetPorIdEstudianteAndIdClase
+        this.apiService.getByTwoId(this.estudiante.idEstudiante, item.idClase).subscribe({
+            next: data => {
+                if (!data.objeto) {
+                    window.open(data.joinUrlClase, '_blank'); // Abre la URL en una nueva ventana o pestaña
+                } else {
+                    this.appService.msgInfoDetail(severities.WARNING, 'CLASE', 'Usted YA se encuentra inscrito en esta Clase')
+                }
 
+                this.blockingui = false
+
+            }
+        })
+    }
 }

@@ -5,6 +5,7 @@
 export const environment = {
     production: false,
     HOST: 'http://localhost:8080',
+    //HOST: 'http://24.144.80.40:8080',
     SIZEFILE: 1000000,
     ACCEPTFILES: '.pdf,.doc,.docx,.xls,.xlsx,.png,.jpeg',
     ARCHIVO_CONDICIONES_REGISTRO: 'https://www.secst.cl/upfiles/documentos/04042016_845pm_570326d2114b3.pdf',

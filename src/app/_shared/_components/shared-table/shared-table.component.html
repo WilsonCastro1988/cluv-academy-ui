@@ -105,7 +105,9 @@
                                      loading="eager"
                                      style=" box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/>
                                 <span
-                                    *ngIf="col.header != 'LOGO' && col.header != 'DOCUMENTO' && col.header !='FECHA'">{{rowData[col.field]}}</span>
+                                    *ngIf="col.header != 'LOGO' && col.header != 'DOCUMENTO' && col.header !='FECHA' && col.header !='ZOOM'">
+                                    {{rowData[col.field]}}
+                                </span>
                                 <span *ngIf="col.header == 'FECHA'">{{rowData[col.field] | date: 'short'}}</span>
                                 <div *ngIf="col.header == 'DOCUMENTO'"
                                      class="p-flex justify-content-around align-content-center flex-wrap">
@@ -119,6 +121,18 @@
                                             pTooltip="Descargar"
                                             tooltipPosition="top"
                                             class="p-button-rounded p-button-text p-button-lg"></button>
+                                </div>
+                                <div *ngIf="col.header == 'ZOOM'"
+                                     class="p-flex justify-content-around align-items-center">
+                                    <button *ngIf="rowData[col.field]"
+                                            pButton pRipple type="button" icon="pi pi-phone"
+                                            pTooltip="Descargar"
+                                            tooltipPosition="top"
+                                            class="p-button-rounded p-button-text p-button-lg"></button>
+                                    <a [href]="rowData[col.field]" target="_blank"
+                                        [class]="rowData[col.field] ? 'badge badge-success text-green-700': 'badge badge-warning text-red-700'">
+                                        {{rowData[col.field] ? 'Ir a Clase' : 'Archivo NO Cargado'}}
+                                    </a>
                                 </div>
 
                             </td>

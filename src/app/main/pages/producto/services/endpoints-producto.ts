@@ -16,6 +16,7 @@ const productEndpoints = {
     buscarPagoById: servicePagos + 'buscarPorId/',
     guardarPago: servicePagos + 'guardar',
     validarByIdClaseAndIdStudent: serviceCarrito + 'validarByIdClaseAndIdStudent/',
+    buscarClaseMeetPorIdEstudianteAndIdClase: serviceClase + 'buscarClaseMeetPorIdEstudianteAndIdClase/'
 }
 
 export {

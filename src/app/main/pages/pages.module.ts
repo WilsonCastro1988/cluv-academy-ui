@@ -26,6 +26,9 @@ import {MeetingZoomFormComponent} from "./sensei/components/meeting-zoom-form/me
 import {RUTA_SENSEI} from "./sensei/routes/sensei.routing";
 import {StyleClassModule} from "primeng/styleclass";
 import {EditorModule} from "primeng/editor";
+import { ClasesSenseiListComponent } from './postulation-sensei/components/clases-sensei-list/clases-sensei-list.component';
+import { ClasesStudentListComponent } from './student/components/clases-student-list/clases-student-list.component';
+import {RUTA_STUDENT} from "./student/routes/student.routing";
 
 @NgModule({
     declarations: [
@@ -42,11 +45,14 @@ import {EditorModule} from "primeng/editor";
         ProductAddComponent,
         ProductCheckoutComponent,
         ProductDetailComponent,
-        ProductListComponent
+        ProductListComponent,
+        ClasesSenseiListComponent,
+        ClasesStudentListComponent
 
     ],
     imports: [
         RouterModule.forChild(RUTA_POSTULACIONES_SENSEI),
+        RouterModule.forChild(RUTA_STUDENT),
         RouterModule.forChild(RUTA_PRODUCT),
         RouterModule.forChild(RUTA_SENSEI),
         CommonModule,
