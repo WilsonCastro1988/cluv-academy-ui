@@ -8,6 +8,7 @@ import {ClaseLandingDto} from "../../../landing/dto/ClaseLandingDto";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {MateriaDto} from "../../../../../_model/academy/MateriaDto";
 import {Router} from "@angular/router";
+import {AppService} from "../../../../../_service/app.service";
 
 @Component({
     selector: 'app-product-detail',
@@ -25,6 +26,7 @@ export class ProductDetailComponent implements OnInit {
 
     constructor(private readonly stepService: StepProductoService,
                 private readonly apiService: ApiService,
+                private readonly appService: AppService,
                 private readonly routeService: Router,
                 private formBuilder: FormBuilder) {
     }
@@ -65,7 +67,7 @@ export class ProductDetailComponent implements OnInit {
 
         this.apiService.endpoint = accessType.typePrivate + productEndpoints.findById
 
-        this.apiService.getById(1).subscribe({
+        /*this.apiService.getById(1).subscribe({
             next: data => {
                 this.clase = data.objeto
                 this.apiService.endpoint = accessType.typePrivate + productEndpoints.findMateriaById
@@ -76,7 +78,7 @@ export class ProductDetailComponent implements OnInit {
                 })
                 console.log('LISTADO DE RESEÑAS: ' + this.clase.reseniasCollectionDto.length)
             }
-        })
+        })*/
 
         if (this.stepService.data.producto != null) {
             this.claseLanding = this.stepService.data.producto
@@ -101,6 +103,7 @@ export class ProductDetailComponent implements OnInit {
 
         } else {
             this.claseLanding = new ClaseLandingDto();
+            this.appService.irAProductList()
             console.log('DATOS FAIL: ')
         }
     }

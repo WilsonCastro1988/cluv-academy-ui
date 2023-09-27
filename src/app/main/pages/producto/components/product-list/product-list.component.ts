@@ -33,24 +33,22 @@ export class ProductListComponent implements OnInit {
 
 
     ngOnInit(): void {
-        this.llenarListaClases()
         this.cargarUsuario()
+
+        this.llenarListaClases()
     }
 
     cargarUsuario() {
         this.apiService.endpoint = accessType.typePrivate + productEndpoints.buscarPorNombreUsuario
 
+
+        this.apiService.endpoint = accessType.typePrivate + productEndpoints.buscarEstudiantePorIdUsuario
         this.apiService.getById(this.tokenService.getCurrentUser()).subscribe({
             next: data => {
-                this.apiService.endpoint = accessType.typePrivate + productEndpoints.buscarEstudiantePorIdUsuario
-                this.apiService.getById(data.objeto.idUsuario).subscribe({
-                    next: data => {
-                        this.estudiante = data.objeto
-                    }
-                })
-
+                this.estudiante = data.objeto
             }
         })
+
     }
 
 
@@ -73,7 +71,7 @@ export class ProductListComponent implements OnInit {
             this.apiService.getByTwoId(item.idClase, this.estudiante.idEstudiante).subscribe({
                 next: data => {
                     if (!data.objeto) {
-                        this.routeService.navigate(['pages/product-detail']).then(()=>{
+                        this.routeService.navigate(['pages/product-detail']).then(() => {
                             this.stepService.data = ({
                                 producto: item,
                                 clase: null,
@@ -109,7 +107,7 @@ export class ProductListComponent implements OnInit {
     }
 
 
-    procesarProductoEstudiante(item){
+    procesarProductoEstudiante(item) {
         this.apiService.endpoint = accessType.typePrivate + productEndpoints.buscarClaseMeetPorIdEstudianteAndIdClase
         this.apiService.getByTwoId(this.estudiante.idEstudiante, item.idClase).subscribe({
             next: data => {

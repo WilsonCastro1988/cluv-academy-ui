@@ -41,7 +41,7 @@ export class InvoiceComponent implements OnInit {
 
         this.apiService.endpoint = accessType.typePrivate + productEndpoints.findById
 
-        this.apiService.getById(1).subscribe({
+        /*this.apiService.getById(1).subscribe({
             next: data => {
                 this.clase = data.objeto
                 this.apiService.endpoint = accessType.typePrivate + productEndpoints.findMateriaById
@@ -71,7 +71,7 @@ export class InvoiceComponent implements OnInit {
                 })
                 console.log('LISTADO DE RESEÑAS: ' + this.clase.reseniasCollectionDto.length)
             }
-        })
+        })*/
 
         if (this.stepService.orden.factura != null && this.stepService.data.clase != null) {
             this.apiService.endpoint = accessType.typePrivate + productEndpoints.findById
@@ -87,6 +87,7 @@ export class InvoiceComponent implements OnInit {
             this.numOrden = fecha.getFullYear() + '' + fecha.getMonth() + '' + fecha.getDate() + '' + this.factura.idFactura + '' + this.carrito.idCarritoCompras + '' + this.pago.idPago
         } else {
             console.log('DATOS FAIL: ')
+            this.appService.irAProductList()
         }
     }
 
@@ -119,5 +120,7 @@ export class InvoiceComponent implements OnInit {
             console.error('No se encontró el elemento a imprimir.');
         }
     }
+
+
 }
 

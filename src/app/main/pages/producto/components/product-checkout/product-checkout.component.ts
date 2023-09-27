@@ -85,7 +85,7 @@ export class ProductCheckoutComponent implements OnInit {
 
                 this.apiService.endpoint = accessType.typePrivate + productEndpoints.buscarEstudiantePorIdUsuario
 
-                this.apiService.getById(this.usuario.idUsuario).subscribe({
+                this.apiService.getById(this.tokenService.getCurrentUser()).subscribe({
                     next: data => {
                         this.estudiante = data.objeto
                     }
@@ -99,7 +99,7 @@ export class ProductCheckoutComponent implements OnInit {
 
         this.apiService.endpoint = accessType.typePrivate + productEndpoints.findById
 
-        this.apiService.getById(1).subscribe({
+        /*this.apiService.getById(1).subscribe({
             next: data => {
                 this.clase = data.objeto
                 if (this.clase.descuentoClase !== 0) {
@@ -116,7 +116,7 @@ export class ProductCheckoutComponent implements OnInit {
                 })
                 console.log('LISTADO DE RESEÑAS: ' + this.clase.reseniasCollectionDto.length)
             }
-        })
+        })*/
 
         if (this.stepService.data.producto != null) {
             this.apiService.endpoint = accessType.typePrivate + productEndpoints.findById
@@ -127,6 +127,7 @@ export class ProductCheckoutComponent implements OnInit {
             this.materia = this.stepService.data.materia
         } else {
             console.log('DATOS FAIL: ')
+            this.appService.irAProductList()
         }
     }
 
@@ -134,16 +135,14 @@ export class ProductCheckoutComponent implements OnInit {
         const file = event.target.files[0];
         if (file) {
             this.convertFileToBase64(file);
-        }else this.base64String = ''
+        } else this.base64String = ''
     }
 
     convertFileToBase64(file: File): void {
         const reader = new FileReader();
-
         reader.onload = () => {
             this.base64String = reader.result as string;
             this.f.comprobante.setValue(this.base64String.split(',')[1]);
-            console.log(this.form.controls.comprobante.value);
         };
 
         reader.readAsDataURL(file);
@@ -197,6 +196,7 @@ export class ProductCheckoutComponent implements OnInit {
         factura.recargoFactura = 0;
         factura.totalFactura = this.total
         factura.activoFactura = true
+        factura.fechaFactura = new Date()
 
         this.apiService.endpoint = accessType.typePrivate + productEndpoints.guardarFactura
         this.apiService.saveObject(factura).subscribe({
@@ -217,44 +217,47 @@ export class ProductCheckoutComponent implements OnInit {
                     this.apiService.saveObject(pago).subscribe({
                         next: data => {
                             pago = data.objeto
+
+                            /********* GUARDA CARRITO COMPRAS **********/
+                            var carrito: CarritoComprasDto = new CarritoComprasDto()
+
+                            carrito.activoCarritoCompras = true
+                            carrito.cantidadCarritoCompras = 1
+                            carrito.descuentoCarritoCompras = this.f.descuento.value
+                            carrito.idFacturaDto = factura
+                            carrito.idClaseDto = this.clase
+                            carrito.idEstudianteDto = this.estudiante
+                            carrito.recargoCarritoCompras = 0
+                            carrito.valorCarritoCompras = this.total
+
+                            this.apiService.endpoint = accessType.typePrivate + productEndpoints.guardarCarrito
+                            this.apiService.saveObject(carrito).subscribe({
+                                next: data => {
+                                    carrito = data.objeto
+
+                                    this.appService.msgInfoDetail(severities.INFO, 'Clase', 'Clase comprada exitosamente !.')
+                                    this.blockingui = false
+
+                                    this.stepService.orden = ({
+                                        carrito: carrito,
+                                        factura: factura,
+                                        pago: pago
+                                    })
+
+                                    this.stepService.data = ({
+                                        producto: null,
+                                        clase: this.clase,
+                                        materia: this.materia
+                                    })
+
+                                    this.irAOrdenExitosa()
+                                }
+                            })
+
+
                         }
                     })
 
-                    /********* GUARDA CARRITO COMPRAS **********/
-                    var carrito: CarritoComprasDto = new CarritoComprasDto()
-
-                    carrito.activoCarritoCompras = true
-                    carrito.cantidadCarritoCompras = 1
-                    carrito.descuentoCarritoCompras = this.f.descuento.value
-                    carrito.idFacturaDto = factura
-                    carrito.idClaseDto = this.clase
-                    carrito.idEstudianteDto = this.estudiante
-                    carrito.recargoCarritoCompras = 0
-                    carrito.valorCarritoCompras = this.total
-
-                    this.apiService.endpoint = accessType.typePrivate + productEndpoints.guardarCarrito
-                    this.apiService.saveObject(carrito).subscribe({
-                        next: data => {
-                            carrito = data.objeto
-                        }
-                    })
-
-                    this.appService.msgInfoDetail(severities.INFO, 'Clase', 'Clase comprada exitosamente !.')
-                    this.blockingui = false
-
-                    this.stepService.orden = ({
-                        carrito:carrito,
-                        factura:factura,
-                        pago:pago
-                    })
-
-                    this.stepService.data =({
-                        producto: null,
-                        clase: this.clase,
-                        materia: this.materia
-                    })
-
-                    this.irAOrdenExitosa()
 
                 }
             }

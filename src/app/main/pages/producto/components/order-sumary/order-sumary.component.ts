@@ -58,7 +58,7 @@ export class OrderSumaryComponent implements OnInit {
 
         this.apiService.endpoint = accessType.typePrivate + productEndpoints.findById
 
-        this.apiService.getById(1).subscribe({
+        /*this.apiService.getById(1).subscribe({
             next: data => {
                 this.clase = data.objeto
                 this.apiService.endpoint = accessType.typePrivate + productEndpoints.findMateriaById
@@ -87,13 +87,16 @@ export class OrderSumaryComponent implements OnInit {
                 })
                 console.log('LISTADO DE RESEÑAS: ' + this.clase.reseniasCollectionDto.length)
             }
-        })
+        })*/
 
         if (this.stepService.orden.factura != null && this.stepService.data.clase != null) {
             this.apiService.endpoint = accessType.typePrivate + productEndpoints.findById
 
             this.factura = this.stepService.orden.factura
             this.pago = this.stepService.orden.pago
+
+            console.log('PAGOSSSS: ', +this.pago)
+
             this.carrito = this.stepService.orden.carrito
 
             this.clase = this.stepService.data.clase
@@ -103,6 +106,7 @@ export class OrderSumaryComponent implements OnInit {
             this.numOrden = fecha.getFullYear() + '' + fecha.getMonth() + '' + fecha.getDate() + '' + this.factura.idFactura + '' + this.carrito.idCarritoCompras + '' + this.pago.idPago
         } else {
             console.log('DATOS FAIL: ')
+            this.appService.irAProductList()
         }
     }
 

@@ -12,6 +12,7 @@ import 'jspdf-autotable';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import {TokenService} from './token.service';
+import {StepProductoService} from "../main/pages/producto/services/step-producto.service";
 
 
 const httpOptions = {
@@ -36,8 +37,25 @@ export class AppService {
                 private http: HttpClient,
                 private messageService: MessageService,
                 private routerService: Router,
+                private stepService: StepProductoService,
                 private tokenService: TokenService,
                 private jwtHelper: JwtHelperService,) {
+    }
+
+    irAProductList() {
+        this.routerService.navigate(['pages/product-list']).then(() => {
+            this.stepService.data = ({
+                producto: null,
+                clase: null,
+                materia: null
+            })
+
+            this.stepService.orden=({
+                carrito:null,
+                factura:null,
+                pago:null
+            })
+        })
     }
 
     isAuthenticated(): boolean {
