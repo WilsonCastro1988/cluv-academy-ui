@@ -1,9 +1,17 @@
-<div
-    class="border-round border-5 w-full h-4rem bg-blue-900 text-white font-bold flex align-items-center justify-content-start text-lg">
-    <span class="ml-3">
+<p-toolbar
+    styleClass="background-header-gradient p-mb-1 border-round border-5 w-full h-4rem bg-blue-900 text-white font-bold flex justify-content-between text-lg">
+    <ng-template pTemplate="left">
+        <span class="ml-3">
        🌟 POSTULANTES A SENSEI 🌟
     </span>
-</div>
+    </ng-template>
+    <ng-template pTemplate="right">
+        <button type="button" pButton pRipple icon="pi pi-plus"
+                label="Agregar Sensei" (click)="visibleSidebarAddSensei = true"
+                class=" p-button-info " pTooltip="Agregar Sensei"
+                tooltipPosition="bottom"></button>
+    </ng-template>
+</p-toolbar>
 
 <app-shared-table
     [list]="listTutor"
@@ -28,14 +36,20 @@
     [paginator]="true"
     [loading]="loading"
     [autoLayout]="true"
+    [btnMagic]="true"
+    [classBtnMagic]="'p-button-rounded p-button-success p-button-text p-button-sm'"
+    [iconBtnMagic]="'pi pi-power-off'"
+    [toolTipBtnMagic]="'Aprobar Postulación'"
+    (emitMagicSelected)="aceptarPostulacion($event)"
     (emitSelectedDto)="editItem($event)"
 ></app-shared-table>
 
 
-<p-sidebar [(visible)]="visibleSidebar" [style]="{width: '80%', padding:'0 !important'}"
+<p-sidebar *ngIf="visibleSidebar" [(visible)]="visibleSidebar" [style]="{width: '80%', padding:'5px !important'}"
            position="right"
            [closeOnEscape]="false"
            [showCloseIcon]="true"
+           (onHide)="llenarListadoTutores()"
            [modal]="true">
 
     <div class="align-items-center flex justify-content-between bg-blue-900 w-full text-50 p-3">
@@ -46,64 +60,24 @@
         <i class="pi pi-times mb-3 p-panel-icons-end mr-2" (click)="visibleSidebar = false;"></i>
     </div>
 
-    <p-tabView [(activeIndex)]="activeIndex" id="sideBar-Labos">
-        <p-tabPanel>
-            <ng-template pTemplate="header">
-                <i class="pi pi-user-edit"></i>
-                <span class="pl-1">Info. Personal </span>
-            </ng-template>
-            <form [formGroup]="tutorForm" class="w-10 p-fluid p-formgrid grid">
-                <!-- ... (campos del formulario) ... -->
-                <div class="p-field col-12 md:col-12 md:mb-12 mb-0 px-3">
-                    <input id="nombreUsuario" type="text"
-                           formControlName="nombreUsuario" pInputText
-                           placeholder="Nombre Usuario"/>
-                </div>
-
-                <div class="p-field col-12 md:col-12 md:mb-12 mb-0 px-3">
-                    <p-password  formControlName="clave" [toggleMask]="true" ></p-password>
-                </div>
-
-                <div class="p-field col-12 md:col-12 md:mb-12 mb-0 px-3">
-                    <input id="cedula" type="text" formControlName="cedula" pInputText
-                           placeholder="Dni"/>
-                </div>
-
-                <div class="p-field col-12 md:col-12 md:mb-12 mb-0 px-3">
-                    <input id="nombres" type="text" formControlName="nombres" pInputText
-                           placeholder="Nombres Completos"/>
-                </div>
-
-                <div class="p-field col-12 md:col-12 md:mb-12 mb-0 px-3">
-                    <input id="direccion" type="text" formControlName="direccion" pInputText
-                           placeholder="Dirección"/>
-                </div>
-
-                <div class="p-field col-12 md:col-12 md:mb-12 mb-0 px-3">
-                    <input id="celular" type="text" formControlName="celular" pInputText
-                           placeholder="Celular"/>
-                </div>
-
-                <div class="p-field col-12 md:col-12 md:mb-12 mb-0 px-3">
-                    <input id="emailPersonal" type="text" formControlName="emailPersonal" pInputText
-                           placeholder="Correo electrónico"/>
-                </div>
-
-
-            </form>
-
-        </p-tabPanel>
-        <p-tabPanel [disabled]="disabledTabs">
-            <ng-template pTemplate="header">
-                <i class="pi pi-bars"></i>
-                <span class="pl-1">Detalle</span>
-            </ng-template>
-        </p-tabPanel>
-        <p-tabPanel [disabled]="disabledTabs">
-            <ng-template pTemplate="header">
-                <i class="pi pi-file-import"></i>
-                <span class="pl-1">Evidencias</span>
-            </ng-template>
-        </p-tabPanel>
-    </p-tabView>
+    <app-sensei-principal-info></app-sensei-principal-info>
 </p-sidebar>
+
+<p-sidebar *ngIf="visibleSidebarAddSensei" [(visible)]="visibleSidebarAddSensei" [style]="{width: '50%', height:'100%',padding:'4px'}"
+           position="right"
+           [transitionOptions]="'200ms'"
+           [closeOnEscape]="false"
+           [showCloseIcon]="true"
+           (onHide)="llenarListadoTutores()"
+           [modal]="true">
+    <app-add-sensei></app-add-sensei>
+
+</p-sidebar>
+
+<!-- inicio seccion generica -->
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+<p-blockUI [blocked]="blockingui">
+    <p-progressSpinner styleClass="w-4rem h-4rem bluegray-600" strokeWidth="8" animationDuration=".5s">
+    </p-progressSpinner>
+</p-blockUI>
+<!-- fin seccion generica -->

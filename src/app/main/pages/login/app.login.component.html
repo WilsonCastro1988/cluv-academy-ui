@@ -1,11 +1,12 @@
 <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">-->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+<!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">-->
+<app-header></app-header>
 
-<div class="login-body">
+<div class="login-body h-full login-image" >
     <div class="login-wrapper">
         <div class="login-panel">
             <a href="#">
-            <img [src]="'assets/pages/logo-cluv-academy.png'"   class="image-fluid" alt="diamond-layout"/>
+            <img [src]="'assets/pages/logo-cluv-academy.png'"   class="image-fluid mt-8" alt="diamond-layout"/>
             </a>
 
             <div class="login-form p-fluid">
@@ -22,11 +23,8 @@
                         <input type="password" pInputText placeholder="Clave" formControlName="password">
                     </div>
 
-                    <button type="submit" class="btn btn-outline-primary btn-block form-group w-full p-field" (click)="loginByAuth()">
-                        Iniciar Sesión
-                    </button>
-                    <a href="#" class="button btn btn-outline-secondary btn-block form-group w-full p-field"
-                    target="_blank">¿Olvidó su contraseña? Click Aquí</a>
+                    <button pButton pRipple type="submit" label="Iniciar Sesión" class="p-button p-field p-button-info"  (click)="loginByAuth()"></button>
+                    <a href="#"  type="button" label="¿Olvidó su contraseña? Click Aquí" class="p-field underline">¿Olvidó su contraseña? Click Aquí</a>
 
                 </form>
                 <p-divider align="center">
@@ -40,17 +38,16 @@
 
             <p>Algún Problema? <a href="#">Click aquí</a> y permítanos ayudarle.</p>
         </div>
-        <div class="login-image">
-            <div class="image-footer mt-0">
-
-                <div class="icons">
-                    <i class="pi pi-github text-orange-500"></i>
-                    <i class="pi pi-twitter text-orange-500"></i>
-                    <i class="pi pi-facebook text-orange-500"></i>
-                    <i class="pi pi-youtube text-orange-500"></i>
-                </div>
-            </div>
+        <div class="">
         </div>
     </div>
 </div>
+
+<!-- inicio seccion generica -->
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+<p-blockUI [blocked]="blockingui">
+    <p-progressSpinner styleClass="w-4rem h-4rem bluegray-600" strokeWidth="8" animationDuration=".5s">
+    </p-progressSpinner>
+</p-blockUI>
+<!-- fin seccion generica -->
 

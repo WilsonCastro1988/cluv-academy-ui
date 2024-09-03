@@ -1,0 +1,209 @@
+<form [formGroup]="form">
+    <p-panel [header]="this.f.idMultimediaTutor.value ? 'Actualizar Registro' : 'Nuevo Registro'"
+             [toggleable]="false">
+        <ng-template pTemplate="icons">
+            <div class="flex justify-content-center flex-wrap card-container yellow-container">
+                <button pButton pRipple type="button" icon="pi pi-send" (click)="guardar()"
+                        [pTooltip]="this.f.idMultimediaTutor.value ? 'Actualizar' : 'Guardar'"
+                        tooltipPosition="top"
+                        [disabled]="this.form.invalid"
+                        [label]="this.f.idMultimediaTutor.value ? 'Actualizar' : 'Guardar'"
+                        [class]="this.f.idMultimediaTutor.value ? 'p-button-rounded p-button-success m-2' : 'p-button-rounded p-button-info m-2'"></button>
+                <button pButton pRipple type="button" icon="pi pi-times" (click)="cancelar()"
+                        pTooltip="Cancelar"
+                        label="Cancelar"
+                        tooltipPosition="top"
+                        class="p-button-rounded p-button-danger m-2"></button>
+            </div>
+        </ng-template>
+        <div class=" grid">
+
+            <div class="col-12 md:col-8 md:mb-8">
+                <div class="p-field col-12 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-nombreMultimediaTutor" type="text" required="true"
+                                       formControlName="nombreMultimediaTutor">
+                                <label for="ftxt-nombreMultimediaTutor">* Nombre Video</label>
+                              </span>
+                </div>
+
+                <div class="p-field col-12 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <textarea rows="8" pInputTextarea autoResize="autoResize"
+                                          id="ftxt-descripcionMultimediaTutor" required="true"
+                                          formControlName="descripcionMultimediaTutor"
+                                          class="mb-4 col-12 md:col-12 p-inputtextarea p-inputtext p-component p-element p-inputtextarea-resizable"
+                                          style="height: auto; overflow: hidden;"
+                                ></textarea>
+                                <label for="ftxt-descripcionMultimediaTutor">* Descripción</label>
+                              </span>
+                </div>
+
+                <!--
+                <div class="col-12 md:mb-4 mb-0 px-3">
+                    <div class="card">
+                        <p-dataView #dv [value]="listInfoMultimediaTutor" [paginator]="true" [rows]="9" filterBy="name"
+                                    [sortField]="sortField" [sortOrder]="sortOrder" layout="grid">
+                            <ng-template pTemplate="header">
+                                <div class="flex flex-column md:flex-row md:justify-content-between">
+                                    <p-dropdown [options]="sortOptions"
+                                                placeholder="Sort By Price" (onChange)="onSortChange($event)"
+                                                styleClass="mb-2 md:mb-0"></p-dropdown>
+                                    <span class="p-input-icon-left mb-2 md:mb-0">
+                                        <i class="pi pi-search"></i>
+                                        <input type="search" pInputText placeholder="Buscar por Título"
+                                               (input)="dv.filter($event.target.value)">
+                                    </span>
+                                    <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                                </div>
+                            </ng-template>
+                            <ng-template let-item pTemplate="listItem">
+                                <div class="col-12">
+                                    <div class="product-list-item">
+                                        <iframe class="w-full shadow-4"
+                                                width="560" height="315"
+                                                [src]='obtenerUrlVideoSanitized(item.pathMultimediaTutor)'
+                                                allowfullscreen
+                                        ></iframe>
+                                        <div class="product-list-detail">
+                                            <div class="product-name">{{item.nombreMultimediaTutor}}</div>
+                                            <div class="product-description">{{item.descripcionMultimediaTutor}}</div>
+
+                                        </div>
+                                        <div class="product-list-action">
+                                            <span class="product-price"></span>
+                                            <p-button icon="pi pi-shopping-cart" label="Add to Cart"
+                                                      (click)="editItem(item)"></p-button>
+                                            <div
+                                                [class]="item.activoMultimediaTutor ? 'bg-green-100 mr-0 lg:mr-2 mt-4 lg:mt-0 p-2 flex align-items-center':'bg-red-100 mr-0 lg:mr-3 mt-4 lg:mt-0 p-2 flex align-items-center'"
+                                                style="border-radius: 2.5rem; width: 3.0rem">
+                                                <span
+                                                    [class]="item.activoMultimediaTutor ? 'bg-green-500 text-white flex align-items-center justify-content-center border-circle mr-2':'bg-red-500 text-white flex align-items-center justify-content-center border-circle mr-2'"
+                                                    style="min-width: 2rem; min-height: 2rem;">
+                                                    <i [class]="item.activoMultimediaTutor ?  'pi pi-check':'pi pi-ban'"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                            <ng-template let-item pTemplate="gridItem">
+                                <div class="col-12 md:col-4">
+                                    <div class="product-grid-item card">
+                                        <div class="product-grid-item-top">
+                                            <div>
+                                                <i class="pi pi-tag product-category-icon"></i>
+                                                <span class="product-category">{{item.nombreMultimediaTutor}}</span>
+                                            </div>
+                                            <div
+                                                [class]="item.activoMultimediaTutor ? 'bg-green-100 mr-0 lg:mr-2 mt-4 lg:mt-0 p-2 flex align-items-center':'bg-red-100 mr-0 lg:mr-3 mt-4 lg:mt-0 p-2 flex align-items-center'"
+                                                style="border-radius: 2.5rem; width: 3.0rem">
+                                                <span
+                                                    [class]="item.activoMultimediaTutor ? 'bg-green-500 text-white flex align-items-center justify-content-center border-circle mr-2':'bg-red-500 text-white flex align-items-center justify-content-center border-circle mr-2'"
+                                                    style="min-width: 2rem; min-height: 2rem;">
+                                                    <i [class]="item.activoMultimediaTutor ?  'pi pi-check':'pi pi-ban'"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="product-grid-item-content">
+                                            <iframe class="w-full shadow-4"
+                                                    width="560" height="315"
+                                                    [src]='obtenerUrlVideoSanitized(item.pathMultimediaTutor)'
+                                                    allowfullscreen
+                                            ></iframe>
+                                            <div class="product-name">{{item.name}}</div>
+                                            <div class="product-description">{{item.description}}</div>
+                                        </div>
+                                        <div class="product-grid-item-bottom">
+                                           <span
+                                               [class]="item.activoMultimediaTutor ? 'bg-green-500 text-white flex align-items-center justify-content-center border-circle mr-2':'bg-red-500 text-white flex align-items-center justify-content-center border-circle mr-2'"
+                                               style="min-width: 2rem; min-height: 2rem;">
+                                                    <i [class]="item.activoMultimediaTutor ?  'pi pi-check':'pi pi-ban'"></i>
+                                                </span>
+                                            <p-button icon="pi pi-shopping-cart"
+                                                      (click)="editItem(item)"></p-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </p-dataView>
+                    </div>
+
+                </div>
+                -->
+
+
+            </div>
+            <div class="col-12 md:col-4 md:mb-4">
+                <div class="field mb-4 col-12">
+
+                    <iframe class="w-full shadow-4"
+                            width="560" height="315"
+                            [src]='this.videoUrlEdit'
+                            allowfullscreen
+                    ></iframe>
+
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon bg-gray" [innerHTML]="'https://www.youtube.com/embed/'"></span>
+                        <input type="text" formControlName="pathMultimediaTutor" pInputText placeholder="Website">
+                    </div>
+                </div>
+
+                <div class="p-field col-12 md:mb-4 mb-0 px-3 justify-content-center flex">
+                    <label for="ftxt-activoMultimediaTutor" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
+                    <span class="p-float-label">
+                                <p-inputSwitch id="ftxt-activoMultimediaTutor"
+                                               formControlName="activoMultimediaTutor"></p-inputSwitch>
+                    </span>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </p-panel>
+</form>
+
+<p-divider></p-divider>
+
+<app-shared-table
+    [list]="listInfoMultimediaTutor"
+    [selectedList]="listSelectInfoMultimediaTutor"
+    [columnsHeader]="columnsHeader"
+    [globalRowFilters]="filterFields"
+    [exportColumns]="exportColumns"
+    [rows]="10"
+    [headerTableType]="0"
+    [rowsPerPageOptions]="rowsPerPageOptions"
+    [responsiveLayout]="'stack'"
+    [titleTable]="'LISTADO SERVICIOS'"
+    [dataKey]="'idServicio'"
+    [filters]="true"
+    [sorts]="true"
+    [expExcel]="true"
+    [expPdf]="false"
+    [opciones]="true"
+    [btnEdit]="true"
+    [btnDelete]="false"
+    [chekList]="false"
+    [paginator]="true"
+    [loading]="loading"
+    [autoLayout]="true"
+    [btnMagic]="false"
+    [toolTipBtnMagic]="''"
+    [iconBtnMagic]="''"
+    [disabledBtnMagicByFieldValue]="''"
+    [disabledBtnMagicByFieldName]="''"
+    [classBtnMagic]="''"
+    (emitSelectedDto)="editItem($event)"
+></app-shared-table>
+
+<!-- inicio seccion generica -->
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+<p-blockUI [blocked]="blockingui">
+    <p-progressSpinner styleClass="w-4rem h-4rem bluegray-600" strokeWidth="8" animationDuration=".5s">
+    </p-progressSpinner>
+</p-blockUI>
+<!-- fin seccion generica -->

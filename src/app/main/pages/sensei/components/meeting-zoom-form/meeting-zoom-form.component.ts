@@ -15,6 +15,8 @@ import {productEndpoints} from "../../../producto/services/endpoints-producto";
 import {TokenService} from "../../../../../_service/token.service";
 import {TutorDto} from "../../../../../_model/academy/TutorDto";
 import {TipoClaseDto} from "../../../../../_model/academy/TipoClaseDto";
+import {HorarioSugeridoTutorDto} from "../../../../../_model/academy/HorarioSugeridoTutorDto";
+import {ResponseGenerico} from "../../../../../_dto/response-generico";
 
 @Component({
     selector: 'app-meeting-zoom-form',
@@ -29,6 +31,10 @@ export class MeetingZoomFormComponent implements OnInit {
     base64String: string;
     fechaActual: Date = new Date()
 
+    lstHorariosInput: HorarioSugeridoTutorDto[];
+    dates: Date[];
+    rangeDates: Date[];
+
     listaClub: ClubDto[] = []
     listaMateria: MateriaDto[] = []
     listaTipoClase: TipoClaseDto[] = []
@@ -36,7 +42,10 @@ export class MeetingZoomFormComponent implements OnInit {
 
     meeting: ZoomMeetingRequestDto;
 
-    meetings: ZoomMeetingRequestDto[];
+    tabIndexActivated: number = 0;
+
+    blockingui: boolean = false;
+    loading: boolean = false;
 
 
     constructor(
@@ -48,9 +57,6 @@ export class MeetingZoomFormComponent implements OnInit {
     ) {
     }
 
-
-    blockingui: boolean;
-
     ngOnInit(): void {
         this.initClassForm()
         this.getAllListaCluvs()
@@ -61,7 +67,11 @@ export class MeetingZoomFormComponent implements OnInit {
         this.appService.msgInfoDetail('info', '', 'Acción Cancelada')
     }
 
-    clean(){
+    selectedTabIndex(item){
+        this.tabIndexActivated = item
+    }
+
+    clean() {
         this.classForm.reset()
         this.initClassForm()
         this.getAllListaCluvs()
@@ -82,7 +92,7 @@ export class MeetingZoomFormComponent implements OnInit {
             valoracionClase: new FormControl('',),
             recursosClase: new FormControl('',),
             materialesClase: new FormControl('',),
-            fechaInicioClase: new FormControl(this.fechaActual,),
+            fechaInicioClase: new FormControl('',),
             fechaFinClase: new FormControl('',),
             recargoClase: new FormControl('0.00',),
             descuentoClase: new FormControl('0.00',),
@@ -92,6 +102,7 @@ export class MeetingZoomFormComponent implements OnInit {
             passwordClase: new FormControl('',),
             avatarClase: new FormControl('',),
             activoClase: new FormControl('',),
+            joinIdClase: new FormControl('',),
             idEstadoClaseDto: new FormControl('',),
             horarioDto: new FormControl('',),
             idMateriaDto: new FormControl('',),
@@ -140,6 +151,8 @@ export class MeetingZoomFormComponent implements OnInit {
             next: data => {
                 this.tutor = data.objeto
                 this.fClass.idTutorDto.setValue(this.tutor)
+                this.cargarHorarioSugeridoTutor(this.tutor.idTutor)
+
             }
         })
 
@@ -166,69 +179,136 @@ export class MeetingZoomFormComponent implements OnInit {
 
     }
 
+    areDateListsNonOverlapping() {
+        //console.log('LIST2: ', this.classForm.controls.fechaFinClass.value)
+/*
+        let list1: Date[] = <Date[]>this.classForm.controls.fechaInicioClass.value
+        let list2: Date[] = <Date[]>this.classForm.controls.fechaFinClass.value
+
+
+        if(list1.length >0 && list2.length>0) {
+            const dateSet1 = new Set<number>();
+            const dateSet2 = new Set<number>();
+
+            for (let i = 0; i < list1.length; i++) {
+                const date = list1[i].getTime();
+                if (dateSet2.has(date)) {
+                    // Si la fecha ya está en list2, elimina la fecha de list1 y ajusta el índice.
+                    list1.splice(i, 1);
+                    i--;
+                } else {
+                    dateSet1.add(date);
+                }
+            }
+
+            for (let i = 0; i < list2.length; i++) {
+                const date = list2[i].getTime();
+                if (dateSet1.has(date)) {
+                    // Si la fecha ya está en list1, elimina la fecha de list2 y ajusta el índice.
+                    list2.splice(i, 1);
+                    i--;
+                } else {
+                    dateSet2.add(date);
+                }
+            }
+
+            // Si después de eliminar las fechas con cruces, ambas listas están vacías, no hubo cruces.
+            let cruce: boolean = list1.length === 0 && list2.length === 0;
+
+            if (cruce) {
+                this.appService.msgInfoDetail(severities.WARNING, 'CRUCE DE FECHAS', 'Verificar el cruce de fechas para continuar')
+            }
+        }*/
+    }
+
+
+    cargarHorarioSugeridoTutor(item) {
+        this.loading = true
+        this.apiService.endpoint = accessType.typePrivate + senseiEndpoints.findHorarioSugeridoByIdTutor
+        this.apiService.getById(item).subscribe({
+            next: data => {
+                let responseGenerico: ResponseGenerico = data
+                this.lstHorariosInput = responseGenerico.listado
+
+                this.loading = false
+
+                if (responseGenerico.codigoRespuestaValue == 404) {
+                    this.appService.msgInfoDetail(severities.WARNING, 'Horario', 'No cuenta con horario preferido, diríjase a => Perfil => Horario Preferido')
+                }
+
+            }
+        })
+    }
+
     crearToken() {
         this.blockingui = true
         this.apiService.endpoint = endpointToken.create;
         const formKey = appZoomCredential.accountId + '/' + appZoomCredential.clientId + '/' + appZoomCredential.clientSecret;
 
-        this.apiService.createTokenService(formKey).subscribe((value) => {
-            this.tokenValue = value.objeto.access_token;
 
-            this.meeting = new ZoomMeetingRequestDto()
-            this.meeting.topic = this.fClass.nombreClase.value;
-            this.meeting.type = 2;
-            this.meeting.timezone = this.fClass.zonaHorariaClase.value;
-            this.meeting.duration = this.fClass.duracionClase.value;
-            this.meeting.start_time = this.datepipe.transform(this.fClass.fechaInicioClase.value, 'yyyy-MM-ddTHH:mm:ssZ');
+        let fechas:Date[] = this.classForm.controls.fechaInicioClase.value
 
-            this.apiService.endpoint = endpointMeeting.create;
-            this.apiService.createMeetingOpcion(this.tokenValue, this.meeting).subscribe({
-                next: data => {
-                    if (data !== '') {
-                        let zoomResponse = data.objeto
+        fechas.forEach(item => {
+            this.apiService.createTokenService(formKey).subscribe((value) => {
+                this.tokenValue = value.objeto.access_token;
 
-                        let clase: ClaseDto = new ClaseDto()
-                        clase = this.classForm.value
+                this.meeting = new ZoomMeetingRequestDto()
+                this.meeting.topic = this.fClass.nombreClase.value;
+                this.meeting.type = 2;
+                this.meeting.timezone = this.fClass.zonaHorariaClase.value;
+                this.meeting.duration = this.fClass.duracionClase.value;
+                this.meeting.start_time = this.datepipe.transform(new Date(item.getTime()), 'yyyy-MM-ddTHH:mm:ssZ');
 
-                        clase.startUrlClase = zoomResponse.start_url
-                        clase.joinUrlClase = zoomResponse.join_url
-                        clase.idClase = zoomResponse.id
-                        clase.passwordClase = zoomResponse.password
-                        clase.zonaHorariaClase = Intl.DateTimeFormat().resolvedOptions().timeZone
-                        clase.activoClase = true
+                this.apiService.endpoint = endpointMeeting.create;
+                this.apiService.createMeetingOpcion(this.tokenValue, this.meeting).subscribe({
+                    next: data => {
+                        if (data !== '') {
+                            let zoomResponse = data.objeto
 
-                        console.log('CLASSSS: ', JSON.stringify(clase))
+                            let clase: ClaseDto = new ClaseDto()
+                            clase = this.classForm.value
 
-                        this.apiService.endpoint = accessType.typePrivate + senseiEndpoints.guardarClase
-
-                        this.apiService.saveObject(clase).subscribe({
-                            next: data => {
-                                clase = data.objeto
-                                console.log('CLASE ', clase)
-                            },
-                            complete: () => {
-                                this.appService.msgInfoDetail(severities.INFO, 'CLASE', 'Creada exitosamente')
-                            },
-                            error: error => {
-                                this.appService.msgInfoDetail(severities.ERROR, 'ERROR', 'Error al crear la clase')
-                            }
-                        })
+                            clase.startUrlClase = zoomResponse.start_url
+                            clase.joinUrlClase = zoomResponse.join_url
+                            clase.idClase = zoomResponse.id
+                            clase.passwordClase = zoomResponse.password
+                            clase.zonaHorariaClase = Intl.DateTimeFormat().resolvedOptions().timeZone
+                            clase.activoClase = true
 
 
-                    } else {
-                        this.appService.msgInfoDetail(severities.ERROR, 'ERROR', 'Ha ocurrido un error al crear El MeetingZoom')
+                            this.apiService.endpoint = accessType.typePrivate + senseiEndpoints.guardarClase
+
+
+                            clase.fechaInicioClase = new Date(item.getTime())
+                            this.apiService.saveObject(clase).subscribe({
+                                next: data => {
+                                    clase = data.objeto
+                                    this.appService.msgInfoDetail(severities.INFO, 'CLASE', 'Creada exitosamente')
+                                },
+                                complete: () => {
+                                    //this.appService.msgInfoDetail(severities.INFO, 'CLASE', 'Creada exitosamente')
+                                },
+                                error: error => {
+                                    this.appService.msgInfoDetail(severities.ERROR, 'ERROR', 'Error al crear la clase')
+                                }
+                            })
+
+
+                        } else {
+                            this.appService.msgInfoDetail(severities.ERROR, 'ERROR', 'Ha ocurrido un error al crear El MeetingZoom')
+                        }
+                    }, complete: () => {
+                        this.appService.msgInfoDetail(severities.INFO, 'MEET', 'Creada exitosamente')
+                    },
+                    error: error => {
+                        this.appService.msgInfoDetail(severities.ERROR, 'ERROR', 'Ha ocurrido un error ' + error)
                     }
-                }, complete: () => {
-                    this.appService.msgInfoDetail(severities.INFO, 'MEET', 'Creada exitosamente')
-                },
-                error: error => {
-                    this.appService.msgInfoDetail(severities.ERROR, 'ERROR', 'Ha ocurrido un error ' + error)
-                }
+                });
+
+                this.blockingui = false
+
             });
-
-            this.blockingui = false
-
-        });
+        })
 
     }
 

@@ -1,0 +1,71 @@
+<form [formGroup]="usuarioForm">
+    <div class="grid formgrid p-fluid">
+        <div class="field mb-4 col-12"><label for="nickname" class="font-medium text-900">Username</label>
+            <input id="nickname" formControlName="nombreUsuario" type="text" pinputtext=""
+                   class="p-inputtext p-component p-element">
+        </div>
+
+        <div class="field mb-4 col-12"><label for="nombres" class="font-medium text-900">Nombres</label>
+            <input id="nombres" formControlName="nombres" type="text" pinputtext=""
+                   class="p-inputtext p-component p-element">
+        </div>
+
+
+        <div class="field mb-4 col-12 md:col-6"><label for="cedula"
+                                                       class="font-medium text-900">DNI</label><input
+            id="cedula" type="text" formControlName="cedula" pinputtext=""
+            class="p-inputtext p-component p-element"></div>
+
+        <div class="field mb-4 col-12 md:col-6"><label for="emailPersonal"
+                                                       class="font-medium text-900">Email</label><input
+            id="emailPersonal"
+            formControlName="emailPersonal"
+            type="text"
+            pinputtext=""
+            class="p-inputtext p-component p-element">
+        </div>
+
+        <div class="field mb-4 col-12 md:col-6"><label for="direccion"
+                                                       class="font-medium text-900">Dirección</label><input
+            id="direccion" formControlName="direccion" type="text" pinputtext=""
+            class="p-inputtext p-component p-element"></div>
+
+        <div class="field mb-4 col-12 md:col-6"><label for="telefono"
+                                                       class="font-medium text-900">Teléfono</label><input
+            id="telefono"
+            formControlName="telefono"
+            type="text"
+            pinputtext=""
+            class="p-inputtext p-component p-element">
+        </div>
+
+        <div class="field mb-4 col-12 md:col-6"><label for="emailInstitucional"
+                                                       class="font-medium text-900">Email
+            Academy</label><input
+            id="emailInstitucional"
+            formControlName="emailInstitucional"
+            type="text"
+            pinputtext=""
+            class="p-inputtext p-component p-element">
+        </div>
+
+        <div class="field mb-4 col-12 md:col-6"><label for="celular"
+                                                       class="font-medium text-900">Celular</label><input
+            id="celular"
+            formControlName="celular"
+            type="text"
+            pinputtext=""
+            class="p-inputtext p-component p-element">
+        </div>
+
+
+        <div class="col-12">
+            <button pButton pRipple type="button" icon="pi pi-send"
+                    [pTooltip]="'Guardar'"
+                    tooltipPosition="top"
+                    (click)="guardar()"
+                    [label]="'Guardar'"
+                    [class]="'p-button-rounded p-button-info m-5 w-auto'"></button>
+        </div>
+    </div>
+</form>

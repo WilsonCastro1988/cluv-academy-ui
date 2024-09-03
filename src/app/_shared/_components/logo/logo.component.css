@@ -1,0 +1,46 @@
+.container-LogoKpitalink {
+  width: 100%;
+  height: inherit;
+  position: relative;
+  background: none;
+}
+
+.container-LogoKpitalink span {
+  position: absolute;
+  width: 80%;
+  height: 20%;
+  background: #00b0f0;
+  top: 27%;
+  left: 25%;
+  transform: rotate(46deg);
+}
+
+.container-LogoKpitalink > div {
+  width: 56%;
+  height: 56%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.container-LogoKpitalink > div::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  height: 39%;
+  width: 100%;
+  background: #001a30;
+  top: 0%;
+}
+
+.container-LogoKpitalink > div::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  height: 39%;
+  width: 100%;
+  background: #001a30;
+  top: 31%;
+  left: 32%;
+  transform: rotate(90deg);
+}

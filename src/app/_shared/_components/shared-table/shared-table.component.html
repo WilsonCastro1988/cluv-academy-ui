@@ -56,8 +56,9 @@
                         </th>
                         <th *ngFor="let col of columnsHeader" [pSortableColumn]="col.field">
                             <div class="flex justify-content-between align-items-center">{{col.header}}
-                                <p-sortIcon *ngIf="sorts && col.header !== 'LOGO'" [field]="col.field"></p-sortIcon>
-                                <p-columnFilter *ngIf="filters && col.header !== 'LOGO'"
+                                <p-sortIcon *ngIf="sorts && !col.header.includes('LOGO')"
+                                            [field]="col.field"></p-sortIcon>
+                                <p-columnFilter *ngIf="filters && !col.header.includes('LOGO')"
                                                 type="text"
                                                 matchMode="contains"
                                                 [field]="col.field"
@@ -75,15 +76,19 @@
                         <th *ngFor="let col of columnsHeader" [pSortableColumn]="col.field">
                             <div class="flex justify-content-between align-items-center">{{col.header}}
                                 <p-sortIcon [field]="col.field"></p-sortIcon>
-                                <!-- <p-columnFilter type="text" field="nombreTipo" display="menu"></p-columnFilter> -->
                             </div>
                         </th>
 
                         <th *ngIf="opciones">ACCIONES</th>
                     </tr>
                     <tr *ngIf="headerTableType == '0'">
+                        <th *ngIf="chekList">
+                        </th>
                         <th *ngFor="let col of columnsHeader">
-                            <p-columnFilter matchMode="contains" type="text" [field]="col.field"></p-columnFilter>
+                            <p-columnFilter *ngIf="!col.header.toUpperCase().includes('ACTIVO')" matchMode="contains"
+                                            type="text" [field]="col.field"></p-columnFilter>
+                            <p-columnFilter *ngIf="col.header.toUpperCase().includes('ACTIVO')" type="boolean"
+                                            [field]="col.field"></p-columnFilter>
                         </th>
                         <th>
                         </th>
@@ -97,19 +102,32 @@
                                 <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
                             </td>
 
-                            <td *ngFor="let col of columns" [width]="col.header === 'LOGO' ? '10%' :''">
-                                <img *ngIf="col.header == 'LOGO'"
+                            <td *ngFor="let col of columns" [width]="col.header.includes('LOGO') ? '10%' :''">
+                                <img *ngIf="col.header.includes('LOGO')"
                                      [src]="'https://utilitariodgip.epn.edu.ec/image/' + rowData[col.field]"
                                      width="100%" height="100%"
                                      class="p-shadow-4"
                                      loading="eager"
                                      style=" box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"/>
+
+                                <div *ngIf="col.header.toUpperCase().includes('ACTIVO')"
+                                     [class]="rowData[col.field] ? 'bg-green-100 mr-0 lg:mr-2 mt-4 lg:mt-0 p-2 flex align-items-center':'bg-red-100 mr-0 lg:mr-3 mt-4 lg:mt-0 p-2 flex align-items-center'"
+                                     style="border-radius: 2.5rem; width: 3.0rem">
+                                    <span [pTooltip]="rowData[col.field] ? 'Activo' : 'Inactivo'"
+                                        [class]="rowData[col.field] ? 'bg-green-500 text-white flex align-items-center justify-content-center border-circle mr-2':'bg-red-500 text-white flex align-items-center justify-content-center border-circle mr-2'"
+                                        style="min-width: 2rem; min-height: 2rem;">
+                                        <i [class]="rowData[col.field] ?  'pi pi-check':'pi pi-ban'"></i>
+                                    </span>
+                                </div>
+
                                 <span
-                                    *ngIf="col.header != 'LOGO' && col.header != 'DOCUMENTO' && col.header !='FECHA' && col.header !='ZOOM'">
-                                    {{rowData[col.field]}}
-                                </span>
-                                <span *ngIf="col.header == 'FECHA'">{{rowData[col.field] | date: 'short'}}</span>
-                                <div *ngIf="col.header == 'DOCUMENTO'"
+                                    *ngIf="!col.header.toUpperCase().includes('ACTIVO') && !col.header.toUpperCase().includes('ESTADO')
+                                    && !col.header.toUpperCase().includes('LOGO') && !col.header.toUpperCase().includes('DOCUMENTO')
+                                    && !col.header.toUpperCase().includes('FECHA') && !col.header.toUpperCase().includes('ZOOM')">{{rowData[col.field]}}</span>
+
+                                <span *ngIf="col.header.toUpperCase().includes('FECHA')">{{rowData[col.field] | date:'short':'UTC' }}</span>
+
+                                <div *ngIf="col.header.toUpperCase().includes('DOCUMENTO')"
                                      class="p-flex justify-content-around align-content-center flex-wrap">
                                     <span
                                         [class]="rowData[col.field] ? 'badge badge-success text-green-700': 'badge badge-warning text-red-700'">
@@ -122,28 +140,33 @@
                                             tooltipPosition="top"
                                             class="p-button-rounded p-button-text p-button-lg"></button>
                                 </div>
-                                <div *ngIf="col.header == 'ZOOM'"
+
+                                <div *ngIf="col.header.toUpperCase().includes('ZOOM')"
                                      class="p-flex justify-content-around align-items-center">
                                     <button *ngIf="rowData[col.field]"
                                             pButton pRipple type="button" icon="pi pi-phone"
-                                            pTooltip="Descargar"
                                             tooltipPosition="top"
                                             class="p-button-rounded p-button-text p-button-lg"></button>
-                                    <a [href]="rowData[col.field]" target="_blank"
-                                        [class]="rowData[col.field] ? 'badge badge-success text-green-700': 'badge badge-warning text-red-700'">
-                                        {{rowData[col.field] ? 'Ir a Clase' : 'Archivo NO Cargado'}}
+                                    <a [href]="rowData[col.field] ? rowData[col.field]: '#/pages/listado-clases'" [target]="rowData[col.field] ? '_blank' : '_self'"
+                                       [pTooltip]="rowData[col.field]"
+                                       [class]="rowData[col.field] ? 'badge badge-success text-green-700': 'badge badge-warning text-red-700'">
+                                        {{rowData[col.field] ? 'Ir a Clase' : 'Sin Clase'}}
                                     </a>
                                 </div>
 
                             </td>
                             <td *ngIf="opciones">
-                                <button *ngIf="btnEdit"
+                                <button *ngIf="btnEdit" [disabled]="disabledItemButton(rowData)"
                                         pButton pRipple icon="pi pi-pencil"
                                         class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
                                         (click)="edit(rowData)" pTooltip="Editar" tooltipPosition="left"></button>
                                 <button *ngIf="btnDelete" pButton pRipple icon="pi pi-trash"
                                         class="p-button-rounded p-button-danger p-button-text p-button-sm"
                                         (click)="delete(rowData)" pTooltip="Eliminar"
+                                        tooltipPosition="left"></button>
+                                <button *ngIf="btnMagic" pButton pRipple [icon]="iconMagic(rowData)"
+                                        [class]="classBtnMagic" [disabled]="disabledItemButton(rowData)"
+                                        (click)="magicSelected(rowData)" [pTooltip]="toolTipBtnMagic"
                                         tooltipPosition="left"></button>
                             </td>
                         </tr>
@@ -163,6 +186,11 @@
                     <tr *ngIf="sumary">
                         <td [colSpan]="colspan" class="text-right">{{legendFooter}} {{sumary}}</td>
                         <td>{{sumaryContent | currency: currency}}</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td >No existen datos disponibles.</td>
                     </tr>
                 </ng-template>
             </p-table>

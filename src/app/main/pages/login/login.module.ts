@@ -7,6 +7,10 @@ import {DividerModule} from "primeng/divider";
 import {InputTextModule} from "primeng/inputtext";
 import {ButtonModule} from "primeng/button";
 import {RippleModule} from "primeng/ripple";
+import {BlockUIModule} from "primeng/blockui";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
+import {ProgressSpinnerModule} from "primeng/progressspinner";
+import {PagesModule} from "../pages.module";
 
 const routes: Routes = [
     {
@@ -25,7 +29,12 @@ const routes: Routes = [
         CommonModule,
         RouterModule.forChild(routes),
         FormsModule,
-        ReactiveFormsModule]
+        ReactiveFormsModule,
+        BlockUIModule,
+        ConfirmDialogModule,
+        ProgressSpinnerModule,
+        PagesModule
+    ]
 })
 export class AuthenticationModule {
 }

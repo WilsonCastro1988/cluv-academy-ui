@@ -1,0 +1,129 @@
+<form [formGroup]="tutorForm">
+    <div class="grid formgrid p-fluid">
+        <div class="field mb-4 col-12 md:col-6"><label for="sobremiTutor" class="font-medium text-900">Sobre MI</label>
+            <textarea id="sobremiTutor"
+                      type="text"
+                      formControlName="sobremiTutor"
+                      pinputtextarea=""
+                      rows="10"
+                      class="mb-4 col-6 md:col-6 p-inputtextarea p-inputtext p-component p-element p-inputtextarea-resizable"
+                      style="height: auto; overflow: hidden;"></textarea>
+        </div>
+
+        <div class="field mb-4 col-12 md:col-6"><label for="habilidadesTutor" class="font-medium text-900">Video
+            Presentación</label>
+            <iframe class="w-full shadow-4"
+                    width="560" height="315"
+                    [src]='this.videoUrl'
+                    allowfullscreen
+            ></iframe>
+        </div>
+
+        <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+            <label for="ftxt-activoTutor" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
+            <span class="p-float-label">
+                                <p-inputSwitch id="ftxt-activoTutor"
+                                               formControlName="activoTutor"></p-inputSwitch>
+                </span>
+        </div>
+
+        <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3 p-inputgroup">
+
+                <span class="p-inputgroup-addon bg-gray" [innerHTML]="'https://www.youtube.com/embed/'"></span>
+                <input type="text" formControlName="videoPresentacionTutor" pInputText placeholder="Website">
+            </div>
+
+        <div class="field mb-4 col-12 md:col-6"><label for="habilidadesTutor" class="font-medium text-900">Habilidades
+            Destacadas</label>
+            <textarea id="habilidadesTutor"
+                      type="text"
+                      formControlName="habilidadesTutor"
+                      pinputtextarea=""
+                      rows="5"
+                      class="p-inputtextarea p-inputtext p-component p-element p-inputtextarea-resizable"
+                      style="height: auto; overflow: hidden;"></textarea>
+        </div>
+
+        <div class="field mb-4 col-12 md:col-6"><label for="especializacionTutor"
+                                                       class="font-medium text-900">Especialización</label>
+            <textarea id="especializacionTutor"
+                      type="text"
+                      formControlName="especializacionTutor"
+                      pinputtextarea=""
+                      rows="5"
+                      class="p-inputtextarea p-inputtext p-component p-element p-inputtextarea-resizable"
+                      style="height: auto; overflow: hidden;"></textarea>
+        </div>
+
+        <div class="field mb-4 col-12 md:col-6"><label for="experienciaTutor"
+                                                       class="font-medium text-900">Experiencia</label>
+            <textarea id="experienciaTutor"
+                      type="text"
+                      formControlName="experienciaTutor"
+                      pinputtextarea=""
+                      rows="9"
+                      class="p-inputtextarea p-inputtext p-component p-element p-inputtextarea-resizable"
+                      style="height: auto; overflow: hidden;"></textarea>
+        </div>
+
+        <div class="field mb-4 col-12 md:col-6"><label class="font-medium text-900">Redes Sociales</label>
+            <div class="p-inputgroup field">
+                <span class="p-inputgroup-addon bg-gray" [innerHTML]="'https://www.youtube.com/'"></span>
+                <input type="text" [(ngModel)]="urlYoutube" pInputText placeholder="Nombre de Usuario" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="p-inputgroup field">
+                <span class="p-inputgroup-addon bg-gray" [innerHTML]="'https://www.facebook.com/'"></span>
+                <input type="text" [(ngModel)]="urlFacebook" pInputText placeholder="Nombre de Usuario" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="p-inputgroup field">
+                <span class="p-inputgroup-addon bg-gray" [innerHTML]="'https://www.linkedin.com/'"></span>
+                <input type="text" [(ngModel)]="urlLinkedIn" pInputText placeholder="Nombre de Usuario" [ngModelOptions]="{standalone: true}">
+            </div>
+        </div>
+
+        <div class="field mb-4 col-12 md:col-6"><label class="font-medium text-900">Notificaciones</label>
+            <div class="flex align-items-center gap-1 mb-2">
+                <p-checkbox formControlName="notificaEstudiantesTutor" [binary]="true"
+                            id="estudiantes"></p-checkbox>
+                <label for="estudiantes">Estudiantes</label>
+            </div>
+            <div class="flex align-items-center gap-1 mb-2">
+                <p-checkbox formControlName="notificaForoTutor" [binary]="true"
+                            id="foro"></p-checkbox>
+                <label for="foro">Foro</label>
+            </div>
+            <div class="flex align-items-center gap-1 mb-2">
+                <p-checkbox formControlName="notificaCalificacionTutor" [binary]="true"
+                            id="resenia"></p-checkbox>
+                <label for="resenia">Reseñas</label>
+            </div>
+        </div>
+
+        <div class="field mb-4 col-12 md:col-6"><label class="font-medium text-900">WhatsappMe</label>
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon">
+                    <i class="pi pi-whatsapp"></i>
+                </span>
+                <input pInputText placeholder="Whatsapp Me" formControlName="whatsappmeTutor"/>
+            </div>
+        </div>
+
+        <div class="p-field col-12 md:col-12 md:mb-12 mb-0 px-3"><label class="font-medium text-900">Curriculum</label>
+            <input id="activo" type="file" pInputText
+                   (change)="onFileSelected($event)"
+                   placeholder="Curriculum"/>
+        </div>
+
+
+        <div class="col-12 flex justify-content-center">
+            <button pButton pRipple type="button" icon="pi pi-send" (click)="guardar()"
+                    [pTooltip]="'Guardar'"
+                    tooltipPosition="top"
+                    [disabled]="this.tutorForm.invalid"
+                    [label]="'Guardar'"
+                    [class]="'p-button-rounded p-button-info m-5 w-auto p-button-lg'"></button>
+
+        </div>
+    </div>
+</form>
+

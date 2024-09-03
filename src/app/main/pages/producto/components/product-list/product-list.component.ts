@@ -39,9 +39,6 @@ export class ProductListComponent implements OnInit {
     }
 
     cargarUsuario() {
-        this.apiService.endpoint = accessType.typePrivate + productEndpoints.buscarPorNombreUsuario
-
-
         this.apiService.endpoint = accessType.typePrivate + productEndpoints.buscarEstudiantePorIdUsuario
         this.apiService.getById(this.tokenService.getCurrentUser()).subscribe({
             next: data => {
@@ -83,8 +80,6 @@ export class ProductListComponent implements OnInit {
                         this.apiService.endpoint = accessType.typePrivate + productEndpoints.buscarClaseMeetPorIdEstudianteAndIdClase
                         this.apiService.getByTwoId(this.estudiante.idEstudiante, item.idClase).subscribe({
                             next: data => {
-                                console.log('OBJETO LAUNCH MEET: ', data.objeto);
-
                                 if (data.objeto.joinUrlClase !== '') {
                                     window.open(data.objeto.joinUrlClase, '_blank'); // Abre la URL en una nueva ventana o pestaña
                                 } else {

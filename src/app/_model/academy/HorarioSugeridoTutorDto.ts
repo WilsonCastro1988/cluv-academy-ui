@@ -1,9 +1,10 @@
 import {TutorDto} from "./TutorDto";
+import {Time} from "@angular/common";
 
 export class HorarioSugeridoTutorDto {
     idHorarioSugeridoTutor: number;
-    inicioHorarioSugeridoTutor: Date;
-    finHorarioSugeridoTutor: Date;
+    inicioHorarioSugeridoTutor: any;
+    finHorarioSugeridoTutor: any;
     lunesHorarioSugeridoTutor: boolean;
     martesHorarioSugeridoTutor: boolean;
     miercoles: boolean;

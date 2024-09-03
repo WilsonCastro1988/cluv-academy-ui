@@ -29,6 +29,7 @@ export class ClaseDto {
     passwordClase: string;
     avatarClase: String;
     activoClase: boolean;
+    joinIdClase: string;
     idEstadoClaseDto: EstadoClaseDto;
     horarioDto: HorarioDto;
     idMateriaDto: MateriaDto;

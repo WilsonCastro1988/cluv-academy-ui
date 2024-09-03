@@ -24,6 +24,7 @@ export class SenseiFormComponent implements OnInit {
     modoSave: boolean = false;
     terminos: boolean = false;
     base64String: string;
+    passwordVerificacion: string;
 
     constructor(
         private apiService: ApiService,
@@ -41,7 +42,7 @@ export class SenseiFormComponent implements OnInit {
             idUsuario: new FormControl('',),
             nombreUsuario: new FormControl('', Validators.compose([Validators.required])),
             clave: new FormControl('', Validators.compose([Validators.required])),
-            cedula: new FormControl('', Validators.compose([Validators.required])),
+            cedula: new FormControl('', ),
             fechaCreacion: new FormControl('',),
             activo: new FormControl('',),
             nombres: new FormControl('', Validators.compose([Validators.required])),
@@ -49,7 +50,7 @@ export class SenseiFormComponent implements OnInit {
             avatar: new FormControl('',),
             direccion: new FormControl('', Validators.compose([Validators.required])),
             telefono: new FormControl('',),
-            celular: new FormControl('', Validators.compose([Validators.required, customMobileValidator])),
+            celular: new FormControl('', ),
             emailPersonal: new FormControl('', Validators.compose([Validators.required, customEmailValidator])),
             emailInstitucional: new FormControl('',),
             zonaHoraria: new FormControl(Intl.DateTimeFormat().resolvedOptions().timeZone,),
@@ -131,7 +132,6 @@ export class SenseiFormComponent implements OnInit {
         reader.onload = () => {
             this.base64String = reader.result as string;
             this.usuarioForm.controls.avatar.setValue(this.base64String.split(',')[1]);
-            console.log(this.usuarioForm.controls.avatar.value);
         };
 
         reader.readAsDataURL(file);

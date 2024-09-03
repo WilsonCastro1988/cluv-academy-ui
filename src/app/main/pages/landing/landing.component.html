@@ -1,203 +1,209 @@
 <body class="landing-body">
 <div class="landing-wrapper">
     <div id="home" class="landing-header">
-        <div class="landing-topbar">
-            <a href="#/cluv/landing" class="logo">
-                <img src="assets/pages/logo-cluv-academy.png" alt="logo"/>
-                <h1>CLUV ACADEMY</h1>
-            </a>
-
-            <ul class="landing-menu">
-                <li>
-                    <a onclick="closeMenu()" id="landing-menu-close" tabindex="0">
-                        <i class="pi pi-times"></i>
-                    </a>
-                </li>
-                <li class="landing-menu-item">
-                    <a href="#home">HOME</a>
-                </li>
-                <li class="landing-menu-item">
-                    <a href="#nosotros">NOSOTROS</a>
-                </li>
-                <li class="landing-menu-item">
-                    <a href="#" (click)="dialogTerminos=true">TERMINOS Y CONDICIONES</a>
-                </li>
-                <li class="landing-menu-item">
-                    <a href="#clases">CLASES</a>
-                </li>
-                <li class="landing-menu-item">
-                    <a href="#sensei">CONVIERTETE EN PROFESOR</a>
-                </li>
-                <li class="landing-menu-item">
-                    <a href="#cluvs">CLUVs</a>
-                </li>
-                <li class="contact landing-menu-item">
-                    <a href="#contact">CONTACTANOS</a>
-                </li>
-            </ul>
-            <a onclick="openMenu()" id="landing-menu-button" tabindex="0">
-                <i class="pi pi-bars"></i>
-            </a>
-            <ul class="contact-menu">
-                <li>
-                    <a *ngIf="!isLoggedIn" (click)="goToLogindIn()" >LOGIN</a>
-                    <a *ngIf="isLoggedIn"  (click)="goToLogindIn()" >DASHBOARD</a>
-                </li>
-                <li>
-                    <a (click)="goToRegisterStudent()">EMPIEZA AHORA</a>
-                </li>
-                <li>
-                    <a href="#"><i class="pi pi-github"></i></a>
-                </li>
-                <li>
-                    <a href="#"><i class="pi pi-twitter"></i></a>
-                </li>
-            </ul>
-        </div>
-        <div class="landing-header-content grid justify-content-between mb-6 md:mb-8 mt-5">
-            <div class="header-text">
-                <h1>Cluv Academy
-                    Estudia con Nosotros</h1>
-                <p>Conoce como aprender y afinar tus habilidades y conocimientos con nuestros Senseis y temas
+        <app-header></app-header>
+        <div class="landing-header-content grid justify-content-end mb-2 md:mb-4 mt-5">
+            <div class="col-12 text-center md:text-justify lg:col-6 p-8">
+                <h1><strong>ESTUDIA CON NOSOTROS</strong></h1>
+                <h3>Conoce como aprender y afinar tus habilidades y conocimientos con nuestros Senseis y temas
                     específicos.
-                </p>
-                <button class="landing-btn" (click)="goToRegisterStudent()"><span>Empieza Ahora</span></button>
+                </h3>
             </div>
-            <div _ngcontent-qqg-c41="" class="col-12 text-center md:text-right lg:col-6">
-                <p-carousel [value]="listClubs" styleClass="custom-carousel"
-                            [numVisible]="2"
-                            [numScroll]="1"
-                            [circular]="true"
-                            [autoplayInterval]="4000"
-                            [responsiveOptions]="responsiveOptions">
-                    <ng-template pTemplate="header">
-                        <h5></h5>
-                    </ng-template>
-                    <ng-template let-item pTemplate="item">
-                        <div class="card w-full h-full">
-                            <div class="h-20rem">
-                                <img [src]="'data:image/png;base64,'+item.avatar"
-                                     [alt]="item.nombre"
-                                     class="product-image"
-                                     width="100%"
-                                     height="auto"
-                                />
-                            </div>
-                            <div class="">
-                                <h4 class="mb-1">{{item.nombres}} - {{item.nombreReconocimiento}}</h4>
-                                <span [class]="'product-badge'">{{item.descripcion}}</span>
-                                <hr>
-                                <p-button styleClass="p-button-rounded p-button-warning"><span>Empezar</span></p-button>
-                            </div>
-                        </div>
-                    </ng-template>
-                </p-carousel>
-            </div>
+        </div>
+        <div class="gap-4 flex ml-8" style="margin-top: 13%">
+            <button pButton pRipple label="Empieza Ahora" class="p-button-lg p-button-warning text-white"
+                    (click)="goToRegisterStudent()"></button>
+            <button pButton pRipple label="Términos y Condiciones" class="p-button-lg p-button-warning text-white"
+                    (click)="dialogTerminos=true">
+            </button>
         </div>
     </div>
 
-    <div id="nosotros" class="landing-features">
-        <div class="feature-row">
-            <div class="feature-text">
-                <h2>Cluv Academy es la primera escuela online ecuatoriana</h2>
+    <div id="nosotros" class="landing-features relative">
+        <img class="w-3 md:w-3 fadeinleft animation-duration-1000 rotate-45 absolute"
+             src="assets/pages/mascota.png" alt="pet" style="margin-left: -23%"/>
+        <img class="w-2 md:w-1 fadeinleft animation-duration-1000" style="margin-left: 45%"
+             src="assets/pages/estrella1.png" alt="star"/>
+        <div class="feature-row mt-4">
+            <div class="feature-tex">
+                <h2>Cluv Academy es la primera escuela online Ecuatoriana</h2>
                 <span>Cras suscipit mauris nisl. Donec molestie maximus tellus, eu congue elit interdum vitae.
                         Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
                         Aenean finibus laoreet lorem, non pretium elit. Nunc vel commodo velit, eu venenatis
                         dolor.</span>
             </div>
 
-            <div _ngcontent-qqg-c41="" class="col-12 md:col-6 flex-order-1">
-                <img _ngcontent-qqg-c41=""
-                     animateenter="moveinright"
-                     src="assets/img/planestudios.png"
-                     alt="Theming"
-                     class="w-full fadeinright animation-duration-1000"></div>
+            <div class="text-center p-flex justify-content-center mt-4">
+                <img class="w-3 md:w-3 fadeinright animation-duration-1000"
+                     src="assets/pages/logo_cluv_academy.png" alt="logo"/>
+                <div>
+                    <strong style="color: #E24C1A; font-size: 7.1rem">cluv</strong>
+                    <p><strong style="color: #1E6BAF; font-size: 3.1rem">academy</strong></p>
+                </div>
+            </div>
         </div>
     </div>
 
     <div id="sensei" class="landing-meetdiamond">
-        <div class="section-title">
-            <h1>Senseis</h1>
-            <span class="mb-2">Conoce a nuestros Senseis</span>
-            <p-button (click)="goToRegisterSensei()" styleClass="p-button-rounded p-button-warning"><span>Inicia tu Camino</span></p-button>
+        <div class="section-title flex justify-content-evenly">
+            <img width="7%" height="7%" src="../../../../assets/pages/estrella1.png"/>
+            <h1><strong>CONOCE A NUESTROS TUTORES</strong></h1>
+            <p></p>
+            <img width="5%" height="7%" class="absolute mt-8" style="margin-right: -70%"
+                 src="../../../../assets/pages/estrella2.png"/>
         </div>
-        <div class="p-grid">
-            <div class="p-col-12 p-md-6 p-lg-3" *ngFor="let item of listSenseis">
-                <div class="card widget-feature-box">
-                    <img [src]="'data:image/png;base64,'+item.avatar" alt="device" width="100%"/>
-                    <h5>{{item.nombres}}</h5>
-                    <span>{{item.sobreMi}}</span>
-                </div>
+        <div class="col-12 text-center md:text-left lg:col-12">
+            <p-carousel [value]="listSenseis" styleClass="custom-carousel"
+                        [numVisible]="4"
+                        [numScroll]="1"
+                        [circular]="true"
+                        [autoplayInterval]="8000"
+                        [responsiveOptions]="responsiveOptions">
+                <ng-template pTemplate="header">
+                    <h5></h5>
+                </ng-template>
+                <ng-template let-item pTemplate="item">
+
+
+                    <div [class]="getClassOfIndexListSenseis(item)">
+                        <img height="300px" width="100%" class="border-round-top-2xl" alt="Card"
+                             [src]="'data:image/png;base64,'+item.avatar">
+                        <div class="p-3">
+                            <h4 class="mb-1">{{ item.nombres }}</h4>
+                            <p [class]="'product-badge'">{{ item.sobreMi.length > 100 ? item.sobreMi.substring(0, 100).concat('...') : item.sobreMi }}</p>
+                            <hr>
+                            <p-button styleClass="p-button-rounded p-button-warning mb-2"><span>Ver Detalles</span>
+                            </p-button>
+                        </div>
+                    </div>
+
+                </ng-template>
+            </p-carousel>
+            <div class="section-title">
+                <p-button (click)="goToRegisterSensei()" styleClass="p-button-lg p-button-rounded p-button-warning">
+                    <span>INICIA TU CAMINO COMO TUTOR</span>
+                </p-button>
             </div>
         </div>
     </div>
-
-
-    <div id="cluvs" class="landing-features" *ngFor="let item of listClubs; let i = index">
-        <div [class]="i % 2 == 0 ? 'feature-row':'feature-row row-reverse'">
-            <div  class="feature-text">
-                <h2>{{item.nombres}}</h2>
-                <p-button (click)="goToRegisterStudent()" class="btn btn-outline-info">Empieza Ahora</p-button>
-                <p>{{item.introduccion}}</p>
-            </div>
-
-            <div _ngcontent-qqg-c41="" class="col-12 md:col-6 flex-order-1" >
-                <img _ngcontent-qqg-c41=""
-                     animateenter="moveinright"
-                     [src]="'data:image/png;base64,'+item.avatar"
-                     width="100%"
-                     alt="Theming"
-                     class="w-full fadeinright animation-duration-1000"></div>
-        </div>
-    </div>
-
 
     <div id="clases" class="landing-pricing">
-        <div class="section-title">
-            <h1>Descubre que te Ofrece Cluv Academy</h1>
-            <span>Los mejores precios para nuestros clientes</span>
-            <span>Precios grupales e individuales</span>
+        <div class="section-title flex justify-content-evenly relative">
+            <img width="7%" height="7%" src="../../../../assets/pages/estrella1.png"/>
+            <h1><strong>CLASES</strong></h1>
+            <p></p>
+            <img width="5%" class="absolute mt-3"
+                 style="margin-right: -70%" src="../../../../assets/pages/lampara.png"/>
         </div>
-        <div class="p-grid">
-            <div class="p-col-12 p-md-6 p-lg-3" *ngFor="let item of listClases">
-                <div class="widget-pricing-card h-full">
-                    <h2>{{item.nombre}}</h2>
-                    <img _ngcontent-qqg-c41=""
-                         animateenter="moveinright"
-                         [src]="'data:image/png;base64,'+item.avatarClase"
-                         width="100%"
-                         alt="Theming"
-                         class="w-full fadeinright animation-duration-1000">
-                    <span>{{item.descripcion}}</span>
-                    <h3>$ {{item.costo}}</h3>
-                    <ul>
-                        <li>{{item.estado}}</li>
-                        <li>Aforo: {{item.aforo}} / {{item.reservas}}</li>
-                        <li>Valoración: {{item.valoracion}}</li>
-                        <div class="flex mt-4">
-                            <p-avatar [image]="'data:image/png;base64,'+item.avatarTutor"
-                                      shape="circle"
-                                      class="p-element">
-                            </p-avatar>
-                            <div class="ml-2">
-                                <div class="text-xs font-bold text-white mb-1">{{item.nombreTutor}}</div>
-                                <div class="text-xs flex align-items-center text-white"><i
-                                    class="pi pi-user mr-1 text-xs"></i><span>{{item.sobreMiTutor}}</span></div>
+        <div class="col-12 text-center md:text-left lg:col-12">
+
+            <p-carousel [value]="listClubs"
+                        [numVisible]="4"
+                        [numScroll]="1"
+                        [circular]="true"
+                        [autoplayInterval]="8000"
+                        [responsiveOptions]="responsiveOptions">
+                <ng-template pTemplate="header">
+                    <h5></h5>
+                </ng-template>
+                <ng-template let-item pTemplate="item">
+                    <div [class]="getClassOfIndexListCluvs(item)">
+                        <img height="300px" width="100%" class="border-round-top-2xl" alt="Card"
+                             [src]="'data:image/png;base64,'+item.avatar">
+                        <div class="p-3 flex justify-content-between">
+                            <div>
+                                <h4 class="mb-1">{{ item.nombres }}</h4>
+                                <p [class]="'product-badge'">{{ item.introduccion.length > 100 ? item.introduccion.substring(0, 100).concat('...') : item.introduccion }}</p>
+                            </div>
+                            <p-button styleClass="p-button p-button-lg p-button-warning "><span>ENTRAR</span>
+                            </p-button>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-carousel>
+        </div>
+    </div>
+
+
+    <div id="cluvs" class="landing-features">
+
+        <div class="section-title flex justify-content-evenly relative">
+            <img class="w-2 md:w-1 fadeinleft animation-duration-1000"
+                 src="assets/pages/estrella1.png" alt="star"/>
+            <div class="section-title">
+                <h1>Descubre que te Ofrece Cluv Academy</h1>
+                <span>Los mejores precios para nuestros clientes</span>
+                <span>Precios grupales e individuales</span>
+            </div>
+            <p></p>
+            <img class="w-2 md:w-1 fadeinleft animation-duration-1000 absolute"
+                 style="margin-top: 6rem;margin-right: -80%;"
+                 src="assets/pages/estrella1.png" alt="star"/>
+            <img class="w-3 md:w-3 fadeinleft animation-duration-1000 rotate-45 absolute mascota-right"
+                 src="assets/pages/mascota.png" alt="pet"/>
+        </div>
+        <div class="col-12 text-center md:text-left lg:col-12">
+
+            <p-carousel [value]="listClases"
+                        [numVisible]="4"
+                        [numScroll]="1"
+                        [circular]="true"
+                        [autoplayInterval]="8000"
+                        [responsiveOptions]="responsiveOptions">
+                <ng-template pTemplate="header">
+                    <h5></h5>
+                </ng-template>
+                <ng-template let-item pTemplate="item">
+
+                    <div [class]="getClassOfIndexListClases(item)">
+                        <img height="300px" width="100%" class="border-round-top-2xl" alt="Card"
+                             [src]="'data:image/png;base64,'+item.avatarClase">
+                        <div class="p-2 flex justify-content-between">
+                            <div>
+                                <h4 class="mb-1">{{ item.nombre }}</h4>
+
+                                <div class="flex mt-4 justify-content-between">
+                                    <p-avatar [image]="'data:image/png;base64,'+item.avatarTutor"
+                                              shape="circle"
+                                              class="p-element">
+                                    </p-avatar>
+                                    <div class="ml-4">
+                                        <div class="text-lg font-bold text-black mb-1"><i
+                                            class="pi pi-user mr-1 text-lg"></i>{{ item.nombreTutor }}
+                                        </div>
+                                        <div class="text-lg font-bold text-black mb-1">{{ item.valoracion }} <i
+                                            class="pi pi-star mr-1 text-xl"></i> Calificación
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul>
+                                    <li>Estado: {{ item.estado }}</li>
+                                    <li>N° de Estudiantes: {{ item.aforo }} / {{ item.reservas }}</li>
+                                </ul>
                             </div>
                         </div>
-                    </ul>
-                    <p-button class="btn btn-outline-info"
-                              (click)="selectProduct(item)"
-                              [disabled]="!isLoggedIn">AÑADIR
-                    </p-button>
-                </div>
-            </div>
+
+                        <div class="p-0 flex justify-content-between align-items-center">
+                            <div (click)="selectProduct(item)"
+                                 *ngIf="!isLoggedIn" class="text-white p-3 h-full w-7 cursor-pointer"
+                                 style="background-color: #005E82; border-bottom-left-radius: 10px">
+                                <span>ENTRAR</span>
+
+                            </div>
+                            <div class="w-full text-center">
+                                <h3>$ {{ item.costo }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-carousel>
+
         </div>
     </div>
 
     <div id="contact" class="landing-contact">
         <div class="section-title">
-            <h1>Estas listo para el Cluv ? Únete</h1>
+            <h1 class="text-black">Estas listo para el Cluv ? Únete</h1>
             <span>Solamente enviando un email</span>
         </div>
         <div class="contact-wrapper">
@@ -217,36 +223,49 @@
                         lo antes posible.</h1>
                     <div class="contact-info">
                         <div class="info">
-                            <h2>Horarios</h2>
-                            <p>Lunes - Domingo <br/>
-                                7am - 18pm <br/>
-                                Fines de Semana <br/>
-                                7am - 18pm</p>
-                        </div>
-                        <div class="info">
-                            <h2>Dirección</h2>
-                            <p>Pais. Calle Principal, Calle Secundaria.<br/></p>
+                            <h2>Teléfono:</h2>
+
+                            <h2>Email: </h2>
+
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
+
+        <div class="flex justify-content-evenly pt-5 font-bold text-2xl text-center">
+            <div>
+                <p>Horarios</p>
+                <div class="text-center flex">
+                    <div class="mr-4">
+                        <p>Lunes - Domingo</p>
+                        <p>7am - 18pm </p>
+                    </div>
+                    <div class="ml-4">
+                        <p>Fines de Semana </p>
+                        <p>7am - 18pm</p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p>Dirección</p>
+                <p>Pais. Calle Principal, Calle Secundaria.<br/></p>
+            </div>
         </div>
 
         <div class="landing-footer">
-            <a href="#" class="logo">
-                <img src="assets/pages/logo-cluv-academy.png" alt="logo"/>
-                <h1>Cluv Academy</h1>
+            <a href="#">
+                <app-logo [size]="4"></app-logo>
             </a>
             <div class="social">
-                <a href="#"><i class="pi pi-github"></i></a>
-                <a href="#"><i class="pi pi-twitter"></i></a>
+                <a href="#"><i class="text-6xl pi pi-facebook"></i></a>
+                <a href="#"><i class="text-6xl pi pi-instagram"></i></a>
             </div>
         </div>
 
         <div class="landing-mask"></div>
     </div>
-
 </div>
 
 <p-dialog header="Términos y Condiciones de Cluv Academy" [(visible)]="dialogTerminos" [modal]="true"
@@ -267,3 +286,5 @@
 
 
 </body>
+
+

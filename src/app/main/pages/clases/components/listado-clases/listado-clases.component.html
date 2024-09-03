@@ -1,0 +1,52 @@
+<app-shared-table
+    [list]="listClase"
+    [selectedList]="listSelectClase"
+    [columnsHeader]="columnsHeader"
+    [globalRowFilters]="filterFields"
+    [exportColumns]="exportColumns"
+    [rows]="10"
+    [headerTableType]="0"
+    [rowsPerPageOptions]="rowsPerPageOptions"
+    [responsiveLayout]="'stack'"
+    [titleTable]="'LISTADO CLASES'"
+    [dataKey]="'idClase'"
+    [filters]="true"
+    [sorts]="true"
+    [expExcel]="true"
+    [expPdf]="false"
+    [opciones]="true"
+    [btnEdit]="true"
+    [btnDelete]="false"
+    [chekList]="false"
+    [paginator]="true"
+    [loading]="loading"
+    [autoLayout]="true"
+    [btnMagic]="false"
+    [toolTipBtnMagic]="''"
+    [iconBtnMagic]="''"
+    [disabledBtnMagicByFieldValue]="''"
+    [disabledBtnMagicByFieldName]="''"
+    [classBtnMagic]="''"
+    (emitSelectedDto)="editItem($event)"
+></app-shared-table>
+
+<!--
+<p-sidebar *ngIf="visibleSidebar" [(visible)]="visibleSidebar" [style]="{width: '75%', height:'100%'}"
+           position="right"
+           [transitionOptions]="'200ms'"
+           [closeOnEscape]="false"
+           [showCloseIcon]="true"
+           (onHide)="cargarLista()"
+           [modal]="true"
+>
+
+    <app-editar-clase></app-editar-clase>
+</p-sidebar>
+-->
+
+<p-dialog header="Configuración de Clase" [(visible)]="visibleSidebar" [position]="'center'" [modal]="true" [style]="{width: '95vw', height: '100%'}"
+          [draggable]="false" [resizable]="false" [maximizable]="false" responsive="true"
+          (onHide)="cargarLista()"
+>
+    <app-editar-clase (emitClosePanel)="setEmitItem($event)"></app-editar-clase>
+</p-dialog>

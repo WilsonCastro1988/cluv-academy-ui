@@ -1,0 +1,51 @@
+<div class="card"><span class="text-900 text-xl font-bold mb-4 block">Perfil de Usuario</span>
+    <div class="grid">
+        <div class="col-12 lg:col-2">
+            <div class="flex flex-column align-items-center border-bottom-1 surface-border p-6">
+
+                <div class="avatar-upload">
+                    <div class="avatar-edit">
+                        <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg"
+                               (change)="onFileSelected($event)"/>
+                        <label for="imageUpload"></label>
+                    </div>
+                    <div class="avatar-preview">
+                        <img id="imagePreview" [src]="imgURL" alt="diamond-layout" alt="Avatar Perfil"
+                             class="w-full h-full border-circle shadow-4">
+                    </div>
+                    <div class="col-12  flex justify-content-evenly">
+                        <button pButton pRipple type="button" icon="pi pi-save"
+                                [pTooltip]="'Guardar'"
+                                (click)="actualizarAvatar()"
+                                *ngIf="this.imgURL === '' || this.imgURL !== this.baseimgURL"
+                                tooltipPosition="top"
+                                [class]="'p-button-rounded p-button-outlined p-button-info m-5 w-auto'"></button>
+                        <button pButton pRipple type="button" icon="pi pi-trash"
+                                [pTooltip]="'Cancelar'"
+                                (click)="cancelChangeAvatar()"
+                                *ngIf="this.imgURL === '' || this.imgURL !== this.baseimgURL"
+                                tooltipPosition="top"
+                                [class]="'p-button-rounded p-button-outlined p-button-danger m-5 w-auto'"></button>
+                    </div>
+                </div>
+                <span class="text-900 text-base font-semibold mt-4">{{usuario.nombres}}</span>
+                <span class="text-900 font-semibold mt-4">{{usuario.zonaHoraria}}</span>
+            </div>
+        </div>
+
+
+        <div class="col-12 lg:col-10">
+            <p-tabView>
+                <p-tabPanel header="Datos Personales">
+                    <app-student-personal-info></app-student-personal-info>
+                </p-tabPanel>
+                <p-tabPanel header="Seguridad">
+                    <app-student-security-info></app-student-security-info>
+                </p-tabPanel>
+            </p-tabView>
+
+
+        </div>
+    </div>
+</div>
+

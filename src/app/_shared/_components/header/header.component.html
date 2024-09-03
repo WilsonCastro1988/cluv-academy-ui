@@ -1,0 +1,98 @@
+<header class="{{ headerClass }}" style="background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8268557422969187) 91%, rgba(255,255,255,0) 100%);">
+    <div class="icon-burger-container" (click)="openSidePanel()">
+        <span class="material-symbols-outlined text-4xl"> <i class="pi pi-bars" style="font-size: 2rem"></i>
+ </span>
+    </div>
+
+    <div class="container-logo flex justify-content-center">
+        <app-logo [size]="4"></app-logo>
+    </div>
+
+    <div *ngIf="userLogged" class="userOptions-container flex align-items-center gap-4">
+        <div class="container-relative">
+      <span (click)="openUserDetails('userPorfile')">
+        <p-avatar
+            label="U"
+            shape="circle"
+            [style]="{ 'background-color': 'var(--cian)' }"
+        >
+        </p-avatar>
+      </span>
+
+        </div>
+        <div class="container-relative">
+      <span
+          (click)="openUserDetails('userAccounts')"
+          class="material-symbols-outlined"
+      >group</span
+      >
+
+        </div>
+        <div class="container-relative">
+      <span
+          (click)="openUserDetails('userNotifications')"
+          class="material-symbols-outlined"
+      >
+        notifications
+      </span>
+
+        </div>
+
+        <span (click)="openActivityPanel()" class="material-symbols-outlined">
+      menu_open
+    </span>
+    </div>
+
+    <div class="flex flex-column gap-3 {{ activityPanelClass }}">
+    <span (click)="openActivityPanel()" class="material-symbols-outlined">
+     close
+    </span>
+        <h3 class="text-center">Activity</h3>
+
+        <p-timeline [value]="events">
+            <ng-template pTemplate="opposite" let-event>
+                <span class="cian-circle"></span>
+            </ng-template>
+            <ng-template pTemplate="content" let-event>
+                {{ event.status }}
+            </ng-template>
+        </p-timeline>
+    </div>
+
+    <ul *ngIf="!userLogged"
+        class="nav-links-container text-lg flex align-items-center justify-content-center gap-3"
+    >
+        <div *ngIf="isLandingPage" class="flex">
+            <li (click)="scrollToSection('nosotros')">Nosotros</li>
+            <li (click)="scrollToSection('sensei')">Tutores</li>
+            <li (click)="scrollToSection('clases')">Clases</li>
+            <li (click)="scrollToSection('cluvs')">Cluvs</li>
+            <li (click)="scrollToSection('contact')">Contáctanos</li>
+        </div>
+        <li *ngIf="!isLandingPage" (click)="scrollToSection('#')">Inicio</li>
+        <i class="pi pi-ellipsis-v"></i>
+
+        <li *ngIf="!isLoggedIn" (click)="goToLogindIn()">Inicio Sesión</li>
+        <li *ngIf="isLoggedIn" (click)="goToLogindIn()">DASHBOARD</li>
+
+        <li routerLink="/student-register">Únete al Cluv</li>
+        <li routerLink="/sensei-register" class="mr-4">Conviértete en Profesor</li>
+    </ul>
+
+</header>
+
+<aside class="{{ sidePanelClass }}">
+  <span (click)="openSidePanel()" class="material-symbols-outlined">
+    <i class="pi pi-times" style="font-size: 2rem"></i>
+  </span>
+    <h3 class="text-center">Menu</h3>
+    <ul class="flex flex-column">
+        <li class="flex justify-content-center" (click)="scrollToSection('nosotros');this.openSidePanel()">NOSOTROS</li>
+        <li class="flex justify-content-center" (click)="scrollToSection('clases');this.openSidePanel()">CLASES</li>
+        <li class="flex justify-content-center" (click)="scrollToSection('sensei');this.openSidePanel()">SENSEIS</li>
+        <li class="flex justify-content-center" (click)="scrollToSection('cluvs');this.openSidePanel()">CLUVs</li>
+        <li class="flex justify-content-center" (click)="scrollToSection('contact');this.openSidePanel()">CONTACTANOS</li>
+        <li class="flex justify-content-center" routerLink="/authentication/login" (click)="openSidePanel()">INICIAR SESION</li>
+        <li class="flex justify-content-center" routerLink="/student-register" (click)="openSidePanel()">UNETE AL CLUB</li>
+    </ul>
+</aside>

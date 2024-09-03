@@ -1,0 +1,109 @@
+<form [formGroup]="initialForm">
+    <div class="grid formgrid p-fluid">
+        <div class="field mb-1 col-12">
+            <label class="font-medium text-900">Username</label>
+        </div>
+        <div class="field mb-4 col-12 md:col-6 md:mb-12 p-inputgroup">
+            <input formControlName="nombreUsuario" type="text" pinputtext=""
+                   class="p-inputtext p-component p-element">
+            <button type="button" pButton icon="pi pi-user-edit" styleClass="p-button-warn"
+                    (click)="panelUserName = true"
+            ></button>
+        </div>
+
+        <div class="field mb-1 col-12 ">
+            <label for="clave" class="font-medium text-900">Clave</label>
+        </div>
+        <div class="field mb-4 col-12 col-12 md:col-6 md:mb-6 p-inputgroup">
+            <input id="clave" formControlName="clave" type="password" pinputtext=""
+                   class="p-inputtext p-component p-element">
+            <button type="button" pButton icon="pi pi-pencil" styleClass="p-button-warn"
+                    (click)="panelPassword = true"
+            ></button>
+        </div>
+    </div>
+</form>
+
+<p-dialog header="Actualizar Nombre de Usuario" [(visible)]="panelUserName" modal="true" responsive="true">
+
+    <form [formGroup]="usuarioForm">
+        <div class="grid formgrid p-fluid mt-5">
+            <div class="field mb-1 col-12">
+                <label class="font-medium text-900">Username</label>
+            </div>
+            <div class="field mb-4 col-12 md:col-12 md:mb-12 p-inputgroup">
+                <input formControlName="nombreUsuario" type="text" pinputtext=""
+                       class="p-inputtext p-component p-element">
+            </div>
+
+            <div class="field mb-1 col-12 ">
+                <label for="clave" class="font-medium text-900">Clave</label>
+            </div>
+            <div class="field mb-4 col-12 col-12 md:col-12 md:mb-6 p-inputgroup">
+                <input formControlName="clave" type="password" pinputtext=""
+                       class="p-inputtext p-component p-element">
+            </div>
+            <div class="field mb-4 col-12 col-12 md:col-12 md:mb-6 p-inputgroup">
+                <button type="button" pButton pRipple icon="pi pi-send"
+                        [class]="'p-button-rounded p-button-info w-auto'"
+                        label="Actualizar"
+                        (click)="actualizarNombreUsuario()"
+                ></button>
+            </div>
+        </div>
+    </form>
+</p-dialog>
+
+
+<p-dialog header="Cambio de Clave" [(visible)]="panelPassword" modal="true" responsive="true">
+
+    <form [formGroup]="passwordForm">
+        <div class="grid formgrid p-fluid mt-5">
+            <div class="field mb-1 col-12">
+                <label class="font-medium text-900">Antigua Clave</label>
+            </div>
+            <div class="field mb-4 col-12 md:col-12 md:mb-12 p-inputgroup">
+                <input formControlName="claveAnterior" type="password" pinputtext=""
+                       class="p-inputtext p-component p-element">
+            </div>
+
+            <div class="field mb-1 col-12 ">
+                <label for="clave" class="font-medium text-900">Clave</label>
+            </div>
+            <div class="field mb-4 col-12 col-12 md:col-12 md:mb-6 p-inputgroup">
+                <input formControlName="clave" type="password" pinputtext=""
+                       class="p-inputtext p-component p-element">
+            </div>
+
+            <div class="field mb-1 col-12 ">
+                <label for="clave" class="font-medium text-900">Confirmar Clave</label>
+            </div>
+            <div class="field mb-4 col-12 col-12 md:col-12 md:mb-4 p-inputgroup">
+                <input formControlName="claveConfirmada" type="password" pinputtext=""
+                       class="p-inputtext p-component p-element">
+            </div>
+            <div class="col-12 lg:col-12 p-4 border-round-xl bg-red-50 md:mb-4">
+                <div class="border-top-3 border-pink-600"></div>
+                <div class="text-pink-600 font-medium my-2 text-2xl"><i class="pi pi-exclamation-triangle text-2xl mr-4"></i>Cambio de Clave</div>
+                <div class="text-900 font-medium text-xl line-height-3 mb-4">Al cambiar de clave, el sistema se cerrará automáticamente
+                </div>
+                <div class="font-sm text-700 line-height-3"> Deberá iniciar sesión nuevamente con su nueva clave.
+                </div>
+            </div>
+            <div class="field mb-4 col-12 col-12 md:col-6 md:mb-6 p-inputgroup">
+                <button type="button" pButton pRipple icon="pi pi-send"
+                        [class]="'p-button-rounded p-button-info w-auto'"
+                        label="Actualizar"
+                        (click)="actualizarPassword()"
+                ></button>
+            </div>
+        </div>
+    </form>
+</p-dialog>
+
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+<p-blockUI [blocked]="blockingui">
+    <p-progressSpinner styleClass="w-4rem h-4rem bluegray-600" strokeWidth="8" animationDuration=".5s">
+    </p-progressSpinner>
+</p-blockUI>

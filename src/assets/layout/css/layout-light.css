@@ -374,8 +374,9 @@ body {
     color: #495057;
     padding: 0;
     margin: 0;
+    height: 100%;
     min-height: 100%;
-    background: #f8f9fa;
+    background: #ffffff;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -3250,6 +3251,13 @@ a {
     justify-content: space-between;
     -ms-flex-direction: column;
     flex-direction: column;
+
+    background-color: rgba(255, 255, 255, 0.5); /* Fondo blanco con 80% de opacidad */
+    border-radius: 8px;
+    box-shadow: 10px 0px 15px rgba(0, 0, 0, 0.3); /* Sombra al lado derecho */
+
+
+
 }
 
 .login-body .login-wrapper .login-panel .logo {
@@ -3377,11 +3385,31 @@ a {
 
 @media (min-width: 993px) {
     .login-body .login-wrapper .login-image {
-        background-size: cover;
+        background-size: 100% 100%;
         background-repeat: no-repeat;
-        background-image: url("../../pages/zyro-image.jpg");
+        background-image: url("../../pages/login_wallpaper_right.png");
     }
 }
+
+.login-image {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../pages/login_wallpaper_right.png");
+}
+
+.register-image-student{
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../img/registro_estudiante.png");
+}
+
+.register-image-tutor{
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-image: url("../../img/registro_profesores.png");
+}
+
+
 
 @media (max-width: 992px) {
     .login-body .login-wrapper .login-panel {

@@ -4,6 +4,7 @@ import * as CryptoJS from 'crypto-js';
 
 const TOKEN_KEY = 'AuthToken';
 const CURRENTUSER_KEY = 'CurrentUser';
+const ALTER_CURRENTUSER_KEY = 'AlterCurrentUser';
 const REFRESHTOKEN_KEY = 'refreshToken';
 const ROLES_KEY = 'roles';
 const RESPONSEAUTH_KEY = 'ResponseAuth'
@@ -50,16 +51,23 @@ export class TokenService {
     }
 
     public getCurrentUser(): string {
-        //let currentUser = this.desencrypt(sessionStorage.getItem(CURRENTUSER_KEY));
         let currentUser = sessionStorage.getItem(CURRENTUSER_KEY);
         return currentUser;
     }
 
     public setCurrentUser(socialUser: string): void {
-//        let socialUserEncript = this.encrypt(socialUser);
         let socialUserEncript = socialUser;
-
         sessionStorage.setItem(CURRENTUSER_KEY, socialUserEncript);
+    }
+
+    public getAlterCurrentUser(): string {
+        let alterCurrentUser = sessionStorage.getItem(ALTER_CURRENTUSER_KEY);
+        return alterCurrentUser;
+    }
+
+    public setAlterCurrentUser(socialUser: string): void {
+        let socialUserEncript = socialUser;
+        sessionStorage.setItem(ALTER_CURRENTUSER_KEY, socialUserEncript);
     }
 
     encrypt(data) {

@@ -1,0 +1,84 @@
+<p-toolbar
+    styleClass="background-header-gradient p-mb-1 border-round border-5 w-full h-4rem bg-blue-900 text-white font-bold flex justify-content-between text-lg">
+    <ng-template pTemplate="left">
+        <span class="ml-3">
+            📚 ESTUDIANTES EN CLUV ACADEMY 📚
+    </span>
+    </ng-template>
+    <ng-template pTemplate="right">
+        <button type="button" pButton pRipple icon="pi pi-plus"
+                label="Agregar Estudiante" (click)="visibleSidebarAddStudent = true"
+                class="p-button-info " pTooltip="Agregar Estudiante"
+                tooltipPosition="bottom"></button>
+    </ng-template>
+</p-toolbar>
+
+<app-shared-table
+    [list]="listStudent"
+    [selectedList]="selectListStudent"
+    [columnsHeader]="columnsHeader"
+    [globalRowFilters]="filterFields"
+    [exportColumns]="exportColumns"
+    [rows]="10"
+    [headerTableType]="0"
+    [rowsPerPageOptions]="rowsPerPageOptions"
+    [responsiveLayout]="'stack'"
+    [titleTable]="'ESTUDIANTES'"
+    [dataKey]="'idTutor'"
+    [filters]="true"
+    [sorts]="true"
+    [expExcel]="true"
+    [expPdf]="false"
+    [opciones]="true"
+    [btnEdit]="true"
+    [btnDelete]="false"
+    [chekList]="false"
+    [paginator]="true"
+    [loading]="loading"
+    [autoLayout]="true"
+    [btnMagic]="false"
+    [classBtnMagic]="'p-button-rounded p-button-success p-button-text p-button-sm'"
+    [iconBtnMagic]="'pi pi-power-off'"
+    [toolTipBtnMagic]="'Aprobar Postulación'"
+    (emitSelectedDto)="editItem($event)"
+></app-shared-table>
+
+
+<p-sidebar [(visible)]="visibleSidebar" [style]="{width: '80%', padding:'5px !important'}"
+           position="right"
+           [closeOnEscape]="false"
+           [showCloseIcon]="true"
+           (onHide)="llenarListadoStudents()"
+           [modal]="true">
+
+    <div class="align-items-center flex justify-content-between bg-blue-900 w-full text-50 p-3">
+        <i class="text-1xl mr-2 {{student.idEstudiante != undefined ? 'pi pi-pencil' : 'pi pi-plus'}}"></i>
+        <span class="text-2xl  ml-1 md:inline font-semibold ">
+                {{student.idEstudiante != undefined ? 'Verificación Postulante' : 'Verificación Postulante'}}
+            </span>
+        <i class="pi pi-times mb-3 p-panel-icons-end mr-2" (click)="visibleSidebar = false;"></i>
+    </div>
+
+    <app-student-principal-info></app-student-principal-info>
+</p-sidebar>
+
+
+
+<p-sidebar [(visible)]="visibleSidebarAddStudent" [style]="{width: '50%', height:'100%',padding:'4px'}"
+           position="right"
+           [transitionOptions]="'200ms'"
+           [closeOnEscape]="false"
+           [showCloseIcon]="true"
+           [modal]="true">
+    <app-add-student></app-add-student>
+
+</p-sidebar>
+
+
+<!-- inicio seccion generica -->
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+<p-blockUI [blocked]="blockingui">
+    <p-progressSpinner styleClass="w-4rem h-4rem bluegray-600" strokeWidth="8" animationDuration=".5s">
+    </p-progressSpinner>
+</p-blockUI>
+<!-- fin seccion generica -->

@@ -1,0 +1,135 @@
+<form [formGroup]="form">
+    <p-panel [header]="this.f.idClub.value ? 'Actualizar Registro' : 'Nuevo Registro'" [toggleable]="false">
+        <ng-template pTemplate="footer">
+            <div class="flex justify-content-center flex-wrap card-container yellow-container">
+                <button pButton pRipple type="button" icon="pi pi-send" (click)="guardar()"
+                        [pTooltip]="this.f.idClub.value ? 'Actualizar' : 'Guardar'"
+                        tooltipPosition="top"
+                        [disabled]="this.form.invalid"
+                        [label]="this.f.idClub.value ? 'Actualizar' : 'Guardar'"
+                        [class]="this.f.idClub.value ? 'p-button-rounded p-button-success m-2' : 'p-button-rounded p-button-info m-2'"></button>
+                <button pButton pRipple type="button" icon="pi pi-times" (click)="cancelar()"
+                        pTooltip="Cancelar"
+                        label="Cancelar"
+                        tooltipPosition="top"
+                        class="p-button-rounded p-button-danger m-2"></button>
+            </div>
+        </ng-template>
+        <div class="p-fluid p-formgrid grid">
+            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-nombreClub" type="text" required="true"
+                                       formControlName="nombreClub">
+                                <label for="ftxt-nombreClub">* Nombre Club</label>
+                              </span>
+            </div>
+
+            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+
+                <div class="avatar-upload">
+                    <div class="avatar-edit">
+                        <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg"
+                               (change)="onFileSelected($event)"/>
+                        <label for="imageUpload"></label>
+                    </div>
+                    <div class="avatar-preview">
+                        <img id="imagePreview" [src]="imgURL" alt="diamond-layout" alt="Avatar Perfil"
+                             class="w-full h-full border-circle shadow-4">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-descripcionClub" type="text" required="true"
+                                       formControlName="descripcionClub">
+                                <label for="ftxt-descripcionClub">* Descripción</label>
+                              </span>
+            </div>
+
+            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-introduccionClub" type="text" required="true"
+                                       formControlName="introduccionClub">
+                                <label for="ftxt-introduccionClub">* Intrucción Club</label>
+                              </span>
+            </div>
+
+            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-objetivosClub" type="text" required="true"
+                                       formControlName="objetivosClub">
+                                <label for="ftxt-objetivosClub">* Objetivos</label>
+                              </span>
+            </div>
+
+            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3 ">
+                              <span class="p-float-label">
+                    <p-dropdown [options]="listReconocimientoClub"
+                                formControlName="idReconocimientoClubDto"
+                                placeholder="Por favor seleccione"
+                                id="ftxt-idReconocimientoClubDto"
+                                [filter]="true"
+                                filterBy="nombreReconocimientoClub"
+                                optionLabel="nombreReconocimientoClub"
+                                appendTo="body"
+                                [showClear]="true"></p-dropdown>
+                                   <label for="ftxt-idReconocimientoClubDto">* Tipo Reconocimiento </label>
+                             </span>
+            </div>
+
+            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                <label for="ftxt-activoClub" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
+                <span class="p-float-label">
+                                <p-inputSwitch id="ftxt-activoClub"
+                                               formControlName="activoClub"></p-inputSwitch>
+                </span>
+            </div>
+
+        </div>
+
+    </p-panel>
+</form>
+
+<p-divider></p-divider>
+
+<app-shared-table
+    [list]="listClub"
+    [selectedList]="listSelectClub"
+    [columnsHeader]="columnsHeader"
+    [globalRowFilters]="filterFields"
+    [exportColumns]="exportColumns"
+    [rows]="10"
+    [headerTableType]="0"
+    [rowsPerPageOptions]="rowsPerPageOptions"
+    [responsiveLayout]="'stack'"
+    [titleTable]="'LISTADO Reconocimientos'"
+    [dataKey]="'idReconocimientoClub'"
+    [filters]="true"
+    [sorts]="true"
+    [expExcel]="true"
+    [expPdf]="false"
+    [opciones]="true"
+    [btnEdit]="true"
+    [btnDelete]="false"
+    [chekList]="false"
+    [paginator]="true"
+    [loading]="loading"
+    [autoLayout]="true"
+    [btnMagic]="false"
+    [toolTipBtnMagic]="''"
+    [iconBtnMagic]="''"
+    [disabledBtnMagicByFieldValue]="''"
+    [disabledBtnMagicByFieldName]="''"
+    [classBtnMagic]="''"
+    (emitSelectedDto)="editItem($event)"
+></app-shared-table>
+
+<!-- inicio seccion generica -->
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+<p-blockUI [blocked]="blockingui">
+    <p-progressSpinner styleClass="w-4rem h-4rem bluegray-600" strokeWidth="8" animationDuration=".5s">
+    </p-progressSpinner>
+</p-blockUI>
+<!-- fin seccion generica -->

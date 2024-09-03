@@ -1,0 +1,80 @@
+<form [formGroup]="form">
+    <p-panel [header]="this.f.idInfoDestrezasTutor.value ? 'Actualizar Registro' : 'Nuevo Registro'" [toggleable]="false">
+        <ng-template pTemplate="footer">
+            <div class="flex justify-content-center flex-wrap card-container yellow-container">
+                <button pButton pRipple type="button" icon="pi pi-send" (click)="guardar()"
+                        [pTooltip]="this.f.idInfoDestrezasTutor.value ? 'Actualizar' : 'Guardar'"
+                        tooltipPosition="top"
+                        [disabled]="this.form.invalid"
+                        [label]="this.f.idInfoDestrezasTutor.value ? 'Actualizar' : 'Guardar'"
+                        [class]="this.f.idInfoDestrezasTutor.value ? 'p-button-rounded p-button-success m-2' : 'p-button-rounded p-button-info m-2'"></button>
+                <button pButton pRipple type="button" icon="pi pi-times" (click)="cancelar()"
+                        pTooltip="Cancelar"
+                        label="Cancelar"
+                        tooltipPosition="top"
+                        class="p-button-rounded p-button-danger m-2"></button>
+            </div>
+        </ng-template>
+        <div class="p-fluid p-formgrid grid">
+            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-nombreInfoDestrezasTutor" type="text" required="true"
+                                       formControlName="nombreInfoDestrezasTutor">
+                                <label for="ftxt-nombreInfoDestrezasTutor">* Destreza</label>
+                              </span>
+            </div>
+
+            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                <label for="ftxt-activoInfoDestrezasTutor" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
+                <span class="p-float-label">
+                                <p-inputSwitch id="ftxt-activoInfoDestrezasTutor"
+                                               formControlName="activoInfoDestrezasTutor"></p-inputSwitch>
+                </span>
+            </div>
+
+        </div>
+
+    </p-panel>
+</form>
+
+<p-divider></p-divider>
+
+<app-shared-table
+    [list]="listInfoSkillsTutor"
+    [selectedList]="listSelectInfoSkillsTutor"
+    [columnsHeader]="columnsHeader"
+    [globalRowFilters]="filterFields"
+    [exportColumns]="exportColumns"
+    [rows]="10"
+    [headerTableType]="0"
+    [rowsPerPageOptions]="rowsPerPageOptions"
+    [responsiveLayout]="'stack'"
+    [titleTable]="'LISTADO SERVICIOS'"
+    [dataKey]="'idServicio'"
+    [filters]="true"
+    [sorts]="true"
+    [expExcel]="true"
+    [expPdf]="false"
+    [opciones]="true"
+    [btnEdit]="true"
+    [btnDelete]="false"
+    [chekList]="false"
+    [paginator]="true"
+    [loading]="loading"
+    [autoLayout]="true"
+    [btnMagic]="false"
+    [toolTipBtnMagic]="''"
+    [iconBtnMagic]="''"
+    [disabledBtnMagicByFieldValue]="''"
+    [disabledBtnMagicByFieldName]="''"
+    [classBtnMagic]="''"
+    (emitSelectedDto)="editItem($event)"
+></app-shared-table>
+
+<!-- inicio seccion generica -->
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+<p-blockUI [blocked]="blockingui">
+    <p-progressSpinner styleClass="w-4rem h-4rem bluegray-600" strokeWidth="8" animationDuration=".5s">
+    </p-progressSpinner>
+</p-blockUI>
+<!-- fin seccion generica -->

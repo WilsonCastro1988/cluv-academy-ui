@@ -86,7 +86,6 @@ export class InvoiceComponent implements OnInit {
             let fecha = new Date(this.clase.fechaInicioClase)
             this.numOrden = fecha.getFullYear() + '' + fecha.getMonth() + '' + fecha.getDate() + '' + this.factura.idFactura + '' + this.carrito.idCarritoCompras + '' + this.pago.idPago
         } else {
-            console.log('DATOS FAIL: ')
             this.appService.irAProductList()
         }
     }

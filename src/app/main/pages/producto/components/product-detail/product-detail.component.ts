@@ -38,8 +38,6 @@ export class ProductDetailComponent implements OnInit {
     }
 
     iniciarForms() {
-        console.log('EJECUTA INICIA FORMS')
-
         this.formEvidencia = this.formBuilder.group({
             idEvidenciasInv: new FormControl('',),
             idClase: new FormControl('',),
@@ -63,8 +61,6 @@ export class ProductDetailComponent implements OnInit {
 
 
     verificarEmiterMovimiento() {
-        console.log('EJECUTA VERIFICA EMITER' + this.stepService.data.producto)
-
         this.apiService.endpoint = accessType.typePrivate + productEndpoints.findById
 
         /*this.apiService.getById(1).subscribe({
@@ -97,10 +93,6 @@ export class ProductDetailComponent implements OnInit {
 
             this.formEvidencia = this.formBuilder.group(this.claseLanding);
             this.formEvidencia.controls.avatarClase.setValue(this.claseLanding.avatarClase)
-
-            console.log('DATOS ENTRADA: ', this.formEvidencia.value)
-
-
         } else {
             this.claseLanding = new ClaseLandingDto();
             this.appService.irAProductList()

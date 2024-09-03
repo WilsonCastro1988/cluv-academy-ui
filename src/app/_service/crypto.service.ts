@@ -25,12 +25,10 @@ export class CryptoService {
         //var encryptedData = CryptoJS.AES.encrypt(JSON.stringify(data), environment.publicpem);
         var encryptedData = CryptoJS.AES.encrypt(JSON.stringify(data), environment.publicpem).toString();
 
-        console.log('encrypt data', encryptedData)
 
         const decrypted = CryptoJS.AES.decrypt(encryptedData, environment.publicpem);
         const decriptedOriginal = decrypted.toString(CryptoJS.enc.Utf8);
 
-        console.log('desencryt data', decriptedOriginal)
         return encryptedData
     }
 

@@ -11,6 +11,7 @@ import {DialogModule} from "primeng/dialog";
 import {AvatarModule} from "primeng/avatar";
 import {CarouselModule} from "primeng/carousel";
 import {PrimengModule} from "../../../primeng/primeng.module";
+import {PagesModule} from "../pages.module";
 
 const routes: Routes = [
     {
@@ -31,7 +32,8 @@ const routes: Routes = [
         ReactiveFormsModule,
         NgOptimizedImage,
 
-        PrimengModule
+        PrimengModule,
+        PagesModule
 
     ]
 })

@@ -52,8 +52,6 @@ export class ProductCheckoutComponent implements OnInit {
     }
 
     iniciarForms() {
-        console.log('EJECUTA INICIA FORMS')
-
         this.form = this.formBuilder.group({
             correo: new FormControl('', Validators.compose([Validators.required, customEmailValidator])),
             nombre: new FormControl('', [Validators.required]),
@@ -126,7 +124,6 @@ export class ProductCheckoutComponent implements OnInit {
             this.f.descuento.setValue(this.clase.descuentoClase == 0 ? '' : this.clase.descuentoClase)
             this.materia = this.stepService.data.materia
         } else {
-            console.log('DATOS FAIL: ')
             this.appService.irAProductList()
         }
     }

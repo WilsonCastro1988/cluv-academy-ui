@@ -1,56 +1,59 @@
-<div class="flex h-full" #pnl>
-    <div class="w-full lg:w-12 h-full text-center px-6 py-6 flex flex-column justify-content-between">
-        <div class="flex flex-column align-items-center gap-4 ">
-            <img alt="diamond-layout" class="logo" src="assets/pages/logo-cluv-academy.png" width="10%">
-            <div ><h2>Únete al Cluv</h2>
+<app-header></app-header>
+
+<div class="login-body h-full register-image-tutor" #pnl>
+    <div class="login-wrapper">
+        <div class="login-panel w-12 md:w-6">
+
+            <div class="mt-8"><h2>Conviértete en Profesor</h2>
             </div>
             <form [formGroup]="usuarioForm" (ngSubmit)="guardarEstudiante()" class="w-10 p-fluid p-formgrid grid">
-                <!-- ... (campos del formulario) ... -->
-                <div class="p-field col-12 md:col-12 md:mb-12 mb-0 px-3">
-                    <input id="nombreUsuario" type="text"
-                           formControlName="nombreUsuario" pInputText
-                           placeholder="Nombre Usuario"/>
+                <div class="field col-12 md:col-12 md:mb-12 mb-0 px-3 ">
+                    <span class="p-float-label ">
+                        <input id="nombres" type="text" formControlName="nombres" pInputText/>
+                        <label style="top:35%" for="nombres">Nombres Completos</label>
+                    </span>
+                </div>
+
+                <div class="field col-12 md:col-12 md:mb-12 mb-0 px-3 ">
+                    <span class="p-float-label ">
+                        <input id="nombreUsuario" type="text" formControlName="nombreUsuario" pInputText/>
+                        <label style="top:35%" for="nombreUsuario">Nombre Usuario</label>
+                    </span>
+                </div>
+
+                <div class="field col-12 md:col-12 md:mb-12 mb-0 px-3 ">
+                    <span class="p-float-label ">
+                        <input id="direccion" type="text" formControlName="direccion" pInputText/>
+                        <label style="top:35%" for="direccion">Dirección</label>
+                    </span>
+                </div>
+
+                <div class="field col-12 md:col-12 md:mb-12 mb-0 px-3 ">
+                    <span class="p-float-label ">
+                        <input id="emailPersonal" type="text" formControlName="emailPersonal" pInputText/>
+                        <label style="top:35%" for="emailPersonal">Correo electrónico</label>
+                    </span>
                 </div>
 
                 <div class="p-field col-12 md:col-12 md:mb-12 mb-0 px-3">
-                    <p-password  formControlName="clave" [toggleMask]="true" ></p-password>
+                    <span class="p-float-label">
+                        <p-password inputId="password" formControlName="clave" [toggleMask]="true"></p-password>
+                        <label style="background-color: transparent" for="password">Contraseña</label>
+                    </span>
+                </div>
+                <div class="p-field col-12 md:col-12 md:mb-12 mb-0 px-3">
+                    <span class="p-float-label">
+                        <p-password inputId="password1" [(ngModel)]="passwordVerificacion" [ngModelOptions]="{standalone: true}" [toggleMask]="true"></p-password>
+                        <label style="background-color: transparent" for="password1">Verificar Contraseña</label>
+                    </span>
                 </div>
 
-                <div class="p-field col-12 md:col-12 md:mb-12 mb-0 px-3">
-                    <input id="cedula" type="text" formControlName="cedula" pInputText
-                           placeholder="Dni"/>
-                </div>
-
-                <div class="p-field col-12 md:col-12 md:mb-12 mb-0 px-3">
-                    <input id="nombres" type="text" formControlName="nombres" pInputText
-                           placeholder="Nombres Completos"/>
-                </div>
-
-                <div class="p-field col-12 md:col-12 md:mb-12 mb-0 px-3">
-                    <input id="direccion" type="text" formControlName="direccion" pInputText
-                           placeholder="Dirección"/>
-                </div>
-
-                <div class="p-field col-12 md:col-12 md:mb-12 mb-0 px-3">
-                    <input id="celular" type="text" formControlName="celular" pInputText
-                           placeholder="Celular"/>
-                </div>
-
-                <div class="p-field col-12 md:col-12 md:mb-12 mb-0 px-3">
-                    <input id="emailPersonal" type="text" formControlName="emailPersonal" pInputText
-                           placeholder="Correo electrónico"/>
-                </div>
-
-                <div class="p-field col-12 md:col-12 md:mb-12 mb-0 px-3">
-                    <input id="activo" type="file" pInputText
-                           (change)="onFileSelected($event)"
-                           placeholder="Nombres Completos"/>
-                </div>
 
                 <div class="p-field col-12 md:col-12 md:mb-2 mb-0 px-3 p-inputgroup form-group mt-3">
                     <div class="flex align-items-center justify-content-between">
                         <div class="flex align-items-center ml-2">
-                            <p-checkbox id="rememberme1" [(ngModel)]="terminos" [binary]="true" [ngModelOptions]="{standalone: true}"></p-checkbox>
+                            <p-checkbox id="rememberme1" [(ngModel)]="terminos" [binary]="true"
+                                        [ngModelOptions]="{standalone: true}"></p-checkbox>
                             <label for="rememberme1" class="ml-2 text-900">He leído y acepto los términos y
                                 condiciones.
                                 <a (click)="verCondiciones()"
@@ -63,26 +66,21 @@
                 </div>
 
                 <!-- ... (campos del formulario) ... -->
+                <button [disabled]="!this.usuarioForm.valid || !terminos" pButton type="submit"
+                        class="w-full text-center submit-button" label="REGISTRARSE">
 
-                <button [disabled]="!this.usuarioForm.valid || !terminos" pButton type="submit" class="w-full text-center submit-button">
-                    REGISTRARSE
                 </button>
-
                 <!-- ... (campos del formulario) ... -->
             </form>
-            <span class="font-semibold text-color-secondary">Ya tienes cuenta ? <a
+            <span class="font-semibold text-color-secondary mt-6">¿ Ya tienes uan cuenta ? <a
                 [routerLink]="'/authentication/login'"
-                class="font-semibold cursor-pointer primary-color">Login</a></span>
-        </div>
-        <p class="text-color-secondary font-semibold">Algún problema? <a href="#" class="primary-color">Click aquí</a> y
-            te ayudaremos.</p></div>
-    <div
-        class="w-8 hidden lg:flex flex-column justify-content-between align-items-center px-6 py-6 bg-cover bg-norepeat"
-        style="background-image: url('assets/img/background-orange.jpg');">
-        <div class="mt-auto mb-auto"><span class="block text-blue-600 text-7xl font-semibold">Create a<br>Diamond<br>Account</span><span
-            class="block text-blue-600 text-3xl mt-4">Lorem ipsum dolor sit amet, consectetur<br> adipiscing elit. Donec posuere velit nec enim<br> sodales, nec placerat erat tincidunt. </span>
-        </div>
+                class="font-semibold cursor-pointer primary-color">Inisia Sesión</a></span>
+
+            <p class="text-color-secondary font-semibold">¿ Algún problema ? <a href="#" class="primary-color">Click
+                aquí</a> y permitanos ayudarle</p></div>
+
     </div>
+
 
 </div>
 

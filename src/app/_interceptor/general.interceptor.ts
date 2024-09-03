@@ -1,16 +1,19 @@
 import {Injectable} from '@angular/core';
 import {
-    HttpRequest,
-    HttpHandler,
+    HTTP_INTERCEPTORS,
+    HttpErrorResponse,
     HttpEvent,
+    HttpHandler,
     HttpInterceptor,
-    HTTP_INTERCEPTORS, HttpErrorResponse, HttpParams
+    HttpParams,
+    HttpRequest
 } from '@angular/common/http';
 import {BehaviorSubject, Observable, switchMap, take, throwError} from 'rxjs';
 import {catchError, filter} from 'rxjs/operators';
 import {AppService} from '../_service/app.service';
 import {TokenService} from '../_service/token.service';
 import {EncryptDecryptService} from "../_service/encryptdecryptservice.service";
+import {Router} from "@angular/router";
 
 const TOKEN_HEADER_KEY = 'Authorization';
 
@@ -20,73 +23,83 @@ export class GeneralInterceptor implements HttpInterceptor {
     private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
     constructor(private tokenService: TokenService,
+                private router: Router,
                 private appService: AppService,
                 private encryptDecryptService: EncryptDecryptService) {
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
+        if (!this.appService.isAuthenticated() && !request.url.includes('api/auth/signin')) {
+            this.tokenService.logOut();
+            this.router.navigate(['cluv/landing']).then(() => {
+            })
+        }
+
         let authReq = request;
+
         const token = this.tokenService.getToken();
+
         if (token != null) {
             authReq = this.addTokenHeader(request, token);
         }
 
         //TODO: descomentar para encriptacion
 
-/*
-                if (authReq.method == "GET") {
-                    if (authReq.url.indexOf("?") > 0) {
-                        let encriptURL = authReq.url.substr(0, authReq.url.indexOf("?") + 1) + this.encryptDecryptService.encryptUsingAES256(authReq.url.substr(authReq.url.indexOf("?") + 1, authReq.url.length));
-                        const cloneReq = authReq.clone({
-                            url: encriptURL
-                        });
+        /*
+                        if (authReq.method == "GET") {
+                            if (authReq.url.indexOf("?") > 0) {
+                                let encriptURL = authReq.url.substr(0, authReq.url.indexOf("?") + 1) + this.encryptDecryptService.encryptUsingAES256(authReq.url.substr(authReq.url.indexOf("?") + 1, authReq.url.length));
+                                const cloneReq = authReq.clone({
+                                    url: encriptURL
+                                });
 
-                        console.log('GET PARAMS', cloneReq)
+                                console.log('GET PARAMS', cloneReq)
 
 
-                        return next.handle(cloneReq).pipe(catchError(error => {
-                            if (error instanceof HttpErrorResponse && !authReq.url.includes('api/auth/signin') && error.status === 401) {
-                                return this.handle401Error(authReq, next);
+                                return next.handle(cloneReq).pipe(catchError(error => {
+                                    if (error instanceof HttpErrorResponse && !authReq.url.includes('api/auth/signin') && error.status === 401) {
+                                        return this.handle401Error(authReq, next);
+                                    }
+                                    return throwError(error);
+                                }));
                             }
-                            return throwError(error);
-                        }));
-                    }
-                    return next.handle(authReq);
-                } else if (authReq.method == "POST") {
-                    if (authReq.body || authReq.body.length > 0) {
-                        const cloneReq = authReq.clone({
-                            body: this.encryptDecryptService.encryptUsingAES256(authReq.body)
-                        });
+                            return next.handle(authReq);
+                        } else if (authReq.method == "POST") {
+                            if (authReq.body || authReq.body.length > 0) {
+                                const cloneReq = authReq.clone({
+                                    body: this.encryptDecryptService.encryptUsingAES256(authReq.body)
+                                });
 
-                        console.log('POST BODY', cloneReq)
+                                console.log('POST BODY', cloneReq)
 
-                        return next.handle(cloneReq).pipe(catchError(error => {
-                            if (error instanceof HttpErrorResponse && !authReq.url.includes('api/auth/signin') && error.status === 401) {
-                                return this.handle401Error(authReq, next);
+                                return next.handle(cloneReq).pipe(catchError(error => {
+                                    if (error instanceof HttpErrorResponse && !authReq.url.includes('api/auth/signin') && error.status === 401) {
+                                        return this.handle401Error(authReq, next);
+                                    }
+                                    return throwError(error);
+                                }));
                             }
-                            return throwError(error);
-                        }));
-                    }
-                    let data = authReq.body as FormData;
-                    return next.handle(authReq).pipe(catchError(error => {
-                        if (error instanceof HttpErrorResponse && !authReq.url.includes('api/auth/signin') && error.status === 401) {
-                            return this.handle401Error(authReq, next);
+                            let data = authReq.body as FormData;
+                            return next.handle(authReq).pipe(catchError(error => {
+                                if (error instanceof HttpErrorResponse && !authReq.url.includes('api/auth/signin') && error.status === 401) {
+                                    return this.handle401Error(authReq, next);
+                                }
+                                return throwError(error);
+                            }));
                         }
-                        return throwError(error);
-                    }));
-                }
 
 
-*/
-
+        */
 
 
         return next.handle(authReq).pipe(catchError(error => {
             if (error instanceof HttpErrorResponse && !authReq.url.includes('api/auth/signin') && error.status === 401) {
                 return this.handle401Error(authReq, next);
+            } else {
+                this.appService.logout();
+                return throwError(error);
             }
-            return throwError(error);
         }));
     }
 

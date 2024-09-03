@@ -1,26 +1,9 @@
-
-
-const recetaInsumo = {
-    buscarRecetaInsumoPorIdServicio: 'buscarRecetaInsumoPorIdServicio/',
-    buscarRecetaInsumoPorIdServicios: 'buscarRecetaInsumoPorIdServicios',
-}
-
-const personalEjecucion = {
-    buscarPersonalEjecucionPorIdServicios: 'buscarPersonalEjecucionPorIdServicios'
-}
-
-const equipoEjecucion = {
-    buscarEquipoEjecucionPorIdServicios: 'buscarEquipoEjecucionPorIdServicios'
-}
-
-const enumPaquete = {
-    guardarPaqueteCompleto: 'guardarPaqueteCompleto',
-    buscarPaqueteStep: 'buscarPaqueteStep/'
+const studentServiceName: string = 'Estudiante/'
+const postulacionStudent = {
+    listarEstudiantes: studentServiceName + 'listarEstudiantes/',
+    buscarUsuarioPorIdStudent: 'buscarPorIdEstudiante/',
 }
 
 export {
-    recetaInsumo,
-    personalEjecucion,
-    equipoEjecucion,
-    enumPaquete,
+    postulacionStudent,
 }

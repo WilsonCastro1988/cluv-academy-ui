@@ -7,10 +7,9 @@ $gutter: 1rem; //for primeflex grid system
 @import "../node_modules/@fullcalendar/daygrid/main.min.css";
 @import "../node_modules/@fullcalendar/timegrid/main.min.css";
 
-@import "../node_modules/primeng/resources/themes/md-light-indigo/theme.css";
 
-@import "../node_modules/quill/dist/quill.core.css";
-@import "../node_modules/quill/dist/quill.snow.css";
+
+@import "../node_modules/primeng/resources/themes/md-light-indigo/theme.css";
 
 @import "assets/demo/flags/flags.css";
 @import "assets/layout/css/landing.css";
@@ -20,61 +19,43 @@ $gutter: 1rem; //for primeflex grid system
 //@import "assets/theme/indigo/theme-light.css";
 
 
-//@import "~bootstrap/dist/css/bootstrap.min.css";
+//@import "~bootstrap/scss/buttons";
 
 
 .swal2-container {
     z-index: 9999 !important; /* Establece un valor alto para asegurar que esté al frente de todo */
 }
 
-.central{
+.central {
     text-align: center;
     justify-content: center;
     display: flex;
 }
 
-.error{
-    border-color:#B00020 !important;
+.error {
+    border-color: #B00020 !important;
 }
 
-.errort{
+.errort {
     color: #B00020 !important;
 }
 
-.p-button.p-button-info.p-button-outlined{
+.p-button.p-button-info.p-button-outlined {
     color: var(--primary-800);
 }
 
 
-.p-button.p-button-danger.p-button-outlined{
+.p-button.p-button-danger.p-button-outlined {
     color: #a00000 !important;
 }
 
-.p-dialog .p-dialog-header {
-    border-bottom: 0 none;
-    background:var(--blue-900);
-    color: white  !important;
-    padding: 0.4rem !important;
-    padding-left: 1rem !important;
-    border-top-right-radius: 4px;
-    border-top-left-radius: 4px;
-    padding-top: 1rem !important;
-    padding-bottom: 0.2rem !important;
 
+.background-header-gradient {
+    background: rgb(235, 84, 9);
+    background: linear-gradient(90deg, rgba(182, 69, 13, 1) 0%, rgba(252, 176, 69, 1) 47%, rgba(254, 254, 254, 1) 93%);
 }
 
-.p-dialog .p-dialog-header .p-dialog-header-icon {
-    width: 2.5rem;
-    height: 2.5rem;
-    color: #ffffff;
-    border: 0 none;
-    background: transparent;
-    border-radius: 50%;
-    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
-    margin-right: 0.5rem;
-}
-
-app-salida-agendamiento-equipos, app-retorno-agendamiento-equipos{
+app-salida-agendamiento-equipos, app-retorno-agendamiento-equipos {
     padding: 4px;
 }
 
@@ -93,14 +74,13 @@ app-salida-agendamiento-equipos, app-retorno-agendamiento-equipos{
     margin-top: 2rem;
 }
 
-.caja-boton-principal{
+.caja-boton-principal {
     text-align: right;
 }
 
-.caja-boton-cerrar-header{
+.caja-boton-cerrar-header {
     text-align: right;
 }
-
 
 
 .p-panel-icons-end {
@@ -109,18 +89,8 @@ app-salida-agendamiento-equipos, app-retorno-agendamiento-equipos{
     margin-left: auto;
 }
 
-.p-dialog .p-dialog-header .p-dialog-header-icon {
-    width: 2.5rem;
-    height: 2.5rem;
-    color: rgba(255, 255, 255, 0.6);
-    border: 0 none;
-    background: transparent;
-    border-radius: 50%;
-    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
-    margin-right: 0.5rem !important;
-}
 
-.border-red-500{
+.border-red-500 {
     background: #FFCDD2;
     color: #C63737;
 
@@ -133,7 +103,7 @@ app-salida-agendamiento-equipos, app-retorno-agendamiento-equipos{
 
 }
 
-.border-green-500{
+.border-green-500 {
     background: #C8E6C9;
     color: #256029;
     border-radius: 2px;
@@ -153,7 +123,7 @@ app-salida-agendamiento-equipos, app-retorno-agendamiento-equipos{
 
 
 .p-sidebar .p-sidebar-header,
-.p-sidebar .p-sidebar-footer{
+.p-sidebar .p-sidebar-footer {
     display: none;
 }
 
@@ -161,14 +131,191 @@ app-salida-agendamiento-equipos, app-retorno-agendamiento-equipos{
     padding: 0rem;
 }
 
-.p-fieldset .p-fieldset-legend {
-    width: 15rem;
+.p-dialog {
     display: flex;
-    justify-content: start;
-    padding: 1.25rem;
-    border: 1px solid #dee2e6;
-    color: #343a40;
-    background: #f8f9fa;
-    font-weight: 700;
-    border-radius: 6px;
+    flex-direction: column;
+    pointer-events: auto;
+    max-height: 100%;
+    transform: scale(1);
+    position: relative;
 }
+
+.general-float-button {
+    display: none;
+    position: fixed;
+    right: var(--general-margin);
+    bottom: var(--general-margin);
+    background: var(--cian);
+    color: var(--white);
+    border: none;
+    outline: none;
+    padding: calc(var(--general-margin) / 2);
+    border-radius: 12px;
+    z-index: var(--bigger-position);
+    cursor: pointer;
+}
+
+.p-menu {
+    padding: 0.5rem 0;
+    background: #f8f9fa;
+    color: rgba(0, 0, 0, 0.87);
+    border: 0px solid #e5e5e5;
+    border-radius: 4px;
+    width: 12.5rem;
+}
+
+.p-timeline-event-opposite, .p-timeline-event-content {
+    flex: auto !important;
+    padding: 0 1rem;
+}
+
+.p-timeline.p-timeline-vertical .p-timeline-event-opposite, .p-timeline.p-timeline-vertical .p-timeline-event-content {
+    padding: 0 0.5rem 0.5rem 0.5rem !important;
+}
+
+
+.css-p20wo7 {
+    top:1% !important;
+    width: 100% !important;
+}
+
+.css-uoiue8 {
+    left: 0% !important;
+    right: 0% !important;
+    top: 0% !important;
+    text-decoration: none !important;
+    box-sizing: border-box !important;
+    text-align: left !important;
+    padding: 8px 16px !important;
+    position: absolute !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    -webkit-box-pack: center !important;
+    justify-content: center !important;
+    -webkit-box-align: center !important;
+    align-items: center !important;
+    border-radius: 6px !important;
+    background: rgb(26, 26, 26) !important;
+    pointer-events: auto !important;
+}
+
+.css-eej84z {
+    color: rgb(245, 245, 245) !important;
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms!important;
+    border-radius: 6px!important;
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    background-image: none!important;
+    padding: 0px 0px!important;
+    display: flex!important;
+    margin: 0px auto!important;
+    -webkit-box-align: center!important;
+    align-items: center!important;
+    -webkit-box-pack: center!important;
+    justify-content: center!important;
+    box-shadow: none!important;
+}
+
+.css-ulr84r {
+    position: relative !important;
+    height: 100% !important;
+    color: rgb(245, 245, 245);
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-radius: 6px;
+    background-color: rgb(36, 36, 36);
+    background-image: none;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 8px 24px;
+    width: auto;
+}
+
+.css-d2sft1 {
+    height: 100% !important;
+    color: rgb(245, 245, 245);
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-radius: 6px;
+    background-color: rgb(36, 36, 36);
+    background-image: none;
+    box-sizing: border-box;
+    padding: 2px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 8px 24px;
+}
+
+.css-1uk6x23 {
+    position: relative !important;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    display: block;
+}
+
+.css-qxh7fn {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.css-1nwgrc8 {
+    position: relative;
+    color: white;
+    height: 100%;
+}
+
+#meetingSDKElement {
+    //top: 8% !important;
+    text-decoration: none !important;
+    box-sizing: border-box !important;
+    text-align: left !important;
+    padding: 0px 0px 8px 0px !important;
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    -webkit-box-pack: center !important;
+    justify-content: center !important;
+    -webkit-box-align: center !important;
+    align-items: baseline !important;
+    border-radius: 6px 6px 0px 0px!important;
+    background: rgb(26, 26, 26) !important;
+    pointer-events: auto !important;
+}
+
+
+#meetingSDKElement > div{
+    position: relative;
+    height: 93%;
+    width: 100%;
+}
+
+.css-1vu2yqv {
+    position: relative;
+    height: 100%;
+}
+
+.css-1mctt5q {
+    position: relative;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    min-height: 16px;
+    width: 100%;
+    padding: 4px;
+    box-sizing: border-box;
+    overflow: hidden;
+    cursor: move;
+    z-index: 1000;
+}
+
+.p-button.p-button-warning, .p-buttonset.p-button-warning > .p-button, .p-splitbutton.p-button-warning > .p-button {
+    color: #ffffff;
+    background: #F15328;
+    border: 0 none;
+}
+
+.p-button.p-button-warning:enabled:hover, .p-buttonset.p-button-warning > .p-button:enabled:hover, .p-splitbutton.p-button-warning > .p-button:enabled:hover {
+    background: rgba(251, 192, 45, 0.92);
+    color: #ffffff;
+    border-color: transparent;
+}
+
+
+

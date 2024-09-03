@@ -162,43 +162,215 @@
     <div class="field">
         <p-fieldset [toggleable]="true" legend="Datos de Meet" collapsed>
             <div class="p-fluid p-formgrid grid">
-                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
                             <span class="p-float-label">
                                 <input pInputText id="ftxt-aforoClase" type="number" min="0" required="true"
                                        formControlName="aforoClase">
                                 <label for="ftxt-aforoClase">* Aforo de la Clase</label>
                               </span>
                 </div>
-                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
                             <span class="p-float-label">
                                 <input pInputText id="ftxt-duracionClase" type="number" min="0" required="true"
                                        formControlName="duracionClase">
                                 <label for="ftxt-duracionClase">* Duración Hora de la Clase</label>
                               </span>
                 </div>
-                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
                             <span class="p-float-label">
                                 <input pInputText id="ftxt-zonaHorariaClase" type="text" required="true"
                                        formControlName="zonaHorariaClase">
                                 <label for="ftxt-zonaHorariaClase">* Zona Horaria de la Clase</label>
                               </span>
                 </div>
-                <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
-                    <span class="p-float-label">
+
+            </div>
+
+            <p-tabView [(activeIndex)]="tabIndexActivated">
+                <p-tabPanel header="Horario Día" (click)="tabIndexActivated = 0">
+                    <div class="p-fluid p-formgrid grid">
+                    <div class="p-field col-12 md:col-6 md:mb-6 mb-0">
+                        <div>
+                            <label style="color:  rgba(0, 0, 0, 0.6);"
+                                   for="ftxt-fechaInicioClase">Fechas Clase</label>
+                        </div>
                      <p-calendar [showTime]="true"
                                  id="ftxt-fechaInicioClase"
                                  formControlName="fechaInicioClase"
+                                 (onSelect)="areDateListsNonOverlapping()"
                                  [showSeconds]="false"
                                  [showIcon]="true"
-
+                                 selectionMode="multiple"
                                  [minDate]="fechaActual"
                                  [showButtonBar]="true"
+                                 [inline]="true"
                                  required="true"></p-calendar>
-                        <label style="color:  rgba(0, 0, 0, 0.6);"
-                               for="ftxt-fechaInicioClase">Fecha Inicio Clase</label>
-                    </span>
-                </div>
-            </div>
+
+
+                    </div>
+                    <div class="p-field col-12 md:col-6 md:mb-6 mb-0">
+                        <p-table [value]="fClass.fechaInicioClase.value"
+                                 responsiveLayout="stack" [scrollable]="true" scrollHeight="600px">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>Fecha</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-dia let-ri="rowIndex">
+                                <tr>
+                                    <td pEditableColumn class="bg-primary w-8rem b" style="border: 1px solid white;">
+                                        {{dia | date:'short'}}                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td>No existen datos disponibles.</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                    </div>
+                </p-tabPanel>
+               <!--
+                <p-tabPanel header="Horario Rango de Fechas" (click)="tabIndexActivated = 1">
+                    <div class="p-fluid p-formgrid grid">
+                    <div class="p-field col-12 md:col-6 md:mb-6 mb-0">
+                        <div>
+                            <label style="color:  rgba(0, 0, 0, 0.6);"
+                                   for="ftxt-fechaFinClase">Fechas Clase</label>
+                        </div>
+                        <p-calendar [showTime]="true"
+                                    id="ftxt-fechaFinClase"
+                                    formControlName="fechaFinClase"
+                                    (onSelect)="areDateListsNonOverlapping()"
+                                    [showSeconds]="false"
+                                    [showIcon]="true"
+                                    selectionMode="range"
+                                    [minDate]="fechaActual"
+                                    [showButtonBar]="true"
+                                    [inline]="true"
+                                    [panelStyleClass]="'w-full'"
+                                    required="true"></p-calendar>
+
+                    </div>
+                    <div class="p-field col-12 md:col-6 md:mb-6 mb-0">
+                        <p-table [value]="fClass.fechaFinClase.value"
+                                 responsiveLayout="stack" [scrollable]="true" scrollHeight="600px">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>Fecha</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-dia let-ri="rowIndex">
+                                <tr>
+                                    <td pEditableColumn class="bg-primary w-8rem b" style="border: 1px solid white;">
+                                        {{dia | date:'short'}}
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td>No existen datos disponibles.</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                    </div>
+                </p-tabPanel>
+                -->
+                <p-tabPanel header="Horario Semanal" (click)="tabIndexActivated = 2">
+                    <div *ngIf="lstHorariosInput" class="col-12 lg:col-12 p-4 border-round-xl bg-red-50 md:mb-4">
+                        <div class="border-top-3 border-pink-600"></div>
+                        <div class="text-pink-600 font-medium my-2 text-2xl"><i
+                            class="pi pi-exclamation-triangle text-2xl mr-4"></i>Cambio de Clave
+                        </div>
+                        <div class="text-900 font-medium text-xl line-height-3 mb-4">Añadir Horario -> Perfil -> Horario
+                            Preferido.
+                        </div>
+                        <div class="font-sm text-700 line-height-3">Horario Preferido, usted no cuenta con un horario
+                            preferido disponible
+                        </div>
+                    </div>
+                    <div class="flex justify-content-center w-30rem">
+                        <div class="col-12 lg:col-4 p-2">
+                            <div class="text-green-600 font-medium my-2">
+                                <i class="pi pi-circle-fill text-green-400 mr-2"></i>
+                                Disponible
+                            </div>
+                        </div>
+                        <div class="col-12 lg:col-4 p-2">
+                            <div class="text-orange-600 font-medium my-2">
+                                <i class="pi pi-check-circle text-orange-400 mr-2"></i>
+                                Planificado
+                            </div>
+                        </div>
+                        <div class="col-12 lg:col-4 p-2">
+                            <div class="text-purple-600 font-medium my-2">
+                                <i class="pi pi-ban text-purple-400 mr-2"></i>
+                                No Disponible
+                            </div>
+
+                        </div>
+                    </div>
+                    <p-table [value]="lstHorariosInput" dataKey="idHorarioSugeridoTutor"
+                             [loading]="loading"
+                             responsiveLayout="stack" [scrollable]="true" scrollHeight="600px">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>Horario</th>
+                                <th>Lunes</th>
+                                <th>Martes</th>
+                                <th>Miércoles</th>
+                                <th>Jueves</th>
+                                <th>Viernes</th>
+                                <th>Sábado</th>
+                                <th>Domingo</th>
+                                <!--<th style="width:8rem"></th>-->
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-dia let-ri="rowIndex">
+                            <tr>
+                                <td pEditableColumn class="bg-primary w-8rem b" style="border: 1px solid white;">
+                                    {{dia.inicioHorarioSugeridoTutor}} - {{dia.finHorarioSugeridoTutor}}
+                                </td>
+                                <td
+                                    style="border: 1px solid white;"
+                                    [class]="dia.lunesHorarioSugeridoTutor === null ? 'bg-purple-500' : !dia.lunesHorarioSugeridoTutor ? 'bg-green-400' : 'bg-orange-500'">
+                                </td>
+                                <td
+                                    style="border: 1px solid white;"
+                                    [class]="dia.martesHorarioSugeridoTutor === null ? 'bg-purple-500' : !dia.martesHorarioSugeridoTutor ? 'bg-green-400' : 'bg-orange-500'">
+                                </td>
+                                <td
+                                    style="border: 1px solid white;"
+                                    [class]="dia.miercoles === null ? 'bg-purple-500' : !dia.miercoles ? 'bg-green-400' : 'bg-orange-500'">
+                                </td>
+                                <td
+                                    style="border: 1px solid white;"
+                                    [class]="dia.juevesHorarioSugeridoTutor === null ? 'bg-purple-500' : !dia.juevesHorarioSugeridoTutor ? 'bg-green-400' : 'bg-orange-500'">
+                                </td>
+                                <td
+                                    style="border: 1px solid white;"
+                                    [class]="dia.viernesHorarioSugeridoTutor === null ? 'bg-purple-500' : !dia.viernesHorarioSugeridoTutor ? 'bg-green-400' : 'bg-orange-500'">
+                                </td>
+                                <td
+                                    style="border: 1px solid white;"
+                                    [class]="dia.sabadoHorarioSugeridoTutor === null ? 'bg-purple-500' : !dia.sabadoHorarioSugeridoTutor ? 'bg-green-400' : 'bg-orange-500'">
+                                </td>
+                                <td
+                                    style="border: 1px solid white;"
+                                    [class]="dia.domingoHorarioSugeridoTutor === null ? 'bg-purple-500' : !dia.domingoHorarioSugeridoTutor ? 'bg-green-400' : 'bg-orange-500'">
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="emptymessage">
+                            <tr>
+                                <td>No existen datos disponibles.</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-tabPanel>
+            </p-tabView>
         </p-fieldset>
 
         <div class="mt-2 flex justify-content-center">

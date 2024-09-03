@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {environment} from '../../environments/environment';
-import {Observable, of} from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {MenuItem, MessageService} from 'primeng/api';
@@ -13,6 +13,12 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import {TokenService} from './token.service';
 import {StepProductoService} from "../main/pages/producto/services/step-producto.service";
+import {KJUR} from 'jsrsasign'
+import {inNumberArray, isBetween, isRequiredAllOrNone, validateRequest} from '../_validators/validations.js'
+
+import * as base64JS from 'js-base64';
+import * as hmacSha256 from 'crypto-js/hmac-sha256';
+import * as encBase64 from 'crypto-js/enc-base64';
 
 
 const httpOptions = {
@@ -30,30 +36,39 @@ export class AppService {
     isLogged: boolean;
 
     interval: any;
+    private datosCompartidos = new Subject<any>();
+
 
     items: MenuItem[];
 
     constructor(private router: Router,
                 private http: HttpClient,
                 private messageService: MessageService,
-                private routerService: Router,
                 private stepService: StepProductoService,
                 private tokenService: TokenService,
                 private jwtHelper: JwtHelperService,) {
     }
 
+    enviarDatos(datos: any) {
+        this.datosCompartidos.next(datos);
+    }
+
+    obtenerDatos() {
+        return this.datosCompartidos.asObservable();
+    }
+
     irAProductList() {
-        this.routerService.navigate(['pages/product-list']).then(() => {
+        this.router.navigate(['pages/product-list']).then(() => {
             this.stepService.data = ({
                 producto: null,
                 clase: null,
                 materia: null
             })
 
-            this.stepService.orden=({
-                carrito:null,
-                factura:null,
-                pago:null
+            this.stepService.orden = ({
+                carrito: null,
+                factura: null,
+                pago: null
             })
         })
     }
@@ -75,19 +90,6 @@ export class AppService {
         }
     }
 
-    scrollToElementByIdOrTop(id: string): void {
-        const element = document.getElementById(id);
-        if (element) {
-            element.scrollIntoView({behavior: 'smooth', block: 'start'});
-        } else {
-            window.scroll({
-                top: 0,
-                left: 0,
-                behavior: 'smooth'
-            });
-        }
-    }
-
     obtenerInfoToken(accessToken: string) {
         if (accessToken != null) {
             return JSON.parse(atob(accessToken.split(".")[1]))
@@ -95,19 +97,11 @@ export class AppService {
         return null;
     }
 
-    loginByAuth(loginRequest)
-        :
-        Observable<any> {
+    loginByAuth(loginRequest): Observable<any> {
         return this.http.post(this.url + '/signin', loginRequest);
     }
 
     refreshToken(token: string) {
-        return this.http.post(this.url + '/refreshtoken', {
-            refreshToken: token
-        }, httpOptions);
-    }
-
-    refreshTokenAny(token: string): any {
         return this.http.post(this.url + '/refreshtoken', {
             refreshToken: token
         }, httpOptions);
@@ -149,6 +143,14 @@ export class AppService {
 
     msgInfoDetail(severity: string, header: string, content: string) {
         this.messageService.add({severity, summary: header, detail: content});
+    }
+
+    msgCheckInfoData() {
+        this.messageService.add({
+            severity: 'warn',
+            summary: 'Información',
+            detail: 'Datos incompletos o erróneos, por favor, revisar'
+        });
     }
 
     /*******
@@ -205,54 +207,6 @@ export class AppService {
         }
     }
 
-    /*expirationCounter(token) {
-        try {
-            let timeout = this.jwtHelper.getTokenExpirationDate(token).valueOf() - new Date().valueOf();
-            timeout = timeout * 0.001;
-            this.interval = setInterval(() => {
-                timeout = timeout - 1;
-                if (timeout <= 0) {
-                    clearInterval(this.interval);
-                    const tokenRef = this.tokenService.getRefreshToken();
-                    this.refreshTokenAny(tokenRef).subscribe(
-                        data => {
-                            this.tokenService.setToken(data.accessToken);
-                            this.tokenService.saveRefreshToken(data.refreshToken);
-                            this.expirationCounter(data.accessToken);
-                        }, error => {
-                            this.logout();
-                            this.alertaSesionExpirada();
-                        }
-                    );
-                }
-            }, 1000);
-        } catch (e) {
-            this.logout();
-        }
-    }*/
-
-    alertaSesionExpirada() {
-        Swal.fire({
-            showClass: {
-                popup: 'animated fadeInDown slow',
-            },
-            hideClass: {
-                popup: 'animated fadeOutUp slow',
-            },
-            title: '',
-            text: 'Su sesión ha expirado, por favor vuelva a ingresar',
-            imageUrl: '../../../assets/img/sessionTimeout.gif',
-            imageAlt: 'Sesión Expirada',
-            confirmButtonText: 'Volver a Ingresar',
-            showConfirmButton: true,
-            allowOutsideClick: false,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                this.logout();
-            }
-        });
-    }
-
     cierreSesionExitoso() {
         Swal.fire({
             showClass: {
@@ -270,19 +224,23 @@ export class AppService {
             showConfirmButton: false,
             allowOutsideClick: false,
             timer: 4500,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                this.logout();
-            }
+        }).then(() => {
+            window.location.reload();
         });
     }
 
     logout() {
         try {
+
+
+            if (this.tokenService.getToken() == null) {
+                this.tokenService.logOut();
+                this.router.navigate(['cluv/landing'])
+            }
+
             if (this.tokenService.getToken() != null) {
                 this.logoutBackEnd().subscribe({
                     next: data => {
-                        console.log('DATA LogoutBackend: ' + JSON.stringify(data));
                         //clearInterval(this.interval);
                         this.tokenService.setToken(null);
                         this.tokenService.saveRefreshToken(null);
@@ -293,18 +251,14 @@ export class AppService {
                         this.userLogged = false;
                         this.isLogged = false;
                         this.tokenService.logOut();
-                        //this.cierreSesionExitoso();
-                        console.log('LOG Out /LOGOUT')
                         this.router.navigate(['cluv/landing'])
-                        this.cierreSesionExitoso();
+                        //this.cierreSesionExitoso();
                     },
                     error: error => {
                         console.log('ERROR LogoutBackend: ' + JSON.stringify(error));
                     },
                     complete: () => {
-                        console.log('Complete');
-                        //window.location.reload()
-
+                        this.cierreSesionExitoso();
                     }
                 });
             }
@@ -313,5 +267,62 @@ export class AppService {
                 window.location.reload();
             })
         }
+    }
+
+
+    propValidations = {
+        role: inNumberArray([0, 1]),
+        expirationSeconds: isBetween(1800, 172800)
+    }
+
+    schemaValidations = [isRequiredAllOrNone(['meetingNumber', 'role'])]
+
+    coerceRequestBody = (body) => ({
+        ...body,
+        ...['role', 'expirationSeconds'].reduce(
+            (acc, cur) => ({...acc, [cur]: typeof body[cur] === 'string' ? parseInt(body[cur]) : body[cur]}),
+            {}
+        )
+    })
+
+    generateSigantureMeetZoom(signatureDto) {
+
+        console.log('generateSigantureMeetZoom', signatureDto)
+
+        const iat = Math.round(new Date().getTime() / 1000) - 30;
+        const exp = iat + 60 * 60 * 2;
+        const oHeader = { alg: "HS256", typ: "JWT" };
+
+        const oPayload = {
+            appKey: 'WM9nngfDRJuk8Ar9FpvhTQ',
+            sdkKey: 'WM9nngfDRJuk8Ar9FpvhTQ',
+            mn: signatureDto.meetingNumber,
+            role: signatureDto.role,
+            iat: iat,
+            exp: exp,
+            tokenExp: exp,
+        };
+
+        const sHeader = JSON.stringify(oHeader);
+        const sPayload = JSON.stringify(oPayload);
+        return KJUR.jws.JWS.sign("HS256", sHeader, sPayload, 'rrtd9Hfl0i4qF83Up19bGDC4bJXTb5Ec');
+
+
+    }
+
+
+
+    generateSignature(data) {
+        let signature = '';
+        // Prevent time sync issue between client signature generation and zoom
+        const ts = new Date().getTime() - 30000;
+        try {
+            const msg = base64JS.Base64.encode('k8Xe6IaITlGd1GLKKSoHWg' + data.meetingNumber + ts + data.role);
+            const hash = hmacSha256.default(msg, 'SkrFuQadhG47Nb1tDn8QZ6mg3hODdAfF');
+            signature = base64JS.Base64.encodeURI(`${'k8Xe6IaITlGd1GLKKSoHWg'}.${data.meetingNumber}.${ts}.${data.role}.${encBase64.stringify(hash)}`);
+        } catch (e) {
+            console.log('error')
+        }
+        return signature;
     }
 }

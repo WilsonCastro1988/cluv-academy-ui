@@ -1,0 +1,104 @@
+<div class="flex justify-content-center mt-4">
+    <img alt="diamond-layout" class="logo" src="assets/pages/logo-cluv-academy.png" width="10%">
+    <h2 class="ml-4 ajust-items-center">Únete al Cluv</h2>
+</div>
+
+<form [formGroup]="usuarioForm" (ngSubmit)="guardarEstudiante()">
+    <!-- ... (campos del formulario) ... -->
+    <div class=" flex-column p-fluid p-4">
+
+        <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+            <span class="p-float-label">
+                <input pInputText id="ftxt-nombreUsuario" type="text" required="true"
+                       formControlName="nombreUsuario">
+                <label for="ftxt-nombreUsuario">* Nombre Usuario</label>
+            </span>
+        </div>
+
+        <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+            <span class="p-float-label">
+                <p-password id="ftxt-clave" formControlName="clave" [toggleMask]="true"></p-password>
+                <label for="ftxt-clave">* Clave</label>
+            </span>
+        </div>
+
+        <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+            <span class="p-float-label">
+                <input pInputText id="ftxt-nombres" type="text" required="true"
+                       formControlName="nombres">
+                <label for="ftxt-nombres">* Nombres Completos</label>
+            </span>
+        </div>
+
+        <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+            <span class="p-float-label">
+                <input pInputText id="ftxt-cedula" type="text" required="true"
+                       formControlName="cedula">
+                <label for="ftxt-cedula">* DNI</label>
+            </span>
+        </div>
+
+        <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+            <span class="p-float-label">
+                <input pInputText id="ftxt-direccion" type="text" required="true"
+                       formControlName="direccion">
+                <label for="ftxt-direccion">* Dirección</label>
+            </span>
+        </div>
+
+        <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+            <span class="p-float-label">
+                <input pInputText id="ftxt-celular" type="text" required="true"
+                       formControlName="celular">
+                <label for="ftxt-celular">* Celular</label>
+            </span>
+        </div>
+
+        <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+            <span class="p-float-label">
+                <input pInputText id="ftxt-emailPersonal" type="text" required="true"
+                       formControlName="emailPersonal">
+                <label for="ftxt-emailPersonal">* Email Personal</label>
+            </span>
+        </div>
+
+
+        <div class="p-field col-12 md:col-12 md:mb-12 mb-4 px-3">
+            <input id="activo" type="file" pInputText
+                   (change)="onFileSelected($event)"
+                   placeholder="Nombres Completos"/>
+        </div>
+
+        <div class="p-field col-12 md:col-12 md:mb-2 mb-4 px-3 p-inputgroup form-group mt-3">
+            <div class="flex align-items-center justify-content-between">
+                <div class="flex align-items-center ml-2">
+                    <p-checkbox id="rememberme1" [(ngModel)]="terminos" [binary]="true"
+                                [ngModelOptions]="{standalone: true}"></p-checkbox>
+                    <label for="rememberme1" class="ml-2 text-900">He leído y acepto los términos y
+                        condiciones.
+                        <a (click)="verCondiciones()"
+                           class=" text-blue-500 text-right cursor-pointer">Ver
+                            Condiciones?</a>
+                    </label>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ... (campos del formulario) ... -->
+    </div>
+    <div class="p-field flex justify-content-center">
+        <button [disabled]="!this.usuarioForm.valid || !terminos" pButton type="submit" class="w-auto">
+            REGISTRARSE
+        </button>
+    </div>
+    <!-- ... (campos del formulario) ... -->
+</form>
+
+<!-- inicio seccion generica -->
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+<p-blockUI [blocked]="blockingui">
+    <p-progressSpinner styleClass="w-4rem h-4rem bluegray-600" strokeWidth="8" animationDuration=".5s">
+    </p-progressSpinner>
+</p-blockUI>
+<!-- fin seccion generica -->

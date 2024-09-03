@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AppMainComponent} from '../content/app.main.component';
 import {TokenService} from "../../_service/token.service";
-import {MenuService} from "./app.menu.service";
 import {MenuLightService} from "../../_service/menu.service";
 import {MenuItem} from "primeng/api";
 import {Subscription} from "rxjs";
@@ -31,7 +30,7 @@ export class AppMenuComponent implements OnInit {
             {
                 label: '', icon: 'pi pi-home',
                 items: [
-                    {label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/dashboard']},
+                    {label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['dashboard']},
                 ]
             },
             {separator: true},
@@ -102,6 +101,9 @@ export class AppMenuComponent implements OnInit {
         //console.log('GET MENU JSON APP ', this.menuService.getMenusJson())
         if (this.menuService.getMenusJsonLab() === null || this.menuService.getMenusJsonLab() === 'null') {
             if (this.menuService.getMenusJson() === null || this.menuService.getMenusJson() === 'null') {
+                if (this.tokenService.getAlterCurrentUser())
+                    this.tokenService.setCurrentUser(this.tokenService.getAlterCurrentUser())
+
                 this.menuService.findByUsername(this.tokenService.getCurrentUser()).subscribe(
                     data => {
                         this.menus = data;

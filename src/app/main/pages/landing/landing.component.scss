@@ -1,0 +1,75 @@
+.tutor-card {
+    background-color: #ffffff;
+    padding: 0px;
+    position: relative;
+    vertical-align: top;
+}
+
+.cluv-card {
+    display: inline-block;
+    background-color: #fff;
+    border-radius: 15px 15px 15px 15px;
+    margin: 0 10px 40px;
+    /* padding: 20px; */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    vertical-align: top;
+    border: solid 1px #F15328;
+}
+
+.clases-card {
+    display: inline-block;
+    background-color: #fff;
+    border-radius: 15px 15px 15px 15px;
+    margin: 0 10px 40px;
+    /* padding: 20px; */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    //position: relative;
+    vertical-align: top;
+    border: solid 1px #0071B8;
+}
+
+.linear-gradient-to-bottom {
+
+    $border: 2.5px;
+    background-clip: padding-box; /* !importanté */
+    border: solid $border transparent; /* !importanté */
+    border-radius: 1em;
+    border-bottom: solid 0;
+
+    &:before {
+        content: '';
+        position: absolute;
+        top: 0; right: 0; bottom: 0; left: 0;
+        z-index: -1;
+        margin: -$border; /* !importanté */
+        border-radius: inherit; /* !importanté */
+        background: linear-gradient(to bottom, #0071B8, #ffffff);
+    }
+}
+
+.linear-gradient-to-top {
+
+    $border: 2.5px;
+    background-clip: padding-box; /* !importanté */
+    border: solid $border transparent; /* !importanté */
+    border-radius: 1em;
+    border-top: solid 0px;
+
+    &:before {
+        content: '';
+        position: absolute;
+        top: 0; right: 0; bottom: 0; left: 0;
+        z-index: -1;
+        margin: -$border; /* !importanté */
+        border-radius: inherit; /* !importanté */
+        background: linear-gradient(to top, #0071B8, #ffffff);
+    }
+}
+
+.mascota-right{
+    margin-right: -127rem !important;
+    animation-direction: reverse !important;
+    transform: rotate(-60deg) scaleX(-1) !important;
+}
+

@@ -83,7 +83,7 @@
                 </a>
                 <ul class="profile-menu fade-in-up">
                     <li>
-                        <a href="#">
+                        <a (click)="goToProfile()">
                             <i class="pi pi-user"></i>
                             <span>Perfil</span>
                         </a>
@@ -119,7 +119,7 @@
                     <li role="menuitem" *ngFor="let rol of roles">
                         <a  tabindex="0"
                         (click)="clearMenuLab(rol)">
-                            <i [ngClass]="rol !== '1:Laboratorios' ? 'pi pi-prime':'pi pi-user'"></i>
+                            <i [ngClass]="rol.includes('Administrador') ? 'pi pi-prime':'pi pi-user'"></i>
                             <div class="notification-item ml-5">
                                 <div class="notification-summary">{{rol}}</div>
                             </div>

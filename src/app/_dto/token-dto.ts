@@ -6,4 +6,5 @@ export class TokenDto {
     roles: [] = [];
     tokenType: string = "Bearer";
     accessToken: string;
+    avatar: string;
 }

@@ -73,7 +73,6 @@ export class ClasesSenseiListComponent implements OnInit {
         this.apiService.getById(this.tokenService.getCurrentUser()).subscribe({
             next: data => {
                 this.apiService.endpoint = accessType.typePrivate + senseiEndpoints.clasesMeetPoridTutor
-                console.log('CLASS X TUTOR')
                 this.apiService.getById(data.objeto.idTutor).subscribe({
                     next: data => {
                         this.listClases = data.listado

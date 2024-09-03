@@ -5,6 +5,7 @@ import {MeetingZoomFormComponent} from "../components/meeting-zoom-form/meeting-
 import {
     ClasesSenseiListComponent
 } from "../../postulation-sensei/components/clases-sensei-list/clases-sensei-list.component";
+import {SenseiPrincipalInfoComponent} from "../components/perfil/sensei-principal-info.component";
 
 
 
@@ -12,7 +13,7 @@ export const RUTA_SENSEI: Routes = [
     {
         path: 'sensei-register',
         component: SenseiFormComponent,
-        canActivate: [AuthGuard],
+        //canActivate: [AuthGuard],
     },
     {
         path: 'create-meeting-zoom',
@@ -22,6 +23,11 @@ export const RUTA_SENSEI: Routes = [
     {
         path: 'clases-sensei-list',
         component: ClasesSenseiListComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: 'sensei-profile',
+        component: SenseiPrincipalInfoComponent,
         canActivate: [AuthGuard],
     },
 ];

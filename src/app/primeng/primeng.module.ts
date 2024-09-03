@@ -51,6 +51,10 @@ import {CarouselModule} from "primeng/carousel";
 import {RippleModule} from "primeng/ripple";
 import {FullCalendarModule} from "@fullcalendar/angular";
 import {EditorModule} from "primeng/editor";
+import {ScrollTopModule} from "primeng/scrolltop";
+import {BadgeModule} from "primeng/badge";
+import {ScrollPanelModule} from 'primeng/scrollpanel';
+
 
 @NgModule({
     declarations: [],
@@ -112,6 +116,7 @@ import {EditorModule} from "primeng/editor";
         ButtonModule,
         RippleModule,
         AvatarModule,
+        ScrollPanelModule
     ],
     exports: [
         ProgressSpinnerModule,
@@ -171,6 +176,8 @@ import {EditorModule} from "primeng/editor";
         RippleModule,
         AvatarModule,
         EditorModule,
+        ScrollTopModule,
+        BadgeModule
     ]
 })
 export class PrimengModule {

@@ -9,6 +9,7 @@ import {ClubLandingDto} from "./dto/ClubLandingDto";
 import {ClaseLandingDto} from "./dto/ClaseLandingDto";
 import {Router} from "@angular/router";
 import {StepProductoService} from "../producto/services/step-producto.service";
+import {ScrollService} from "../../../_service/utils/scroll-service.service";
 
 @Component({
     selector: 'app-landing',
@@ -29,6 +30,7 @@ export class LandingComponent implements OnInit {
 
 
     constructor(private readonly serviceApp: AppService,
+                private scrollService: ScrollService,
                 private readonly routeService: Router,
                 private readonly stepService: StepProductoService,
                 private readonly apiService: ApiService,) {
@@ -49,10 +51,17 @@ export class LandingComponent implements OnInit {
                 numScroll: 1
             }
         ];
+
+        this.scrollService.sectionClicked$.subscribe(sectionId => {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({behavior: 'smooth', block: 'start'});
+            }
+        });
     }
 
     ngOnInit(): void {
-        this.eventNavigation();
+        //this.eventNavigation();
 
         this.llenarListaTutores()
         this.llenarListaClubs()
@@ -74,6 +83,10 @@ export class LandingComponent implements OnInit {
         this.apiService.getAll().subscribe({
             next: data => {
                 this.listSenseis = data.listado
+                //this.listSenseis.pop()
+                //this.listSenseis.pop()
+
+
             }
         })
     }
@@ -132,12 +145,43 @@ export class LandingComponent implements OnInit {
     }
 
     selectProduct(item) {
-        this.routeService.navigate(['pages/product-detail']).then(()=>{
+        console.log('DATA BOTON AZUL')
+        this.routeService.navigate(['pages/product-detail']).then(() => {
             this.stepService.data = ({
                 producto: item,
                 clase: null,
                 materia: null
             })
         })
+    }
+
+    getClassOfIndexListSenseis(item) {
+        let index = this.listSenseis.indexOf(item);
+        let classBorder = ''
+        if (index % 2 === 0)
+            classBorder = 'tutor-card linear-gradient-to-top inline-block'
+        else classBorder = 'tutor-card linear-gradient-to-bottom inline-block'
+
+        return classBorder
+    }
+
+    getClassOfIndexListCluvs(item) {
+        let index = this.listClubs.indexOf(item);
+        let classBorder = ''
+        if (index % 2 === 0)
+            classBorder = 'cluv-card'
+        else classBorder = 'cluv-card'
+
+        return classBorder
+    }
+
+    getClassOfIndexListClases(item) {
+        let index = this.listClases.indexOf(item);
+        let classBorder = ''
+        if (index % 2 === 0)
+            classBorder = 'clases-card'
+        else classBorder = 'clases-card'
+
+        return classBorder
     }
 }

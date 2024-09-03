@@ -8,6 +8,7 @@ import {TokenService} from "../../_service/token.service";
 import {AppService} from "../../_service/app.service";
 import {MenuLightService} from "../../_service/menu.service";
 import {Router} from "@angular/router";
+import {TokenDto} from "../../_dto/token-dto";
 
 @Component({
     selector: 'app-topbar',
@@ -33,25 +34,61 @@ export class AppTopBarComponent implements OnDestroy {
             this.items = response;
         });
         if (this.tokenService.getCurrentUser() != null) {
-            this.imgURL = "https://2.bp.blogspot.com/-ZecRzu-6rLI/TsIHy8oGBsI/AAAAAAAABJA/3kymvuNE5WQ/s1600/2-Avatares-para-Facebook.jpg"
+
+            let token: TokenDto = JSON.parse(this.tokenService.getResponseAuth());
+            if (token.avatar !== '') {
+                this.imgURL = 'data:image/png;base64,' + token.avatar
+            } else {
+                this.imgURL = "https://2.bp.blogspot.com/-ZecRzu-6rLI/TsIHy8oGBsI/AAAAAAAABJA/3kymvuNE5WQ/s1600/2-Avatares-para-Facebook.jpg"
+            }
             this.currentUser = this.tokenService.getCurrentUser();
             this.roles = JSON.parse(this.tokenService.getRoles());
         }
     }
 
     logout() {
-        this.appService.logout();
+        for (const role of this.roles) {
+            if (role.includes('Administrador') || role.includes('Operario')) {
+                this.tokenService.setCurrentUser(this.tokenService.getAlterCurrentUser())
+                this.appService.logout();
+            } else {
+                this.appService.logout();
+            }
+        }
+
+    }
+
+    goToProfile() {
+        let redireccion = "/pages/dashboard"
+        for (const role of this.roles) {
+            if (role.includes('Administrador') || role.includes('Operario')) {
+                if (this.tokenService.getAlterCurrentUser())
+                    this.tokenService.setCurrentUser(this.tokenService.getAlterCurrentUser())
+                redireccion = '/pages/user-profile';
+                break
+            } else if (role.includes('Sensei')) {
+                redireccion = '/pages/sensei-profile';
+                break
+            } else if (role.includes('Estudiante')) {
+                redireccion = '/pages/student-profile';
+                break
+            }
+        }
+
+        this.router.navigate([redireccion]);
+
     }
 
     clearMenuLab(rol) {
-        if (rol.includes('Administrador del Sistema')) {
+
+        if (rol.includes('Administrador') || rol.includes('Operario')) {
             this.menuService.setMenusJsonLab(null);
-            this.router.navigate(['dashboard'])
-                .then(() => {
-                    window.location.reload();
-                });
+            this.router.navigate(['/pages/user-profile']).then(() => {
+                    //window.location.reload();
+                }
+            );
         } else {
-            this.router.navigate(['laboratorio-lista'])
+            this.router.navigate(['/pages/dashboard'])
                 .then(() => {
                     window.location.reload();
                 });

@@ -40,15 +40,20 @@
                             "node_modules/prismjs/components/prism-typescript.js",
                             "node_modules/quill/dist/quill.js"
                         ],
-                        "allowedCommonJsDependencies": ["@fullcalendar/daygrid","@fullcalendar/timegrid","@fullcalendar/interaction","chart.js"]
+                        "allowedCommonJsDependencies": [
+                            "@fullcalendar/daygrid",
+                            "@fullcalendar/timegrid",
+                            "@fullcalendar/interaction",
+                            "chart.js"
+                        ]
                     },
                     "configurations": {
                         "production": {
                             "budgets": [
                                 {
                                     "type": "initial",
-                                    "maximumWarning": "3mb",
-                                    "maximumError": "5mb"
+                                    "maximumWarning": "8mb",
+                                    "maximumError": "8mb"
                                 },
                                 {
                                     "type": "anyComponentStyle",

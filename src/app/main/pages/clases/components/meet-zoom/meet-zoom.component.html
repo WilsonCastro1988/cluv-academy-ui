@@ -1,0 +1,115 @@
+<div class="p-fluid p-formgrid grid">
+    <div class="p-field col-12 md:col-8 md:mb-2 mb-0 px-3">
+        <div class="flex justify-content-between">
+            <div>
+                <button pButton label="Iniciar 2" class="p-button-outlined m-1 p-button-danger w-auto"
+                        icon="pi pi-power-off"
+                        (click)="leaveMeet()"
+                        pTooltip="Salir del Meet" tooltipPosition="right"></button>
+                <button pButton label="Iniciar" class="p-button-outlined m-1 p-button-success w-auto"
+                        icon="pi pi-play"
+                        (click)="join()"
+                        pTooltip="Iniciar Meet" tooltipPosition="right"></button>
+            </div>
+            <div>
+                <button pButton label="Calificar" class="p-button-outlined m-1 p-button-info w-auto"
+                        icon="pi pi-star"
+                        pTooltip="Calificar" tooltipPosition="right"></button>
+                <button pButton label="Comentar" class="p-button-outlined m-1 p-button-help w-auto"
+                        icon="pi pi-arrow-right-arrow-left"
+                        pTooltip="Comentar" tooltipPosition="right"></button>
+            </div>
+        </div>
+        <div class="stream__video" [style]="'background-image:url(data:image/png;base64,'+clase.avatarClase+')'">
+            <div class="video">
+                <div id="meetingSDKElement" class="p-field col-12 md:col-8 md:mb-2 mb-0 px-3 w-auto">
+                    <!-- Meeting SDK renders here when a user starts or joins a Zoom meeting -->
+                </div>
+
+            </div>
+        </div>
+        <div class="bg-blue-700 text-white p-4 flex justify-content-between">
+            <div class="font-bold text-3xl mb-4 mt-2 align-content-end">
+                <p-avatar [image]="'data:image/png;base64,'+clase.avatarClase" shape="circle" class="p-element mr-1"
+                          size="large">
+                </p-avatar>
+                <label>{{clase.nombreClase}}</label>
+            </div>
+            <p class="line-height-3  p-0 mx-0 mt-0 mb-4">{{clase.descripcionClase}}</p>
+        </div>
+        <p-tabView class="p-element">
+            <p-tabPanel header="Clase - Silabo" class="p-element">
+                <div role="tabpanel" class="p-tabview-panel ng-star-inserted" id="p-tabpanel-14"
+                     aria-hidden="true" aria-labelledby="p-tabpanel-14-label">
+                    <div class="text-900 font-bold text-3xl mb-4 mt-2">Cluv</div>
+                    <p class="line-height-3 text-600 p-0 mx-0 mt-0 mb-4">{{materia.idClubDto.nombreClub}}
+                    <p class="line-height-3 text-600 p-0 mx-0 mt-0 mb-4">{{materia.idClubDto.introduccionClub}}
+                    <p class="line-height-3 text-600 p-0 mx-0 mt-0 mb-4">{{materia.idClubDto.descripcionClub}}
+                    <div class="text-900 font-bold text-3xl mb-4 mt-2">Materia</div>
+                    <p class="line-height-3 text-600 p-0 mx-0 mt-0 mb-4">{{clase.idMateriaDto.nombreMateria}}
+                    <p class="line-height-3 text-600 p-0 mx-0 mt-0 mb-4">{{clase.idMateriaDto.descripcionMateria}}
+                    <p class="line-height-3 text-600 p-0 mx-0 mt-0 mb-4">{{clase.idTipoClaseDto.descripcionTipoClase}}
+                    </p>
+                    <div class="text-900 block font-bold mb-3 font-bold">Contenido</div>
+                    <div class="grid">
+                        <div class="col-12 md:col-6" *ngFor="let item of materia.silaboCollectionDto"><span
+                            class="text-900 block font-bold mb-3 font-bold"></span>
+                            <ul class="py-0 pl-3 m-0 text-600 mb-3">
+                                <li class="mb-2">{{item.temaSilabo}}</li>
+                            </ul>
+                        </div>
+
+                    </div><!----></div><!----></p-tabPanel>
+            <p-tabPanel header="Recursos" class="p-element">
+                <div class="col-12 lg:col-8"><span
+                    class="text-900 block mb-3 font-bold">Materiales &amp; Recursos</span>
+                    <ul class="py-0 pl-3 m-0 text-600 mb-3">
+                        <li class="flex align-items-center white-space-nowrap w-10rem block mr-2 mb-3"><i
+                            class="pi pi-sun mr-2 text-900"></i><span>{{clase.materialesClase}}</span></li>
+                        <li class="flex align-items-center white-space-nowrap w-10rem block mb-3 mr-2"><i
+                            class="pi pi-sliders-h mr-2 text-900"></i><span>{{clase.recursosClase}}</span></li>
+                    </ul>
+                </div>
+            </p-tabPanel>
+        </p-tabView>
+
+
+    </div>
+    <div class="p-field col-12 md:col-4 md:mb-2 mb-0 px-3 shadow-1">
+
+        <div class="p-inputgroup p-field">
+            <input type="text" pInputText placeholder="Escribe tu comentario">
+            <button type="button" pButton pRipple icon="pi pi-send" class="surface-600" [pTooltip]="'Comentar'"
+                    [tooltipPosition]="'left'"></button>
+        </div>
+
+        <p-dropdown [options]="ordenPor" [(ngModel)]="selectOrdenPor"
+                    placeholder="Ordenar Por" optionLabel="name"
+                    [showClear]="true"></p-dropdown>
+
+        <p-divider align="center">
+            <div class="inline-flex align-items-center">
+                <i class="pi pi-comments mr-2"></i>
+                <b>Mensajes</b>
+            </div>
+        </p-divider>
+        <p-timeline [value]="events1" align="left" styleClass="customized-timeline">
+            <ng-template pTemplate="marker" let-event>
+                <p-avatar [image]="imgURL" shape="circle" class="p-element" size="large">
+                </p-avatar>
+            </ng-template>
+            <ng-template pTemplate="content" let-event>
+                <p-card [header]="event.status" [subheader]="event.date" class="mb-1">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error
+                        repudiandae numquam deserunt
+                        quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse,
+                        cupiditate neque quas!</p>
+                    <button pButton label="Read more" class="p-button-text"></button>
+                </p-card>
+            </ng-template>
+        </p-timeline>
+    </div>
+
+</div>
+
+

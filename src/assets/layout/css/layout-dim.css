@@ -1312,7 +1312,7 @@ a {
   -ms-flex-align: center;
   align-items: center;
   -ms-flex-pack: justify;
-  justify-content: space-between;
+  justify-content: space-evenly;
   -ms-flex-direction: column;
   flex-direction: column;
 }

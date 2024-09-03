@@ -1,0 +1,621 @@
+<div class="p-fluid p-formgrid grid">
+    <div class="p-field col-12 md:col-2 md:mb-2 mb-0 px-3">
+        <p-menu [model]="items" class="border-none"></p-menu>
+
+        <div class="p-field col-12 md:col-12 md:mb-10 mb-0 px-3">
+            <button pButton label="Guardar" class="p-button-outlined p-button-rounded m-1 p-button-info w-full"
+                    icon="pi pi-send"
+                    type="submit" (click)="crearToken()" pTooltip="Guardar" tooltipPosition="right"></button>
+
+            <button pButton label="Cancelar" class="p-button-outlined p-button-rounded m-1 p-button-danger w-full"
+                    icon="pi pi-times"
+                    (click)="cancelar()" pTooltip="Cancelar" tooltipPosition="right"></button>
+        </div>
+    </div>
+
+    <div class="p-field col-12 md:col-10 md:mb-6 mb-0 shadow-5">
+        <form [formGroup]="classForm">
+
+            <div #divConfiguracion *ngIf="divConfiguracion" class="fadeindown  animation-duration-500">
+                <div class="p-fluid p-formgrid grid">
+                    <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+                        <h3><a><i class="text-2xl mr-2 pi pi-cog text-blue-600" (click)="limpiarImagen()"></i></a>Configuracón
+                        </h3>
+                        <hr>
+                    </div>
+                    <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                        <input id="fileInput" type="file"
+                               accept=".jpg, .png"
+                               (change)="onFileSelected($event)"
+                               placeholder="Comprobante"/>
+                        <p class="text-lg mt-4">Carga la imagen de tu curso aquí, se debe cumplir estándares de
+                            calidad
+                            para las imágenes. Directrices importantes: 750 x 422 píxeles; formato .jpg,
+                            .jpeg, .gif, o .png.; y sin texto en la imagen.</p>
+                        <hr>
+                    </div>
+                    <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                        <div class=" justify-content-center flex">
+                            <img
+                                [src]="this.fClass.avatarClase.value == '' ? '../assets/img/cursos.jpg':'data:image/png;base64,'+this.fClass.avatarClase.value"
+                                alt="avatar"
+                                class="w-8 shadow-7">
+                        </div>
+                    </div>
+                    <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+
+                        <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-nombreClase" type="text" required="true"
+                                       formControlName="nombreClase">
+                                <label for="ftxt-nombreClase">* Nombre de la Clase</label>
+                              </span>
+                        </div>
+                        <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+                        <span class="p-float-label">
+                        <input pInputText id="ftxt-descripcionClase" required="true"
+                               type="text"
+                               formControlName="descripcionClase">
+                            <label for="ftxt-descripcionClase">* Descripción de la Clase</label>
+                        </span>
+                        </div>
+
+                        <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3 ">
+                              <span class="p-float-label">
+                                <p-dropdown [options]="listaEstadoClase"
+                                            formControlName="idEstadoClaseDto"
+                                            placeholder="Por favor seleccione"
+                                            id="ftxt-idEstadoClaseDto"
+                                            [filter]="true"
+                                            filterBy="nombreEstadoClase"
+                                            optionLabel="nombreEstadoClase"
+                                            appendTo="body"
+                                            [showClear]="true"></p-dropdown>
+                                   <label for="ftxt-idEstadoClaseDto">* Estado Clase </label>
+                             </span>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div #divEstructura *ngIf="divEstructura" class="fadeindown  animation-duration-500">
+                <div class="p-fluid p-formgrid grid">
+                    <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+                        <h3><a><i class="text-2xl mr-2 pi pi-box text-blue-600" (click)="limpiarImagen()"></i></a>Estructura
+                        </h3>
+                        <hr>
+                    </div>
+
+                    <div class="p-field col-12 md:col-8 md:mb-4 mb-0 px-3">
+                    </div>
+                    <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-zonaHorariaClase" type="text" required="true"
+                                       formControlName="zonaHorariaClase">
+                                <label for="ftxt-zonaHorariaClase">* Zona Horaria de la Clase</label>
+                              </span>
+                    </div>
+
+                    <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-aforoClase" type="number" min="0" required="true"
+                                       formControlName="aforoClase">
+                                <label for="ftxt-aforoClase">* Aforo de la Clase</label>
+                              </span>
+                    </div>
+                    <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-duracionClase" type="number" min="0" required="true"
+                                       formControlName="duracionClase">
+                                <label for="ftxt-duracionClase">* Duración Hora de la Clase</label>
+                              </span>
+                    </div>
+
+
+                    <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3 ">
+                              <span class="p-float-label">
+                    <p-dropdown [options]="listaClub"
+                                [(ngModel)]="clubDto"
+                                [ngModelOptions]="{standalone: true}"
+                                (onChange)="getAllListaMateriasByClub()"
+                                placeholder="Por favor seleccione"
+                                id="ftxt-tipoAjuste"
+                                [filter]="true"
+                                filterBy="nombreClub"
+                                optionLabel="nombreClub"
+                                appendTo="body"
+                                [showClear]="true"></p-dropdown>
+                                   <label for="ftxt-tipoAjuste">* Clubs </label>
+                             </span>
+                    </div>
+
+                    <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3 ">
+                              <span class="p-float-label">
+                    <p-dropdown [options]="listaMateria"
+                                placeholder="Por favor seleccione"
+                                id="ftxt-idMateriaDto"
+                                [filter]="true"
+                                formControlName="idMateriaDto"
+                                filterBy="nombreMateria"
+                                optionLabel="nombreMateria"
+                                appendTo="body"
+                                [showClear]="true"></p-dropdown>
+                                   <label for="ftxt-idMateriaDto">* Materia </label>
+                             </span>
+                    </div>
+
+                    <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3 ">
+                              <span class="p-float-label">
+                    <p-dropdown [options]="listaTipoClase"
+                                placeholder="Por favor seleccione"
+                                id="ftxt-idTipoClaseDto"
+                                [filter]="true"
+                                formControlName="idTipoClaseDto"
+                                filterBy="nombreTipoClase"
+                                optionLabel="nombreTipoClase"
+                                appendTo="body"
+                                [showClear]="true"></p-dropdown>
+                                   <label for="ftxt-idTipoClaseDto">* Tipo Clase </label>
+                             </span>
+                    </div>
+
+                    <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3 ">
+                    </div>
+
+
+                </div>
+            </div>
+            <div #divTutor *ngIf="divSensei" class="fadeindown  animation-duration-500">
+                <div class="p-fluid p-formgrid grid">
+                    <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+                        <h3><a><i class="text-2xl mr-2 pi pi-cog text-blue-600" (click)="limpiarImagen()"></i></a>Sensei
+                        </h3>
+                        <hr>
+                    </div>
+                    <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                        <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+                              <span class="p-float-label">
+                                <p-dropdown [options]="listaTutorLanding"
+                                            (onChange)="setTutorInClass($event)"
+                                            placeholder="Por favor seleccione"
+                                            id="ftxt-idTutorDto"
+                                            [filter]="true"
+                                            filterBy="nombres"
+                                            optionLabel="nombres"
+                                            appendTo="body"
+                                            [showClear]="true"></p-dropdown>
+                                   <label for="ftxt-idTutorDto">* Tutor Clase </label>
+                             </span>
+
+                        </div>
+
+                        <div class="field mb-4 col-12 md:col-12"><label for="sobremiTutor" class="font-medium text-900">Sobre
+                            MI</label>
+                            <textarea id="sobremiTutor"
+                                      type="text"
+                                      [(ngModel)]="fClass.idTutorDto.value.sobremiTutor"
+                                      [ngModelOptions]="{standalone: true}"
+                                      pinputtextarea=""
+                                      rows="auto"
+                                      class="col-6 md:col-6 p-inputtextarea p-inputtext p-component p-element p-inputtextarea-resizable"
+                                      style="height: auto; overflow: hidden;"></textarea>
+                        </div>
+
+                        <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+                            <label for="ftxt-activoTutor" style="color: rgba(0, 0, 0, 0.6);">* Estado</label>
+                            <span class="p-float-label">
+                                <p-inputSwitch id="ftxt-activoTutor"
+                                               [(ngModel)]="fClass.idTutorDto.value.activoTutor"
+                                               [ngModelOptions]="{standalone: true}"></p-inputSwitch>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                        <div class=" justify-content-center flex fadein  animation-duration-3000">
+                            <img
+                                [src]="this.tutorLanding.avatar === undefined ? '../assets/img/cursos.jpg':'data:image/png;base64,'+this.tutorLanding.avatar"
+                                alt="avatar"
+                                class="w-full h-full  shadow-7 ">
+                        </div>
+                    </div>
+                    <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+
+                        <div class="field mb-0 col-12 md:col-12"><label for="habilidadesTutor"
+                                                                        class="font-medium text-900">Habilidades
+                            Destacadas</label>
+                            <textarea id="habilidadesTutor"
+                                      type="text"
+                                      [(ngModel)]="fClass.idTutorDto.value.habilidadesTutor"
+                                      [ngModelOptions]="{standalone: true}"
+                                      pinputtextarea=""
+                                      rows="auto"
+                                      class="p-inputtextarea p-inputtext p-component p-element p-inputtextarea-resizable"
+                                      style="height: auto; overflow: hidden;"></textarea>
+                        </div>
+
+                        <div class="field mb-0 col-12 md:col-12"><label for="especializacionTutor"
+                                                                        class="font-medium text-900">Especialización</label>
+                            <textarea id="especializacionTutor"
+                                      type="text"
+                                      [(ngModel)]="fClass.idTutorDto.value.especializacionTutor"
+                                      [ngModelOptions]="{standalone: true}"
+                                      pinputtextarea=""
+                                      rows="auto"
+                                      class="p-inputtextarea p-inputtext p-component p-element p-inputtextarea-resizable"
+                                      style="height: auto; overflow: hidden;"></textarea>
+                        </div>
+
+                        <div class="field mb-0 col-12 md:col-12"><label for="experienciaTutor"
+                                                                        class="font-medium text-900">Experiencia</label>
+                            <textarea id="experienciaTutor"
+                                      type="text"
+                                      [(ngModel)]="fClass.idTutorDto.value.experienciaTutor"
+                                      [ngModelOptions]="{standalone: true}"
+                                      pinputtextarea=""
+                                      rows="auto"
+                                      class="p-inputtextarea p-inputtext p-component p-element p-inputtextarea-resizable"
+                                      style="height: auto; overflow: hidden;"></textarea>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+            <div #divRecursos *ngIf="divRecursos" class="fadeindown  animation-duration-500">
+                <div class="p-fluid p-formgrid grid">
+                    <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+                        <h3><a><i class="text-2xl mr-2 pi pi-paperclip text-blue-600" (click)="limpiarImagen()"></i></a>Recursos
+                        </h3>
+                        <hr>
+                    </div>
+
+                    <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+                        <label for="ftxt-recursosClase">* Recursos de la Clase</label>
+                        <p-editor id="ftxt-recursosClase" type="text" required="true"
+                                  formControlName="recursosClase">
+                        </p-editor>
+                    </div>
+                    <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+                        <label for="ftxt-materialesClase">* Materiales de la Clase</label>
+                        <p-editor id="ftxt-materialesClase" type="text" required="true"
+                                  formControlName="materialesClase">
+                        </p-editor>
+                    </div>
+
+                </div>
+            </div>
+            <div #divCostos *ngIf="divPrecios" class="fadeindown  animation-duration-500">
+                <div class="p-fluid p-formgrid grid">
+
+                    <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+                        <h3><a><i class="text-2xl mr-2 pi pi-dollar text-blue-600" (click)="limpiarImagen()"></i></a>Precio
+                        </h3>
+                        <hr>
+                    </div>
+
+                    <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                               <p-inputNumber [showButtons]="true"
+                                              id="ftxt-costoClase"
+                                              required="true"
+                                              formControlName="costoClase"
+                                              buttonLayout="horizontal"
+                                              spinnerMode="horizontal"
+                                              min="0"
+                                              mode="currency"
+                                              currency="USD"
+                                              decrementButtonClass="p-button-danger"
+                                              incrementButtonClass="p-button-success"
+                                              incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"
+                               ></p-inputNumber>
+                                <label class="ml-6" for="ftxt-costoClase">* Costo de la Clase</label>
+                              </span>
+                    </div>
+                </div>
+            </div>
+            <div #divRecargos *ngIf="divRecargos" class="fadeindown  animation-duration-500">
+                <div class="p-fluid p-formgrid grid">
+
+                    <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+                        <h3><a><i class="text-2xl mr-2 pi pi-ticket text-blue-600" (click)="limpiarImagen()"></i></a>Recargos
+                        </h3>
+                        <hr>
+                    </div>
+
+                    <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <p-inputNumber [showButtons]="true"
+                                               id="ftxt-recargoClase"
+                                               required="true"
+                                               formControlName="recargoClase"
+                                               min="0"
+                                               mode="currency"
+                                               currency="USD"
+                                               [minFractionDigits]="2" [maxFractionDigits]="2"
+                                               buttonLayout="horizontal"
+                                               spinnerMode="horizontal"
+                                               min="0"
+                                               decrementButtonClass="p-button-danger"
+                                               incrementButtonClass="p-button-success"
+                                               incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"
+                                ></p-inputNumber>
+                                <label class="ml-6" for="ftxt-recargoClase">* Recargo de la Clase</label>
+                              </span>
+                    </div>
+                </div>
+            </div>
+            <div #divPromociones *ngIf="divPromociones" class="fadeindown  animation-duration-500">
+                <div class="p-fluid p-formgrid grid">
+
+                    <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+                        <h3><a><i class="text-2xl mr-2 pi pi-tags text-blue-600" (click)="limpiarImagen()"></i></a>Promociones
+                        </h3>
+                        <hr>
+                    </div>
+
+                    <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                               <p-inputNumber [showButtons]="true"
+                                              id="ftxt-descuentoClase"
+                                              required="true"
+                                              formControlName="descuentoClase"
+                                              buttonLayout="horizontal"
+                                              spinnerMode="horizontal"
+                                              min="0"
+                                              mode="currency"
+                                              currency="USD"
+                                              decrementButtonClass="p-button-danger"
+                                              incrementButtonClass="p-button-success"
+                                              incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus"
+                               ></p-inputNumber>
+                                <label class="ml-6" for="ftxt-descuentoClase">* Descuento de la Clase</label>
+                              </span>
+                    </div>
+                </div>
+            </div>
+            <div #divHorarios1 *ngIf="divHorarioFecha" class="fadeindown  animation-duration-500">
+                <div class="p-fluid p-formgrid grid">
+
+                    <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+                        <h3><a><i class="text-2xl mr-2 pi pi-clock text-blue-600" (click)="limpiarImagen()"></i></a>Horarios
+                            Fecha</h3>
+                        <hr>
+                    </div>
+
+                    <div class="p-field col-12 md:col-6 md:mb-6 mb-0">
+                        <div>
+                            <label style="color:  rgba(0, 0, 0, 0.6);"
+                                   for="ftxt-fechaInicioClase">Fechas Clase</label>
+                        </div>
+                        <p-calendar [showTime]="true"
+                                    id="ftxt-fechaInicioClase"
+                                    formControlName="fechaInicioClase"
+                                    (onSelect)="areDateListsNonOverlapping()"
+                                    [showSeconds]="false"
+                                    [showIcon]="true"
+                                    selectionMode="multiple"
+                                    [minDate]="fechaActual"
+                                    [showButtonBar]="true"
+                                    [inline]="true"
+                                    required="true"></p-calendar>
+
+
+                    </div>
+                    <div class="p-field col-12 md:col-6 md:mb-6 mb-0">
+                        <p-table [value]="fClass.fechaInicioClase.value"
+                                 responsiveLayout="stack" [scrollable]="true" scrollHeight="600px">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>Fecha</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-dia let-ri="rowIndex">
+                                <tr>
+                                    <td pEditableColumn class="bg-primary w-8rem b"
+                                        style="border: 1px solid white;">
+                                        {{dia | date:'short'}}                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td>No existen datos disponibles.</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+            </div>
+            <div #divHorarios2 *ngIf="divHorarioSemanal" class="fadeindown  animation-duration-500">
+                <div class="p-fluid p-formgrid grid">
+
+                    <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+                        <h3><a><i class="text-2xl mr-2 pi pi-calendar-plus text-blue-600" (click)="limpiarImagen()"></i></a>Horarios
+                            Semanal</h3>
+                        <hr>
+                    </div>
+
+                    <div *ngIf="lstHorariosInput"
+                         class="col-12 lg:col-12 p-4 border-round-xl bg-red-50 md:mb-4">
+                        <div class="border-top-3 border-pink-600"></div>
+                        <div class="text-pink-600 font-medium my-2 text-2xl"><i
+                            class="pi pi-exclamation-triangle text-2xl mr-4"></i>Cambio de Clave
+                        </div>
+                        <div class="text-900 font-medium text-xl line-height-3 mb-4">Añadir Horario -> Perfil ->
+                            Horario
+                            Preferido.
+                        </div>
+                        <div class="font-sm text-700 line-height-3">Horario Preferido, usted no cuenta con un
+                            horario
+                            preferido disponible
+                        </div>
+                    </div>
+                    <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3 flex justify-content-start w-20rem">
+                        <div class="col-12 lg:col-4 p-2">
+                            <div class="text-green-600 font-medium my-2">
+                                <i class="pi pi-circle-fill text-green-400 mr-2"></i>
+                                Disponible
+                            </div>
+                        </div>
+                        <div class="col-12 lg:col-4 p-2">
+                            <div class="text-orange-600 font-medium my-2">
+                                <i class="pi pi-check-circle text-orange-400 mr-2"></i>
+                                Planificado
+                            </div>
+                        </div>
+                        <div class="col-12 lg:col-4 p-2">
+                            <div class="text-purple-600 font-medium my-2">
+                                <i class="pi pi-ban text-purple-400 mr-2"></i>
+                                No Disponible
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+
+                        <p-table [value]="lstHorariosInput" dataKey="idHorarioSugeridoTutor"
+                                 [loading]="loading"
+                                 responsiveLayout="stack" [scrollable]="true" scrollHeight="600px">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>Horario</th>
+                                    <th>Lunes</th>
+                                    <th>Martes</th>
+                                    <th>Miércoles</th>
+                                    <th>Jueves</th>
+                                    <th>Viernes</th>
+                                    <th>Sábado</th>
+                                    <th>Domingo</th>
+                                    <!--<th style="width:8rem"></th>-->
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-dia let-ri="rowIndex">
+                                <tr>
+                                    <td pEditableColumn class="bg-primary w-8rem b"
+                                        style="border: 1px solid white;">
+                                        {{dia.inicioHorarioSugeridoTutor}} - {{dia.finHorarioSugeridoTutor}}
+                                    </td>
+                                    <td
+                                        style="border: 1px solid white;"
+                                        [class]="dia.lunesHorarioSugeridoTutor === null ? 'bg-purple-500' : !dia.lunesHorarioSugeridoTutor ? 'bg-green-400' : 'bg-orange-500'">
+                                    </td>
+                                    <td
+                                        style="border: 1px solid white;"
+                                        [class]="dia.martesHorarioSugeridoTutor === null ? 'bg-purple-500' : !dia.martesHorarioSugeridoTutor ? 'bg-green-400' : 'bg-orange-500'">
+                                    </td>
+                                    <td
+                                        style="border: 1px solid white;"
+                                        [class]="dia.miercoles === null ? 'bg-purple-500' : !dia.miercoles ? 'bg-green-400' : 'bg-orange-500'">
+                                    </td>
+                                    <td
+                                        style="border: 1px solid white;"
+                                        [class]="dia.juevesHorarioSugeridoTutor === null ? 'bg-purple-500' : !dia.juevesHorarioSugeridoTutor ? 'bg-green-400' : 'bg-orange-500'">
+                                    </td>
+                                    <td
+                                        style="border: 1px solid white;"
+                                        [class]="dia.viernesHorarioSugeridoTutor === null ? 'bg-purple-500' : !dia.viernesHorarioSugeridoTutor ? 'bg-green-400' : 'bg-orange-500'">
+                                    </td>
+                                    <td
+                                        style="border: 1px solid white;"
+                                        [class]="dia.sabadoHorarioSugeridoTutor === null ? 'bg-purple-500' : !dia.sabadoHorarioSugeridoTutor ? 'bg-green-400' : 'bg-orange-500'">
+                                    </td>
+                                    <td
+                                        style="border: 1px solid white;"
+                                        [class]="dia.domingoHorarioSugeridoTutor === null ? 'bg-purple-500' : !dia.domingoHorarioSugeridoTutor ? 'bg-green-400' : 'bg-orange-500'">
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td>No existen datos disponibles.</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+            </div>
+            <div #divMeet *ngIf="divMeet" class="fadeindown  animation-duration-500">
+                <div class="p-fluid p-formgrid grid">
+                    <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+                        <h3><a><i class="text-2xl mr-2 pi pi-video text-blue-600" (click)="limpiarImagen()"></i></a>Meet
+                        </h3>
+                        <hr>
+                    </div>
+
+                    <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3 flex">
+                        <div class="col-9">
+                            <span class="font-semibold text-900">Reprogramar Clase</span>
+                            <p class="font-semibold text-600 m-0 text-sm">El antiguo meet será reemplazado y
+                                terminado</p>
+                            <p class="line-height-3 mb-0 my-3">Verificar cruces y disponibilidad antes de generar el
+                                nuevo Meet.</p>
+                            <button
+                                type="button"
+                                pButton
+                                icon="pi pi-video"
+                                class="p-button-warn w-auto"
+                                label="Reprogramar"
+                                (click)="reprogramarClase()"
+                            ></button>
+                        </div>
+                        <img
+                            class="mr-3 flex-shrink-0 col-2"
+                            src="assets/img/newmeet.png">
+                    </div>
+                    <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-joinIdClase" type="text" required="true"
+                                       formControlName="joinIdClase">
+                                <label for="ftxt-joinIdClase">* ID Zoom Clase</label>
+                              </span>
+                    </div>
+
+                    <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+
+                        <div class="field mb-1 col-12 ">
+                            <label for="ftxt-clave" class="font-medium text-900">Clave</label>
+
+                            <p-password id="ftxt-clave" formControlName="passwordClase"
+                                        [toggleMask]="true"></p-password>
+
+                        </div>
+                    </div>
+
+                    <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-linkZoomClase" type="text" required="true"
+                                       formControlName="linkZoomClase">
+                                <label for="ftxt-linkZoomClase">* Link Clase</label>
+                              </span>
+                    </div>
+
+                    <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-startUrlClase" type="text" required="true"
+                                       formControlName="startUrlClase">
+                                <label for="ftxt-startUrlClase">* Link Start Clase</label>
+                              </span>
+                    </div>
+
+                    <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-joinUrlClase" type="text" required="true"
+                                       formControlName="joinUrlClase">
+                                <label for="ftxt-joinUrlClase">* Link Join Clase</label>
+                              </span>
+                    </div>
+
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <p-blockUI [blocked]="blockingui">
+        <p-progressSpinner styleClass="w-4rem h-4rem bluegray-600" strokeWidth="8"
+                           animationDuration=".5s"></p-progressSpinner>
+
+    </p-blockUI>
+</div>

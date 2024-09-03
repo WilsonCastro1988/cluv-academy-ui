@@ -1,4 +1,5 @@
 import {EstadoActividadTutorDto} from "./EstadoActividadTutorDto";
+import {ClaseDto} from "./ClaseDto";
 
 export class TutorDto {
     idTutor: number;
@@ -21,14 +22,14 @@ export class TutorDto {
     whatsappmeTutor: string;
     idUsuarioTutor: number;
     activoTutor: boolean;
-    foroTutorCollectionDto: any[];
-    claseCollectionDto: any[];
-    multimediaTutorCollectionDto: any[];
-    infoBancariaCollectionDto: any[];
-    horarioSugeridoTutorCollectionDto: any[];
-    infoAcademicaTutorCollectionDto: any[];
+    foroTutorCollectionDto: any[] = [];
+    claseCollectionDto: ClaseDto[] = [];
+    multimediaTutorCollectionDto: any[]= [];
+    infoBancariaCollectionDto: any[]= [];
+    horarioSugeridoTutorCollectionDto: any[]= [];
+    infoAcademicaTutorCollectionDto: any[]= [];
     idEstadoActividadTutorDto: EstadoActividadTutorDto;
-    postulacionesCollectionDto: any[];
-    infoDestrezasCollectionDto: any[];
-    calificacionTutorCollectionDto: any[];
+    postulacionesCollectionDto: any[]= [];
+    infoDestrezasCollectionDto: any[]= [];
+    calificacionTutorCollectionDto: any[]= [];
 }

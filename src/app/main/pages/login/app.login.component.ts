@@ -21,6 +21,8 @@ export class AppLoginComponent implements OnInit, OnDestroy {
 
     isLogged: boolean;
     tokenDTO: TokenDto;
+    blockingui: boolean
+
 
     constructor(
         public app: AppComponent,
@@ -36,6 +38,8 @@ export class AppLoginComponent implements OnInit, OnDestroy {
             username: new UntypedFormControl(null, Validators.required),
             password: new UntypedFormControl(null, Validators.required)
         });
+
+        this.blockingui = false;
     }
 
     get f() {
@@ -44,6 +48,9 @@ export class AppLoginComponent implements OnInit, OnDestroy {
 
 
     loginByAuth() {
+
+        this.blockingui = true
+
         const loginRequest = new LoginRequestDto();
         loginRequest.nombreUsuario = this.f.username.value;
         loginRequest.contrasenia = this.f.password.value;
@@ -67,6 +74,8 @@ export class AppLoginComponent implements OnInit, OnDestroy {
                             this.appService.msgInfoDetail(severities.INFO, 'LOGIN', 'Bienvenido !.');
                         }
                     );
+
+                    this.blockingui = false
                 },
                 error: error => {
                     console.log('ERROR', error);
@@ -75,11 +84,15 @@ export class AppLoginComponent implements OnInit, OnDestroy {
                     } else {
                         this.appService.msgInfoDetail(severities.ERROR, 'LOGIN', 'Ha ocurrido un error');
                     }
+
+                    this.blockingui = false
                 }
             });
             this.isAuthLoading = false;
+
         } else {
             this.appService.msgInfoDetail(severities.ERROR, 'Formulario invalido', 'error: ');
+            this.blockingui = false
         }
     }
 
@@ -88,9 +101,11 @@ export class AppLoginComponent implements OnInit, OnDestroy {
     }
 
     logOut(): void {
+        this.blockingui = true
         this.appService.logout();
         this.isGoogleLoading = false;
         this.isLogged = false;
+        this.blockingui = false
 
     }
 

@@ -44,16 +44,25 @@ export class SharedTableComponent implements OnInit {
     @Input() sumary: boolean;
     @Input() sumaryClass: string;
     @Input() sumaryContent: string;
-    @Input() colspan:number;
-    @Input() legendFooter:string;
-    @Input() currency:string;
+    @Input() colspan: number;
+    @Input() legendFooter: string;
+    @Input() currency: string;
 
     @Input() nombreReporteExcel: string;
     @Input() nombreReportePdf: string;
 
+    @Input() btnMagic: boolean;
+    @Input() iconBtnMagic: string;
+    @Input() toolTipBtnMagic: string;
+    @Input() classBtnMagic: string;
+    @Input() disabledBtnMagicByFieldName: string = '';
+    @Input() disabledBtnMagicByFieldValue: string = '';
+
+
     @Output() public emitDeleteDto = new EventEmitter<number>();
     @Output() public emitSelectedDto = new EventEmitter<any>();
     @Output() public emitSelectedList = new EventEmitter<any>();
+    @Output() public emitMagicSelected = new EventEmitter<any>();
 
     constructor(
         private appService: AppService,
@@ -81,7 +90,13 @@ export class SharedTableComponent implements OnInit {
         this.gotTo();
     }
 
-    gotTo(){
+    magicSelected(dto) {
+        this.dto = {...dto};
+        this.emitMagicSelected.emit(this.dto);
+        this.gotTo();
+    }
+
+    gotTo() {
         window.scroll({
             top: 0,
             left: 0,
@@ -108,5 +123,25 @@ export class SharedTableComponent implements OnInit {
         } catch (error) {
             this.appService.msgInfoDetail('error', 'Error', 'Error al descargar el archivo');
         }
+    }
+
+    disabledItemButton(item) {
+        if (this.disabledBtnMagicByFieldName !== '' && this.disabledBtnMagicByFieldValue !== '') {
+            if (item[this.disabledBtnMagicByFieldName] === this.disabledBtnMagicByFieldValue) {
+                return true
+            } else {
+                return false
+            }
+        } else return false
+    }
+
+    iconMagic(item) {
+        if (this.iconBtnMagic !== '')
+            return this.iconBtnMagic
+        else if (item[this.disabledBtnMagicByFieldName] === this.disabledBtnMagicByFieldValue) {
+            return 'pi pi-lock'
+        } else return 'pi pi-unlock'
+
+
     }
 }

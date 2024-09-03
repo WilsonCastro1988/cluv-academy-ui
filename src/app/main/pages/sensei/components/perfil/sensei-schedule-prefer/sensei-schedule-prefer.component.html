@@ -1,0 +1,103 @@
+<p-toolbar>
+    <div class="p-toolbar-group-left">
+            <div class="col-12 lg:col-6 p-2">
+                <div class="text-green-600 font-medium my-2">
+                    <i class="pi pi-circle-fill text-green-400 mr-2"></i>
+                    Disponible
+                </div>
+            </div>
+            <div class="col-12 lg:col-6 p-2">
+                <div class="text-orange-600 font-medium my-2">
+                    <i class="pi pi-check-circle text-orange-400 mr-2"></i>
+                    Planificado
+                </div>
+            </div>
+            <div class="col-12 lg:col-6 p-2">
+                <div class="text-purple-600 font-medium my-2">
+                    <i class="pi pi-ban text-purple-400 mr-2"></i>
+                    No Disponible
+                </div>
+
+            </div>
+    </div>
+
+    <div class="p-toolbar-group-right">
+        <div class="flex justify-content-center flex-wrap card-container yellow-container">
+            <button pButton pRipple type="button" icon="pi pi-send" (click)="guardar()"
+                    tooltipPosition="top"
+                    [label]="'Guardar'"
+                    [class]="'p-button-rounded p-button-info m-2'"></button>
+            <button pButton pRipple type="button" icon="pi pi-times" (click)="cancelar()"
+                    pTooltip="Cancelar"
+                    label="Cancelar"
+                    tooltipPosition="top"
+                    class="p-button-rounded p-button-danger m-2"></button>
+        </div>
+    </div>
+</p-toolbar>
+
+
+
+
+<p-table [value]="lstHorariosInput" dataKey="idHorarioSugeridoTutor"
+         [loading]="loading"
+         responsiveLayout="stack" [scrollable]="true" scrollHeight="600px">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Horario</th>
+            <th>Lunes</th>
+            <th>Martes</th>
+            <th>Miércoles</th>
+            <th>Jueves</th>
+            <th>Viernes</th>
+            <th>Sábado</th>
+            <th>Domingo</th>
+            <!--<th style="width:8rem"></th>-->
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-dia let-ri="rowIndex">
+        <tr>
+            <td pEditableColumn class="bg-primary w-8rem b" style="border: 1px solid white;">
+                {{dia.inicioHorarioSugeridoTutor}} - {{dia.finHorarioSugeridoTutor}}
+            </td>
+            <td (click)="toggleDia(dia, 'lunesHorarioSugeridoTutor')"
+                style="border: 1px solid white;"
+                [class]="dia.lunesHorarioSugeridoTutor === null ? 'bg-purple-500' : !dia.lunesHorarioSugeridoTutor ? 'bg-green-400' : 'bg-orange-500'">
+            </td>
+            <td (click)="toggleDia(dia, 'martesHorarioSugeridoTutor')"
+                style="border: 1px solid white;"
+                [class]="dia.martesHorarioSugeridoTutor === null ? 'bg-purple-500' : !dia.martesHorarioSugeridoTutor ? 'bg-green-400' : 'bg-orange-500'">
+            </td>
+            <td (click)="toggleDia(dia, 'miercoles')"
+                style="border: 1px solid white;"
+                [class]="dia.miercoles === null ? 'bg-purple-500' : !dia.miercoles ? 'bg-green-400' : 'bg-orange-500'">
+            </td>
+            <td (click)="toggleDia(dia, 'juevesHorarioSugeridoTutor')"
+                style="border: 1px solid white;"
+                [class]="dia.juevesHorarioSugeridoTutor === null ? 'bg-purple-500' : !dia.juevesHorarioSugeridoTutor ? 'bg-green-400' : 'bg-orange-500'">
+            </td>
+            <td (click)="toggleDia(dia, 'viernesHorarioSugeridoTutor')"
+                style="border: 1px solid white;"
+                [class]="dia.viernesHorarioSugeridoTutor === null ? 'bg-purple-500' : !dia.viernesHorarioSugeridoTutor ? 'bg-green-400' : 'bg-orange-500'">
+            </td>
+            <td (click)="toggleDia(dia, 'sabadoHorarioSugeridoTutor')"
+                style="border: 1px solid white;"
+                [class]="dia.sabadoHorarioSugeridoTutor === null ? 'bg-purple-500' : !dia.sabadoHorarioSugeridoTutor ? 'bg-green-400' : 'bg-orange-500'">
+            </td>
+            <td (click)="toggleDia(dia, 'domingoHorarioSugeridoTutor')"
+                style="border: 1px solid white;"
+                [class]="dia.domingoHorarioSugeridoTutor === null ? 'bg-purple-500' : !dia.domingoHorarioSugeridoTutor ? 'bg-green-400' : 'bg-orange-500'">
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td >No existen datos disponibles.</td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-blockUI [blocked]="blockingui">
+    <p-progressSpinner styleClass="w-4rem h-4rem bluegray-600" strokeWidth="8" animationDuration=".5s">
+    </p-progressSpinner>
+</p-blockUI>

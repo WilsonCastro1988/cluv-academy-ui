@@ -95,8 +95,6 @@ export class OrderSumaryComponent implements OnInit {
             this.factura = this.stepService.orden.factura
             this.pago = this.stepService.orden.pago
 
-            console.log('PAGOSSSS: ', +this.pago)
-
             this.carrito = this.stepService.orden.carrito
 
             this.clase = this.stepService.data.clase
