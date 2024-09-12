@@ -65,9 +65,14 @@
                     class="text-900 block mb-3 font-bold">Materiales &amp; Recursos</span>
                     <ul class="py-0 pl-3 m-0 text-600 mb-3">
                         <li class="flex align-items-center white-space-nowrap w-10rem block mr-2 mb-3"><i
-                            class="pi pi-sun mr-2 text-900"></i><span>{{clase.materialesClase}}</span></li>
+                            class="pi pi-sun mr-2 text-900"></i>
+                            <span [innerHTML]="clase.materialesClase"></span>
+                        </li>
                         <li class="flex align-items-center white-space-nowrap w-10rem block mb-3 mr-2"><i
-                            class="pi pi-sliders-h mr-2 text-900"></i><span>{{clase.recursosClase}}</span></li>
+                            class="pi pi-sliders-h mr-2 text-900"></i>
+                            <span [innerHTML]="clase.recursosClase"></span>
+
+                        </li>
                     </ul>
                 </div>
             </p-tabPanel>

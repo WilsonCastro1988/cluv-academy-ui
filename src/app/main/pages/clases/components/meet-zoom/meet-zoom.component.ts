@@ -1,11 +1,10 @@
 import {AfterViewInit, Component, NgZone, OnDestroy, OnInit} from '@angular/core';
-import ZoomMtgEmbedded from '@zoom/meetingsdk/embedded'
+import ZoomMtgEmbedded, {SuspensionViewType} from '@zoom/meetingsdk/embedded'
 //import ZoomMtgEmbedded from "@zoomus/websdk/embedded"
 /*import { ZoomMtg } from '@zoom/meetingsdk';
 ZoomMtg.preLoadWasm();
 ZoomMtg.prepareWebSDK();
  */
-
 import {PrimeIcons} from "primeng/api";
 import {TokenDto} from "../../../../../_dto/token-dto";
 import {TokenService} from "../../../../../_service/token.service";
@@ -99,7 +98,7 @@ export class MeetZoomComponent implements OnInit, AfterViewInit, OnDestroy {
             this.client.init({
                 zoomAppRoot: meetingSDKElement, language: 'en-US', customize: {
                     video: {
-                        isResizable: true,
+                        isResizable: true, defaultViewType: SuspensionViewType.Gallery,
                         viewSizes: {
                             default: {
                                 width: 500,
@@ -110,7 +109,7 @@ export class MeetZoomComponent implements OnInit, AfterViewInit, OnDestroy {
                                 height: 500
                             }
                         }
-                    }
+                    },
                 }
             }).then(() => {
                 this.signature = new SignatureDto()
@@ -129,6 +128,8 @@ export class MeetZoomComponent implements OnInit, AfterViewInit, OnDestroy {
                     zak: this.meetData.zakToken.trim()
                 }).then(() => {
                     console.log('joined successfully')
+
+                   console.log("paeticipantes conectados"+this.client.getAttendeeslist().length);
                 }).catch((error) => {
                     console.log(error)
                     console.log('SIGN ERROR: ', sign)
@@ -181,14 +182,20 @@ export class MeetZoomComponent implements OnInit, AfterViewInit, OnDestroy {
 
     leaveMeet() {
         this.client.endMeeting().then(() => {
-            this.routeService.navigate(['/pages/dashboard'])
-        })
+            this.routeService.navigate(['/pages/listado-clases']).then(() => {
+                window.location.reload();
+            });
+        });
     }
 
     ngOnDestroy(): void {
+
+        ZoomMtgEmbedded.destroyClient();
+
         //this.client.endMeeting()
         //ZoomMtgEmbedded.destroyClient()
         this.subscription.unsubscribe()
+
     }
 
 
