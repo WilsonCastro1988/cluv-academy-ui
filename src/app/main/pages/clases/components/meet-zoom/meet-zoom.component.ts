@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, NgZone, OnDestroy, OnInit} from '@angular/core';
-import ZoomMtgEmbedded, {SuspensionViewType} from '@zoom/meetingsdk/embedded'
+import ZoomMtgEmbedded, {Participant, SuspensionViewType} from '@zoom/meetingsdk/embedded'
 
 import {PrimeIcons} from "primeng/api";
 import {TokenDto} from "../../../../../_dto/token-dto";
@@ -125,16 +125,10 @@ export class MeetZoomComponent implements OnInit, AfterViewInit, OnDestroy {
                 }).then(() => {
                     console.log('joined successfully')
 
-                   console.log("paeticipantes conectados"+this.client.getAttendeeslist().length);
+                    if(this.client.getAttendeeslist().length > 2){
+                        //this.updateGallery()
+                    }
 
-                    this.client.updateVideoOptions({
-                        viewSizes: {
-                            default: {
-                                width: 500,
-                                height: 300
-                            }
-                        }
-                    })
                 }).catch((error) => {
                     console.log(error)
                     console.log('SIGN ERROR: ', sign)
@@ -153,6 +147,61 @@ export class MeetZoomComponent implements OnInit, AfterViewInit, OnDestroy {
             });
         });
     }
+
+    updateGallery() {
+        const attendees = this.client.getAttendeeslist(); // Obtiene la lista de asistentes
+        const containerDiv = document.querySelector('div.css-vv0cdr'); // Selecciona el DIV
+
+        // Limpia los elementos existentes en el div para evitar duplicaciones
+        containerDiv.innerHTML = '';
+
+        // Itera sobre los asistentes y crea nuevos elementos <div> dinámicamente
+        attendees.forEach((attendee) => {
+            const divItem = document.createElement('div'); // Usa div en lugar de li
+            divItem.className = 'zoom-MuiListItem-root zoom-MuiListItem-gutters zoom-MuiListItem-padding css-uoiue8';
+
+            // Añadimos el nombre del participante al aria-label
+            divItem.setAttribute('aria-label', `${attendee.userName}'s Avatar`);
+
+            // Estilos de ancho y alto fijos con position estático
+            divItem.style.width = '348px !important';
+            divItem.style.height = '194px !important';
+            divItem.style.position = 'static !important';
+
+            const div = document.createElement('div');
+            div.className = 'zoom-MuiBox-root css-5wkdi7';
+
+            const p = document.createElement('p');
+            p.className = 'zoom-MuiTypography-root zoom-MuiTypography-body1 zoom-MuiTypography-noWrap css-75vwmk';
+            p.textContent = attendee.userName || 'Participante';
+
+            div.appendChild(p);
+
+            if (attendee.avatar && attendee.avatar !== '') {
+                // Si el participante tiene imagen, muestra la imagen
+                const img = document.createElement('img');
+                img.className = 'zoom-MuiCardMedia-root zoom-MuiCardMedia-media zoom-MuiCardMedia-img css-yrszp2';
+                img.src = attendee.avatar;
+                img.alt = `avatar of ${attendee.userName}`;
+                divItem.appendChild(div);
+                divItem.appendChild(img);
+            } else {
+                // Si no tiene imagen, muestra el nombre en un <p>
+                const nameP = document.createElement('p');
+                nameP.className = 'zoom-MuiTypography-root zoom-MuiTypography-body1 zoom-MuiTypography-noWrap css-1pftrv5';
+                nameP.textContent = attendee.userName || 'Participante';
+                divItem.appendChild(nameP);
+            }
+
+            // Añadir el divItem al div contenedor
+            containerDiv.appendChild(divItem);
+        });
+    }
+
+
+
+
+
 
     ngOnDestroy(): void {
 
