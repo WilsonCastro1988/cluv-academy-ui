@@ -1,10 +1,6 @@
 import {AfterViewInit, Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import ZoomMtgEmbedded, {SuspensionViewType} from '@zoom/meetingsdk/embedded'
-//import ZoomMtgEmbedded from "@zoomus/websdk/embedded"
-/*import { ZoomMtg } from '@zoom/meetingsdk';
-ZoomMtg.preLoadWasm();
-ZoomMtg.prepareWebSDK();
- */
+
 import {PrimeIcons} from "primeng/api";
 import {TokenDto} from "../../../../../_dto/token-dto";
 import {TokenService} from "../../../../../_service/token.service";
@@ -130,6 +126,15 @@ export class MeetZoomComponent implements OnInit, AfterViewInit, OnDestroy {
                     console.log('joined successfully')
 
                    console.log("paeticipantes conectados"+this.client.getAttendeeslist().length);
+
+                    this.client.updateVideoOptions({
+                        viewSizes: {
+                            default: {
+                                width: 500,
+                                height: 300
+                            }
+                        }
+                    })
                 }).catch((error) => {
                     console.log(error)
                     console.log('SIGN ERROR: ', sign)
@@ -140,45 +145,6 @@ export class MeetZoomComponent implements OnInit, AfterViewInit, OnDestroy {
             })
         })
     }
-
-    /*
-        startMeeting() {
-
-            document.getElementById('zmmtg-root').style.display = 'block'
-            let signature = this.appService.generateSigantureMeetZoom(this.signature)
-
-            ZoomMtg.init({
-                debug: true,
-                leaveUrl: "http://localhost:4200", //redirect url after meeting end
-                isSupportAV: true,
-                isSupportChat: true,
-                sharingMode: 'both',
-                screenShare: true,
-                videoHeader: true,
-                success: (success) => {
-                    console.log(success)
-
-                    ZoomMtg.join({
-                        sdkKey: 'WM9nngfDRJuk8Ar9FpvhTQ',
-                        signature: signature,
-                        meetingNumber: '74753630064',
-                        passWord: 'EX3qui',
-                        userName: 'PAGINA WILL 5 horas + 1 Coronita',// password optional; set by Host
-                        success: (success) => {
-                            console.log(success)
-                        },
-                        error: (error) => {
-                            console.log(error)
-                        }
-                    })
-
-                },
-                error: (error) => {
-                    console.log(error)
-                }
-            })
-        }
-    */
 
     leaveMeet() {
         this.client.endMeeting().then(() => {
